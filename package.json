@@ -1,0 +1,34 @@
+{
+  "name": "phylotreeviz-js",
+  "version": "0.0.1",
+  "description": "The Jensen Lab approach to visualization of phylogenetic trees using javascript and d3.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "contributors": [
+    "Davi Ortega"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theJensenLab/phyloTreeVizJS.git"
+  },
+  "keywords": [
+    "phylogenetics",
+    "bioinformatics",
+    "visualization",
+    "d3"
+  ],
+  "author": "Jensen Lab",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/theJensenLab/phyloTreeVizJS/issues"
+  },
+  "homepage": "https://github.com/theJensenLab/phyloTreeVizJS#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.13.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0"
+  }
+}
