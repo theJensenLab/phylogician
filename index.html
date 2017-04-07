@@ -1,32 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Tree1</title>
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-        <script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js"></script>
-    </head>
-    <body>
-        <script type="text/javascript">
-          var test= '1';
-          var newick = "(((A,B),C),(D,E))";
-          var dataset = "";
-          for (var x=0; x<newick.length; x++)
-            {
-              if (newick[x] == '(')
-                dataset += '[';
-              else if (newick[x] == ')')
-                dataset += ']';
-              else if (newick[x] == ',')
-                dataset += ', ';
-              else
-                dataset += newick[x];
-            }
-					d3.select("body").selectAll("p")
-    				.data(test)
-    				.enter()
-    				.append("p")
-    				.text(dataset);
-        </script>
-    </body>
-</html>     
+<head>
+    <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js"></script>
+</head>
+
+<body>
+    <div id="mydiv"></div>
+    <script src="tree1.js"></script>
+</body>
