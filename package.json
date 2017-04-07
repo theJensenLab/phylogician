@@ -7,7 +7,8 @@
     "test": "test"
   },
   "contributors": [
-    "Davi Ortega"
+    "Davi Ortega",
+    "Tony Kukavica"
   ],
   "repository": {
     "type": "git",
