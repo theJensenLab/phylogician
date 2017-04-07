@@ -8,4 +8,17 @@ Humbly inspired by the work of others, we will use TnT, d3, express and node.
 It should look like this:
 ![](pics/firstSketch.jpg)
 
+## How to contribute
+
+branch name:
+
+|prefix| meaning |
+|:--:|:--:|
+|f | feature |
+|h | hotfix |
+|t | testing/trying |
+
+example:
+`t-firstTree`
+
 
