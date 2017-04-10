@@ -1,6 +1,6 @@
 // newick tree
     var newick = "(((A,B),C),(D,E));";
-  console.log(JSON.stringify(tnt.tree.parse_newick(newick)))
+    console.log(JSON.stringify(tnt.tree.parse_newick(newick)))
     var tree = tnt.tree();
 
     tree
@@ -24,6 +24,7 @@ function updateVertical()
             tree.layout(tnt.tree.layout.vertical().width(200).scale(false));
             tree.update();
 }
+
 function updateRadial()
 {
   {
