@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <head>
-    <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
+     <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js"></script>
-     <!-- Bootstrap core CSS -->
-    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Bootstrap theme -->
-    <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet">
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <script src="layouts.js"></script>
+  
+    <script src="tree1.js"></script>
+  
+  <!--BELOW HERE IS BOOTSTRAP SCRIPTS>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
 
-    <!-- Custom styles for this template -->
-    <link href="theme.css" rel="stylesheet">
-     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <p>
-        <button type="button" class="btn btn-lg btn-primary">Vertical</button>
-        <button type="button" class="btn btn-lg btn-primary">Radial</button>
-    </p>
-    <div id="mydiv"></div>
-    <script src="tree1.js"></script>
+  <div id = "myButtons1" class = "button">    
+    <button type="button" class="btn btn-primary" onclick="updateVertical()">Vertical </button>
+    <button type="button" class="btn btn-primary" onclick="updateRadial()">Radial</button>
+  </div>
+  <div id="treemaker">
+  </div>
+    
 </body>
