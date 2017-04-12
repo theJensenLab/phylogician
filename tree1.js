@@ -4,6 +4,7 @@ var newick = "";
 var tree = tnt.tree();
 var parsedObj = tnt.tree.parse_newick(newick);
 var newickInput = document.getElementById("userInput").value;
+var treeCreated = false;
 
 tree.on("click", function (node)
 {
@@ -22,7 +23,11 @@ function makeTree ()
 {
 if (parsedObj != null)
 {
-    console.log("hello");
+    treeCreated = true;
+}
+if (treeCreated = false)
+{
+    throw 'Error reading Newick';
 }
 document.getElementById("treemaker").innerHTML=""
   tree
