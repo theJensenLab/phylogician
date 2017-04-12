@@ -20,6 +20,10 @@ tree.on("click", function (node)
 
 function makeTree ()
 {
+if (parsedObj != null)
+{
+    console.log("hello");
+}
 document.getElementById("treemaker").innerHTML=""
   tree
     .data(parsedObj)
