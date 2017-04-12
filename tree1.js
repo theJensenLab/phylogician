@@ -43,21 +43,25 @@ function submitNewick ()
   makeTree();
 }
 
-function submitFile ()
+function submitFile()
 {
   var reader=new FileReader ();
-  console.log(document.getElementById("fileInput").value)
-  newick=reader.readAsText(document.getElementById("fileInput").value);
+  reader.addEventListener("loadend", function() {
+   // reader.result contains the contents of blob as a typed array
+   document.getElementById("fileInput").innerText = reader.result;
+});
+  console.log(document.getElementById("fileInput").innerText);
+  newick=reader.readAsText(reader.result);
   makeTree();
 }
 
-function updateVertical ()
+function updateVertical()
 {
             tree.layout(tnt.tree.layout.vertical().width(300).scale(false));
             tree.update();
 }
 
-function updateRadial ()
+function updateRadial()
 {
   {
             tree.layout(tnt.tree.layout.radial().width(300).scale(false));
