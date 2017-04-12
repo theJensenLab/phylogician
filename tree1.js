@@ -17,11 +17,13 @@ tree.on("click", function (node)
     tree.update();
 });
 
+var parsedObj=tnt.tree.parse_newick(newick);
+
 function makeTree ()
 {
 document.getElementById("treemaker").innerHTML=""
   tree
-    .data(tnt.tree.parse_newick(newick))
+    .data(parsedObj)
     .node_display(tree.node_display()
         .size(10)
         .fill("gray")
