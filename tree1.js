@@ -2,6 +2,7 @@
 // console.log(JSON.stringify(tnt.tree.parse_newick(newick)))
 var newick = "";
 var tree = tnt.tree();
+var parsedObj = tnt.tree.parse_newick(newick);
 var newickInput = document.getElementById("userInput").value;
 
 tree.on("click", function (node)
@@ -40,7 +41,7 @@ tree(document.getElementById("treemaker"));
 function submitNewick ()
 {
   newick=document.getElementById("userInput").value;
-  var parsedObj=tnt.tree.parse_newick(newick);
+  parsedObj=tnt.tree.parse_newick(newick);
   makeTree();
 }
 
