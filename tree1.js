@@ -34,10 +34,6 @@ document.getElementById("treemaker").innerHTML=""
     .width(300)
     .scale(false)
         );
-    if (tree.parse_newick(newick) != null)
-    {
-        console.log ("hello!")
-    }
 tree(document.getElementById("treemaker"));
 }
 
