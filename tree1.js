@@ -3,7 +3,6 @@
 var newick = "";
 var tree = tnt.tree();
 var newickInput = document.getElementById("userInput").value;
-console.log(userInput.value);
 
 function makeTree ()
 {
