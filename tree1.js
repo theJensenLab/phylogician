@@ -41,7 +41,7 @@ tree(document.getElementById("treemaker"));
 function submitNewick ()
 {
   newick=document.getElementById("userInput").value;
-
+  parsedObj=tnt.tree.parse_newick(newick);
   makeTree();
 }
 
@@ -54,7 +54,7 @@ function submitFile()
 });
   console.log(document.getElementById("fileInput").innerText);
   newick=reader.readAsText(reader.result);
-
+  parsedObj=tnt.tree.parse_newick(newick);
   makeTree();
 }
 
