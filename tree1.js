@@ -17,8 +17,6 @@ tree.on("click", function (node)
     tree.update();
 });
 
-var parsedObj=tnt.tree.parse_newick(newick);
-
 function makeTree ()
 {
 document.getElementById("treemaker").innerHTML=""
@@ -42,6 +40,7 @@ tree(document.getElementById("treemaker"));
 function submitNewick ()
 {
   newick=document.getElementById("userInput").value;
+  var parsedObj=tnt.tree.parse_newick(newick);
   makeTree();
 }
 
