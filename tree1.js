@@ -27,7 +27,7 @@ if (parsedObj != null)
 }
 if (treeCreated = false)
 {
-    throw 'Error reading Newick';
+    console.log("error should be thrown");
 }
 document.getElementById("treemaker").innerHTML=""
   tree
