@@ -12,10 +12,13 @@
 
 <body>
   <div class="form-group">
-  <label form="usr">Input your tree in Newick format:</label>
-  <input type="text" class="form-control" id="userInput" style="width: 300px">
-    <button type="button" class="btn btn-success" onclick="submitNewick()">Submit</button>
-</div>  
+  <label form="usr">Input your tree as Newick text or upload a file:</label>
+    <div class="hello">
+  <input type="text" class="form-control" id="userInput" style="width: 300px"><input type="file" id="fileInput">
+  </div>
+    <button type="button" class="btn btn-success" onclick="submitNewick()">Submit Newick</button>
+    <button type="button" class="btn btn-success" onclick="submitFile()">Submit File</button>
+  </div>
  
   <div id = "verticalradialbuttons" class = "button">    
         <button type="button" class="btn btn-primary" onclick="updateVertical()">Vertical</button>
