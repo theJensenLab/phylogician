@@ -17,42 +17,48 @@ tree.on("click", function (node)
     tree.update();
 });
 
-function makeTree ()
-{
-document.getElementById("treemaker").innerHTML=""
-  tree
-    .data(tnt.tree.parse_newick(newick))
-    .node_display(tree.node_display()
-        .size(10)
-        .fill("gray")
-        )
-    .label (tnt.tree.label.text()
-    .fontsize(12)
-    .height(50)
-        )
-    .layout(tnt.tree.layout.vertical()
-    .width(300)
-    .scale(false)
-        );
-tree(document.getElementById("treemaker"));
+function makeTree(newick) {
+    document.getElementById("treemaker").innerHTML=""
+    tree
+        .data(tnt.tree.parse_newick(newick))
+        .node_display(tree.node_display()
+            .size(10)
+            .fill("gray")
+            )
+        .label (tnt.tree.label.text()
+        .fontsize(12)
+        .height(50)
+            )
+        .layout(tnt.tree.layout.vertical()
+        .width(300)
+        .scale(false)
+            );
+    tree(document.getElementById("treemaker"));
 }
 
 function submitNewick ()
 {
-  newick=document.getElementById("userInput").value;
-  makeTree();
+  var newick=document.getElementById("userInput").value;
+  makeTree(newick);
 }
 
-function submitFile()
-{
-  var reader=new FileReader ();
-  reader.addEventListener("loadend", function() {
-   // reader.result contains the contents of blob as a typed array
-   document.getElementById("fileInput").innerText = reader.result;
-});
-  console.log(document.getElementById("fileInput").innerText);
-  newick=reader.readAsText(reader.result);
-  makeTree();
+function submitFile() {
+
+    var fileInput = document.getElementById("fileInput")
+    console.log(fileInput.files[0])
+    var newick = ''
+
+    var file = fileInput.files[0]
+    var reader = new FileReader()
+
+
+    reader.onload = function(e) {
+        newick = reader.result
+        console.log('dsadsa')
+        console.log(newick)
+        makeTree(newick);
+    }       
+    reader.readAsText(file);
 }
 
 function updateVertical()
