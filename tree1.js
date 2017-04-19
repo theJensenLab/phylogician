@@ -36,8 +36,61 @@ function makeTree(newick) {
         .scale(false)
             );
     tree(document.getElementById("treemaker"));
+}
 
-function makeTree ()
+function submitNewick ()
+{
+  var newick=document.getElementById("userInput").value;
+  makeTree(newick);
+}
+
+function submitFile() {
+
+    var fileInput = document.getElementById("fileInput")
+    console.log(fileInput.files[0])
+    var newick = ''
+
+    var file = fileInput.files[0]
+    var reader = new FileReader()
+
+
+    reader.onload = function(e) {
+        newick = reader.result
+        console.log('dsadsa')
+        console.log(newick)
+        makeTree(newick);
+    }       
+    reader.readAsText(file);
+}
+
+function submitFile()
+{
+  var reader=new FileReader ();
+  reader.addEventListener("loadend", function() {
+   // reader.result contains the contents of blob as a typed array
+   document.getElementById("fileInput").innerText = reader.result;
+});
+  console.log(document.getElementById("fileInput").innerText);
+  newick=reader.readAsText(reader.result);
+  parsedObj=tnt.tree.parse_newick(newick);
+  makeTree(newick);
+}
+
+function updateVertical()
+{
+            tree.layout(tnt.tree.layout.vertical().width(300).scale(false));
+            tree.update();
+}
+
+function updateRadial()
+{
+  {
+            tree.layout(tnt.tree.layout.radial().width(300).scale(false));
+            tree.update();
+        }
+}
+
+/*function makeTree ()
 {
 if (parsedObj != null)
 {
@@ -64,59 +117,4 @@ document.getElementById("treemaker").innerHTML=""
         );
 tree(document.getElementById("treemaker"));
 }
-
-function submitNewick ()
-{
-  var newick=document.getElementById("userInput").value;
-  makeTree(newick);
-}
-
-function submitFile() {
-
-    var fileInput = document.getElementById("fileInput")
-    console.log(fileInput.files[0])
-    var newick = ''
-
-    var file = fileInput.files[0]
-    var reader = new FileReader()
-
-
-    reader.onload = function(e) {
-        newick = reader.result
-        console.log('dsadsa')
-        console.log(newick)
-        makeTree(newick);
-    }       
-    reader.readAsText(file);
-  newick=document.getElementById("userInput").value;
-  parsedObj=tnt.tree.parse_newick(newick);
-  makeTree();
-}
-
-function submitFile()
-{
-  var reader=new FileReader ();
-  reader.addEventListener("loadend", function() {
-   // reader.result contains the contents of blob as a typed array
-   document.getElementById("fileInput").innerText = reader.result;
-});
-  console.log(document.getElementById("fileInput").innerText);
-  newick=reader.readAsText(reader.result);
-  parsedObj=tnt.tree.parse_newick(newick);
-  makeTree();
-}
-
-function updateVertical()
-{
-            tree.layout(tnt.tree.layout.vertical().width(300).scale(false));
-            tree.update();
-}
-
-function updateRadial()
-{
-  {
-            tree.layout(tnt.tree.layout.radial().width(300).scale(false));
-            tree.update();
-        }
-}
-}
+*/
