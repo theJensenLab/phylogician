@@ -2,7 +2,9 @@
 // console.log(JSON.stringify(tnt.tree.parse_newick(newick)))
 var newick = "";
 var tree = tnt.tree();
+var parsedObj = tnt.tree.parse_newick(newick);
 var newickInput = document.getElementById("userInput").value;
+var treeCreated = false;
 
 tree.on("click", function (node)
 {
@@ -34,6 +36,33 @@ function makeTree(newick) {
         .scale(false)
             );
     tree(document.getElementById("treemaker"));
+
+function makeTree ()
+{
+if (parsedObj != null)
+{
+    treeCreated = true;
+}
+if (treeCreated = false)
+{
+    console.log("error should be thrown");
+}
+document.getElementById("treemaker").innerHTML=""
+  tree
+    .data(parsedObj)
+    .node_display(tree.node_display()
+        .size(10)
+        .fill("gray")
+        )
+    .label (tnt.tree.label.text()
+    .fontsize(12)
+    .height(50)
+        )
+    .layout(tnt.tree.layout.vertical()
+    .width(300)
+    .scale(false)
+        );
+tree(document.getElementById("treemaker"));
 }
 
 function submitNewick ()
@@ -59,6 +88,22 @@ function submitFile() {
         makeTree(newick);
     }       
     reader.readAsText(file);
+  newick=document.getElementById("userInput").value;
+  parsedObj=tnt.tree.parse_newick(newick);
+  makeTree();
+}
+
+function submitFile()
+{
+  var reader=new FileReader ();
+  reader.addEventListener("loadend", function() {
+   // reader.result contains the contents of blob as a typed array
+   document.getElementById("fileInput").innerText = reader.result;
+});
+  console.log(document.getElementById("fileInput").innerText);
+  newick=reader.readAsText(reader.result);
+  parsedObj=tnt.tree.parse_newick(newick);
+  makeTree();
 }
 
 function updateVertical()
