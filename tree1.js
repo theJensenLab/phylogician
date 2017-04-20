@@ -18,14 +18,6 @@ tree.on("click", function (node)
 });
 
 function makeTree(newick) {
-    if (parsedObj != null)
-{
-    treeCreated = true;
-}
-if (treeCreated == false)
-{
-    console.log("error should be thrown");
-}
     document.getElementById("treemaker").innerHTML=""
     tree
         .data(tnt.tree.parse_newick(newick))
@@ -48,7 +40,6 @@ function submitNewick ()
 {
   var newick=document.getElementById("userInput").value;
   makeTree(newick);
-  var parsedObj = tnt.tree.parse_newick(newick);
 }
 
 function submitFile() {
@@ -67,7 +58,6 @@ function submitFile() {
         makeTree(newick);
     }       
     reader.readAsText(file);
-    var parsedObj = tnt.tree.parse_newick(newick);
 }
 
 function updateVertical()
