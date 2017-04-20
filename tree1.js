@@ -32,7 +32,7 @@ function makeTree(newick) {
         .height(50)
             )
         .layout(tnt.tree.layout.vertical()
-        .width(300)
+        //.width(300)
         .scale(false)
             );
     tree(document.getElementById("treemaker"));
