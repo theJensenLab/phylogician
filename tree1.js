@@ -2,8 +2,6 @@
 // console.log(JSON.stringify(tnt.tree.parse_newick(newick)))
 var newick = "";
 var tree = tnt.tree();
-var parsedObj = tnt.tree.parse_newick(newick);
-var newickInput = document.getElementById("userInput").value;
 var treeCreated = false;
 
 tree.on("click", function (node)
@@ -20,6 +18,14 @@ tree.on("click", function (node)
 });
 
 function makeTree(newick) {
+    if (parsedObj != null)
+{
+    treeCreated = true;
+}
+if (treeCreated == false)
+{
+    console.log("error should be thrown");
+}
     document.getElementById("treemaker").innerHTML=""
     tree
         .data(tnt.tree.parse_newick(newick))
@@ -32,7 +38,7 @@ function makeTree(newick) {
         .height(50)
             )
         .layout(tnt.tree.layout.vertical()
-        //.width(300)
+        .width(1000)
         .scale(false)
             );
     tree(document.getElementById("treemaker"));
@@ -42,6 +48,7 @@ function submitNewick ()
 {
   var newick=document.getElementById("userInput").value;
   makeTree(newick);
+  var parsedObj = tnt.tree.parse_newick(newick);
 }
 
 function submitFile() {
@@ -60,6 +67,7 @@ function submitFile() {
         makeTree(newick);
     }       
     reader.readAsText(file);
+    var parsedObj = tnt.tree.parse_newick(newick);
 }
 
 function updateVertical()
@@ -75,32 +83,3 @@ function updateRadial()
             tree.update();
         }
 }
-
-/*function makeTree ()
-{
-if (parsedObj != null)
-{
-    treeCreated = true;
-}
-if (treeCreated = false)
-{
-    console.log("error should be thrown");
-}
-document.getElementById("treemaker").innerHTML=""
-  tree
-    .data(parsedObj)
-    .node_display(tree.node_display()
-        .size(10)
-        .fill("gray")
-        )
-    .label (tnt.tree.label.text()
-    .fontsize(12)
-    .height(50)
-        )
-    .layout(tnt.tree.layout.vertical()
-    .width(300)
-    .scale(false)
-        );
-tree(document.getElementById("treemaker"));
-}
-*/
