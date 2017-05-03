@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
     <script src="http://d3js.org/d3.v3.min.js"></script>
     <script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js"></script>
+  <script src="http://github.com/zaach/jsonlint"></script>
 
     <!--bootstrap references-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -15,7 +16,8 @@
   <label form="usr">Input your tree as Newick text or upload a file:</label>
     <div class="hello">
   <input type="text" class="form-control" id="userInput" style="width: 300px"><input type="file" id="fileInput">
-  </div>
+  <div id="errorspot" color="red" </div>
+    </div>
     <button type="button" class="btn btn-success" onclick="submitNewick()">Submit Newick</button>
     <button type="button" class="btn btn-success" onclick="submitFile()">Submit File</button>
   </div>
