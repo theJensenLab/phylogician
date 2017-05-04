@@ -3,6 +3,8 @@
 var newick = "";
 var tree = tnt.tree();
 var treeCreated = false;
+var numOpenPar = 0;
+var numClosedPar = 0;
 
 tree.on("click", function (node)
 {
@@ -30,7 +32,7 @@ function makeTree(newick) {
         .height(50)
             )
         .layout(tnt.tree.layout.vertical()
-        .width(1000)
+        .width(500)
         .scale(false)
             );
     tree(document.getElementById("treemaker"));
@@ -38,12 +40,38 @@ function makeTree(newick) {
 
 function submitNewick ()
 {
+  document.getElementById("errorspot").innerHTML = "";
   var newick=document.getElementById("userInput").value;
-  makeTree(newick);
+  for (var x=0; x<newick.length; x++)
+    {
+      if (newick.charAt(x)==='(')
+        {
+        numOpenPar++;
+        }
+      if (newick.charAt(x)===')')
+        {
+        numClosedPar++;
+        }
+    }
+  if (numOpenPar!==numClosedPar || newick.charAt(0)!=='(' || newick.charAt(newick.length-1)!==')')
+    {  document.getElementById("errorspot").style.color="Red"
+      document.getElementById("errorspot").innerHTML = "ERROR: INVALID INPUT";
+      resetPar();
+  }
+  else
+    {
+      makeTree(newick);
+      resetPar();
+    }
+}
+
+function resetPar() {
+  numOpenPar=0;
+  numClosedPar=0;
 }
 
 function submitFile() {
-
+    document.getElementById("errorspot").innerHTML = "";
     var fileInput = document.getElementById("fileInput")
     console.log(fileInput.files[0])
     var newick = ''
@@ -53,8 +81,6 @@ function submitFile() {
 
     reader.onload = function(e) {
         newick = reader.result
-        console.log('dsadsa')
-        console.log(newick)
         makeTree(newick);
     }       
     reader.readAsText(file);
