@@ -2,15 +2,12 @@
   width: 50%;
   margin: 0 auto;
   background-color: none;
-  cursor: move;
-}
-
-#blankspace {
-  padding-top: 50px;
+  /*cursor: move;*/
 }
 
 #treemaker {
   border: 3px solid lightgray;
   height: 70vh;
   width: 60vw;
+  margin-top: 50px;
 }

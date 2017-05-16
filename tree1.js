@@ -29,7 +29,7 @@ function makeTree(newick) {
             )
         .label (tnt.tree.label.text()
         .fontsize(12)
-        .height(50)
+        .height(window.innerHeight*0.7/(newick.length/3))
             )
         .layout(tnt.tree.layout.vertical()
         .width(window.innerWidth*0.6)
