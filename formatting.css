@@ -4,3 +4,13 @@
   background-color: none;
   cursor: move;
 }
+
+#blankspace {
+  padding-top: 50px;
+}
+
+#treemaker {
+  border: 3px solid lightgray;
+  height: 80%;
+  width: 80%;
+}
