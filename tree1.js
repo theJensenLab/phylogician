@@ -32,7 +32,7 @@ function makeTree(newick) {
         .height(50)
             )
         .layout(tnt.tree.layout.vertical()
-        .width(500)
+        .width(numOpenPar*300)
         .scale(false)
             );
     tree(document.getElementById("treemaker"));
@@ -88,14 +88,14 @@ function submitFile() {
 
 function updateVertical()
 {
-            tree.layout(tnt.tree.layout.vertical().width(300).scale(false));
+            tree.layout(tnt.tree.layout.vertical().width(numOpenPar*300).scale(false));
             tree.update();
 }
 
 function updateRadial()
 {
   {
-            tree.layout(tnt.tree.layout.radial().width(300).scale(false));
+            tree.layout(tnt.tree.layout.radial().width(numOpenPar*300).scale(false));
             tree.update();
         }
 }
