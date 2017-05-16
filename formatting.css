@@ -6,11 +6,11 @@
 }
 
 #blankspace {
-  padding-top: 100px;
+  padding-top: 50px;
 }
 
 #treemaker {
   border: 3px solid lightgray;
-  height: 500;
-  width: 500;
+  height: 80%;
+  width: 80%;
 }
