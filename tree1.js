@@ -27,7 +27,7 @@ function makeTree(newick) {
           numCommas++;
         }
     }
-  if (numOpenPar!==numClosedPar || newick.charAt(0)!=='(' || newick.charAt(newick.length-1)!==')')
+  if (numOpenPar!==numClosedPar || newick.charAt(0)!=='(' || newick.charAt(newick.length-1)!==';')
     {  document.getElementById("errorspot").style.color="Red"
     /*errorcheck ends here*/
       document.getElementById("errorspot").innerHTML = "ERROR: INVALID INPUT";
@@ -77,9 +77,9 @@ function submitFile() {
 
     reader.onload = function(e) {
         newick = reader.result
-    }       
+        makeTree(newick);
+    }
     reader.readAsText(file);
-    makeTree(newick);
 }
 
 function updateVertical()
