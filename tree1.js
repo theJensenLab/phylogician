@@ -5,6 +5,7 @@ var tree = tnt.tree();
 var treeCreated = false;
 var numOpenPar = 0;
 var numClosedPar = 0;
+var numCommas = 0;
 
 tree.on("click", function (node)
 {
@@ -29,7 +30,7 @@ function makeTree(newick) {
             )
         .label (tnt.tree.label.text()
         .fontsize(12)
-        .height(window.innerHeight*0.7/(newick.length/3))
+        .height(window.innerHeight*0.7/(numCommas+1))
             )
         .layout(tnt.tree.layout.vertical()
         .width(window.innerWidth*0.6)
@@ -42,6 +43,8 @@ function submitNewick ()
 {
   document.getElementById("errorspot").innerHTML = "";
   var newick=document.getElementById("userInput").value;
+    
+  /*errorcheck begins here*/
   for (var x=0; x<newick.length; x++)
     {
       if (newick.charAt(x)==='(')
@@ -52,9 +55,14 @@ function submitNewick ()
         {
         numClosedPar++;
         }
+      if (newick.charAt(x)==',')
+        {
+          numCommas++;
+        }
     }
   if (numOpenPar!==numClosedPar || newick.charAt(0)!=='(' || newick.charAt(newick.length-1)!==')')
     {  document.getElementById("errorspot").style.color="Red"
+    /*errorcheck ends here*/
       document.getElementById("errorspot").innerHTML = "ERROR: INVALID INPUT";
       resetPar();
   }
@@ -104,3 +112,4 @@ $(window).resize(function() {
   var newick=document.getElementById("userInput").value;
   makeTree(newick);
 });
+
