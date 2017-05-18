@@ -99,3 +99,8 @@ function updateRadial()
             tree.update();
         }
 }
+
+$(window).resize(function() {
+  var newick=document.getElementById("userInput").value;
+  makeTree(newick);
+});
