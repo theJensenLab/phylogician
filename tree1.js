@@ -19,29 +19,8 @@ tree.on("click", function (node)
 
 function makeTree(newick) {
     document.getElementById("treemaker").innerHTML=""
-    tree
-        .data(tnt.tree.parse_newick(newick))
-        .node_display(tree.node_display()
-            .size(1)
-            .fill("black")
-            )
-        .label (tnt.tree.label.text()
-        .fontsize(12)
-        .height(window.innerHeight*0.7/(numCommas+1))
-            )
-        .layout(tnt.tree.layout.vertical()
-        .width(window.innerWidth*0.58)
-        .scale(false)
-            );
-    tree(document.getElementById("treemaker"));
-}
 
-function submitNewick ()
-{
-  document.getElementById("errorspot").innerHTML = "";
-  var newick=document.getElementById("userInput").value;
-    
-  /*errorcheck begins here*/
+    /*errorcheck begins here*/
   for (var x=0; x<newick.length; x++)
     {
       if (newick.charAt(x)==='(')
@@ -65,9 +44,30 @@ function submitNewick ()
   }
   else
     {
-      makeTree(newick);
       resetPar();
+        tree
+        .data(tnt.tree.parse_newick(newick))
+        .node_display(tree.node_display()
+            .size(1)
+            .fill("black")
+            )
+        .label (tnt.tree.label.text()
+        .fontsize(12)
+        .height(window.innerHeight*0.7/(numCommas+1))
+            )
+        .layout(tnt.tree.layout.vertical()
+        .width(window.innerWidth*0.58)
+        .scale(false)
+            );
+    tree(document.getElementById("treemaker"));
     }
+}
+
+function submitNewick ()
+{
+  document.getElementById("errorspot").innerHTML = "";
+  var newick=document.getElementById("userInput").value;
+  makeTree(newick);
 }
 
 function resetPar() {
@@ -86,9 +86,9 @@ function submitFile() {
 
     reader.onload = function(e) {
         newick = reader.result
-        makeTree(newick);
     }       
     reader.readAsText(file);
+    makeTree(newick);
 }
 
 function updateVertical()
