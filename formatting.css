@@ -5,9 +5,18 @@
   /*cursor: move;*/
 }
 
+#verticalradialbuttons {
+  margin-top: 50px;
+}
+
+#fileInput {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 #treemaker {
   border: 3px solid lightgray;
   height: 70vh;
   width: 60vw;
-  margin-top: 50px;
+  margin-top: 10px;
 }
