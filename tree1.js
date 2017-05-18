@@ -7,16 +7,6 @@ var numOpenPar = 0;
 var numClosedPar = 0;
 var numCommas = 0;
 
-tree.on("click", function (node)
-{
-  var root = tree.root();
-  //node.sort(function (node, node.parent()) {return 1});
-  var tempTree = root.subtree(node.get_all_leaves());
-  var nodeParent = node.parent();
-  tree.data(tempTree.data());  
-    tree.update();
-});
-
 function makeTree(newick) {
     document.getElementById("treemaker").innerHTML=""
 
@@ -33,6 +23,7 @@ function makeTree(newick) {
         }
       if (newick.charAt(x)==',')
         {
+          numCommas=0;
           numCommas++;
         }
     }
@@ -105,8 +96,20 @@ function updateRadial()
         }
 }
 
+/*dynamic resizing*/
 $(window).resize(function() {
   var newick=document.getElementById("userInput").value;
   makeTree(newick);
+});
+
+/*click node=view subtree*/
+tree.on("click", function (node)
+{
+  var root = tree.root();
+  //node.sort(function (node, node.parent()) {return 1});
+  var tempTree = root.subtree(node.get_all_leaves());
+  var nodeParent = node.parent();
+  tree.data(tempTree.data());  
+    tree.update();
 });
 
