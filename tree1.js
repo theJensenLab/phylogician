@@ -14,9 +14,6 @@ tree.on("click", function (node)
   var tempTree = root.subtree(node.get_all_leaves());
   var nodeParent = node.parent();
   tree.data(tempTree.data());  
-  //tree.node_display(tree.node_display()
-        //.size(10)
-        //.fill("cyan"));
     tree.update();
 });
 
@@ -25,15 +22,15 @@ function makeTree(newick) {
     tree
         .data(tnt.tree.parse_newick(newick))
         .node_display(tree.node_display()
-            .size(10)
-            .fill("gray")
+            .size(1)
+            .fill("black")
             )
         .label (tnt.tree.label.text()
         .fontsize(12)
         .height(window.innerHeight*0.7/(numCommas+1))
             )
         .layout(tnt.tree.layout.vertical()
-        .width(window.innerWidth*0.6)
+        .width(window.innerWidth*0.58)
         .scale(false)
             );
     tree(document.getElementById("treemaker"));
@@ -96,14 +93,14 @@ function submitFile() {
 
 function updateVertical()
 {
-            tree.layout(tnt.tree.layout.vertical().width(window.innerWidth*0.6).scale(false));
+            tree.layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false));
             tree.update();
 }
 
 function updateRadial()
 {
   {
-            tree.layout(tnt.tree.layout.radial().width(window.innerWidth*0.6).scale(false));
+            tree.layout(tnt.tree.layout.radial().width(window.innerWidth*0.58).scale(false));
             tree.update();
         }
 }
