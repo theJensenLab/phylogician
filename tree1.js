@@ -9,6 +9,7 @@ var numCommas = 0;
 
 function makeTree(newick) {
     document.getElementById("treemaker").innerHTML=""
+    numCommas=0;
 
     /*errorcheck begins here*/
   for (var x=0; x<newick.length; x++)
@@ -23,7 +24,6 @@ function makeTree(newick) {
         }
       if (newick.charAt(x)==',')
         {
-          numCommas=0;
           numCommas++;
         }
     }
@@ -39,12 +39,12 @@ function makeTree(newick) {
         tree
         .data(tnt.tree.parse_newick(newick))
         .node_display(tree.node_display()
-            .size(1)
+            .size(3)
             .fill("black")
             )
         .label (tnt.tree.label.text()
         .fontsize(12)
-        .height(window.innerHeight*0.7/(numCommas+1))
+        .height(window.innerHeight*0.68/(numCommas+1))
             )
         .layout(tnt.tree.layout.vertical()
         .width(window.innerWidth*0.58)
