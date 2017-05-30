@@ -96,6 +96,12 @@ function updateRadial()
         }
 }
 
+ function download () {
+        var pngExporter = tnt.utils.png()
+            .filename("treeSample.png")
+        pngExporter(d3.select("svg"));
+    };
+
 /*dynamic resizing*/
 $(window).resize(function() {
   var newick=document.getElementById("userInput").value;
