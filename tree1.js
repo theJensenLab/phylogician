@@ -108,7 +108,12 @@ $(window).resize(function() {
   makeTree(newick);
 });
 
-/*click node=view subtree*/
+tree.on ("click", function(node){
+        node.toggle();
+        tree.update();
+    });
+
+/*click node=view subtree
 tree.on("click", function (node)
 {
   var root = tree.root();
@@ -117,5 +122,5 @@ tree.on("click", function (node)
   var nodeParent = node.parent();
   tree.data(tempTree.data());  
     tree.update();
-});
+});*/
 
