@@ -91,7 +91,7 @@ function updateVertical()
 function updateRadial()
 {
   {
-            tree.layout(tnt.tree.layout.radial().width(window.innerWidth*0.58).scale(false));
+            tree.layout(tnt.tree.layout.radial().width(Math.min(window.innerWidth*0.58, window.innerHeight*0.58)).scale(false));
             tree.update();
         }
 }
