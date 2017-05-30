@@ -109,7 +109,7 @@ $(window).resize(function() {
 });
 
 tree.on ("click", function(node){
-        node.toggle();
+        node.fill("cyan").toggle();
         tree.update();
     });
 
