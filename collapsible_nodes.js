@@ -1,35 +1,25 @@
-var collapse_nodes = function(div) {
+/*click node=view subtree
+tree.on("click", function (node)
+{
+  var root = tree.root();
+  //node.sort(function (node, node.parent()) {return 1});
+  var tempTree = root.subtree(node.get_all_leaves());
+  var nodeParent = node.parent();
+  tree.data(tempTree.data());  
+    tree.update();
+});*/
 
-    // Show different node shapes for collapsed/non-collapsed nodes
-    var node_size = 3;
-    var node_fill="black";
-    var node_stroke="black";
+/*click node=tree turns cyan
+tree.on("click", function (node)
+{
+  var root = tree.root();
+  //node.sort(function (node, node.parent()) {return 1});
+  var tempTree = root.subtree(node.get_all_leaves());
+  var nodeParent = node.parent();
+  tree.data(tempTree.data());  
+  tree.node_display(tree.node_display()
+        .size(10)
+        .fill("cyan"));
+    tree.update();
+});*/
 
-    var expanded_node = tnt.tree.node_display.circle()
-        .size(node_size)
-        .fill(node_fill)
-        .stroke(node_stroke);
-
-    var collapsed_node = tnt.tree.node_display.triangle()
-        .size(node_size)
-        .fill(node_fill)
-        .stroke(node_stroke);
-
-    var node_display = tnt.tree.node_display()
-        .size(3)
-        .display (function (node) {
-            if (node.is_collapsed()) {
-                collapsed_node.display().call(this, node);
-            } else {
-                expanded_node.display().call(this, node);
-            }
-        });
-
-    tree.on ("click", function(node){
-        node.toggle();
-        tree.update();
-    });
-
-    // The tree renders at this point
-    tree(div);
-};
