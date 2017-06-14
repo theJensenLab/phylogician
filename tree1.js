@@ -6,6 +6,19 @@ var treeCreated = false;
 var numOpenPar = 0;
 var numClosedPar = 0;
 var numCommas = 0;
+var expanded_node = tnt.tree.node_display.circle();
+var collapsed_node = tnt.tree.node_display.triangle();
+var node_display = tree.node_display()
+            .size(3)
+            .fill("black")
+            .display (function (node) {
+            if (node.is_collapsed()) {
+                collapsed_node.display().call(this, node);
+            } else {
+                expanded_node.display().call(this, node);
+            }
+        })
+
 
 function makeTree(newick) {
     document.getElementById("treemaker").innerHTML=""
@@ -38,10 +51,7 @@ function makeTree(newick) {
       resetPar();
         tree
         .data(tnt.tree.parse_newick(newick))
-        .node_display(tree.node_display()
-            .size(3)
-            .fill("black")
-            )
+        .node_display(node_display)
         .label (tnt.tree.label.text()
         .fontsize(12)
         .height(window.innerHeight*0.68/(numCommas+1))
@@ -112,29 +122,3 @@ tree.on ("click", function(node){
         node.toggle();
         tree.update();
     });
-
-/*click node=view subtree
-tree.on("click", function (node)
-{
-  var root = tree.root();
-  //node.sort(function (node, node.parent()) {return 1});
-  var tempTree = root.subtree(node.get_all_leaves());
-  var nodeParent = node.parent();
-  tree.data(tempTree.data());  
-    tree.update();
-});*/
-
-/*click node=tree turns cyan
-tree.on("click", function (node)
-{
-  var root = tree.root();
-  //node.sort(function (node, node.parent()) {return 1});
-  var tempTree = root.subtree(node.get_all_leaves());
-  var nodeParent = node.parent();
-  tree.data(tempTree.data());  
-  tree.node_display(tree.node_display()
-        .size(10)
-        .fill("cyan"));
-    tree.update();
-});*/
-
