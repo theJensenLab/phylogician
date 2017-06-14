@@ -50,7 +50,7 @@ function makeTree(newick) {
         .width(window.innerWidth*0.58)
         .scale(false)
             );
-    tree(document.getElementById("treemaker"));
+    tree(treemaker);
     }
 }
 
