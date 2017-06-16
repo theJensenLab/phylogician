@@ -5,6 +5,10 @@
   /*cursor: move;*/
 }
 
+#settingsbutton {
+  margin-top: 10px;
+}
+
 #verticalradialbuttons {
   margin-top: 50px;
 }
