@@ -118,7 +118,7 @@ $(window).resize(function() {
   makeTree(newick);
 });
 
-tree.on ("click", function(node){
+tree.on ("dblclick", function(node){
         node.toggle();
         tree.update();
     });
