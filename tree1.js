@@ -15,7 +15,6 @@ var node_display = tree.node_display()
                 expanded_node.display().call(this, node);
             }
         })
-var clickoption = 0;
 
 
 function makeTree(newick) {
@@ -89,24 +88,7 @@ $(window).resize(function() {
   makeTree(newick);
 });
 
-if (clickoption == 0)
-  {
 tree.on ("click", function(node){
         node.toggle();
         tree.update();
     });
-  }
-
-if (clickoption == 1)
-{
-tree.on("click", function (d) {
-                tnt.tooltip.table()
-                    .width(120)
-                    .call(this, {
-                        "header" : "Node",
-                        "rows" : [
-                            {"label": "id", "value": d.id()}
-                        ]
-                    })
-            })
-}
