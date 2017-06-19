@@ -23,3 +23,46 @@ tree.on("click", function (node)
     tree.update();
 });*/
 
+/*var numOpenPar = 0;
+var numClosedPar = 0;
+var numCommas = 0;
+    numCommas=0;
+  for (var x=0; x<newick.length; x++)
+    {
+      if (newick.charAt(x)==='(')
+        {
+        numOpenPar++;
+        }
+      if (newick.charAt(x)===')')
+        {
+        numClosedPar++;
+        }
+      if (newick.charAt(x)==',')
+        {
+          numCommas++;
+        }
+    }
+  if (numOpenPar!==numClosedPar || newick.charAt(0)!=='(' || newick.charAt(newick.length-1)!==';')
+    {  document.getElementById("errorspot").style.color="Red"
+      document.getElementById("errorspot").innerHTML = "ERROR: INVALID INPUT";
+      resetPar();
+  }
+   else
+    {
+      resetPar();
+      }
+
+*/
+
+/*tooltips
+tree.on("click", function (d) {
+                tnt.tooltip.table()
+                    .width(120)
+                    .call(this, {
+                        "header" : "Node",
+                        "rows" : [
+                            {"label": "id", "value": d.id()}
+                        ]
+                    })
+            })
+            */
