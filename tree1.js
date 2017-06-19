@@ -3,6 +3,7 @@
 var newick = "";
 var tree = tnt.tree();
 var treeCreated = false;
+var numCommas = 0;
 var expanded_node = tnt.tree.node_display.circle();
 var collapsed_node = tnt.tree.node_display.triangle();
 var node_display = tree.node_display()
@@ -18,7 +19,15 @@ var node_display = tree.node_display()
 
 
 function makeTree(newick) {
+    numCommas=0;
     document.getElementById("treemaker").innerHTML=""
+    for (var x=0; x<newick.length; x++)
+    {
+      if (newick.charAt(x)==',')
+        {
+          numCommas++;
+        }
+    }
         tree
         .data(tnt.tree.parse_newick(newick))
         .node_display(node_display)
