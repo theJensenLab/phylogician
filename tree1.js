@@ -3,9 +3,6 @@
 var newick = "";
 var tree = tnt.tree();
 var treeCreated = false;
-var numOpenPar = 0;
-var numClosedPar = 0;
-var numCommas = 0;
 var expanded_node = tnt.tree.node_display.circle();
 var collapsed_node = tnt.tree.node_display.triangle();
 var node_display = tree.node_display()
@@ -23,33 +20,6 @@ var clickoption = 0;
 
 function makeTree(newick) {
     document.getElementById("treemaker").innerHTML=""
-    numCommas=0;
-
-    /*errorcheck begins here*/
-  for (var x=0; x<newick.length; x++)
-    {
-      if (newick.charAt(x)==='(')
-        {
-        numOpenPar++;
-        }
-      if (newick.charAt(x)===')')
-        {
-        numClosedPar++;
-        }
-      if (newick.charAt(x)==',')
-        {
-          numCommas++;
-        }
-    }
-  if (numOpenPar!==numClosedPar || newick.charAt(0)!=='(' || newick.charAt(newick.length-1)!==';')
-    {  document.getElementById("errorspot").style.color="Red"
-    /*errorcheck ends here*/
-      document.getElementById("errorspot").innerHTML = "ERROR: INVALID INPUT";
-      resetPar();
-  }
-  else
-    {
-      resetPar();
         tree
         .data(tnt.tree.parse_newick(newick))
         .node_display(node_display)
@@ -63,7 +33,7 @@ function makeTree(newick) {
             );
     tree(treemaker);
     }
-}
+
 
 function submitNewick ()
 {
