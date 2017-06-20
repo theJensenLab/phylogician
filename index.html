@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-    <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
+     <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
     <script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js"></script>
   <script src="http://github.com/zaach/jsonlint"></script>
 
@@ -37,9 +37,13 @@
     <button type="button" class="btn btn-success" onclick="submitFile()">Submit File</button>
   </div>
  
-  <div id = "verticalradialbuttons" class = "button">    
-        <button type="button" class="btn btn-primary" onclick="updateVertical()">Vertical</button>
-        <button type="button" class="btn btn-primary" onclick="updateRadial()">Radial</button>
+  <div id = "verticalradialbuttons" class = "button">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tree Display
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#" onclick="updateVertical()">Vertical</a></li>
+    <li><a href="#" onclick="updateRadial()">Radial</a></li></li>
+  </ul>
         <button type="button" class="btn btn-info" onclick="download()">Download PGN</button>
     </div>
   
