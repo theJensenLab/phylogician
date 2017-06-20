@@ -11,6 +11,7 @@
 
 #verticalradialbuttons {
   margin-top: 50px;
+  z-index: 999;
 }
 
 #fileInput {
@@ -24,9 +25,4 @@
   width: 60vw;
   margin-top: 10px;
   z-index: 900;
-}
-
-#dropdown-menu
-{
-  z-index: 999;
 }
