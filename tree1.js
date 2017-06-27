@@ -33,7 +33,7 @@ function makeTree(newick) {
         .node_display(node_display)
         .label (tnt.tree.label.text()
         .fontsize(12)
-        .height(window.innerHeight*0.69/(numCommas+2)))
+        .height(window.innerHeight*0.69/(numCommas+1)))
         .layout(tnt.tree.layout.vertical()
         .width(window.innerWidth*0.58)
         .scale(false)
@@ -94,7 +94,7 @@ function fitscreen () {
   tree.node_display(node_display)
         .label (tnt.tree.label.text()
         .fontsize(12)
-     .height(window.innerHeight*0.69/(numCommas+2))
+     .height(window.innerHeight*0.69/(numCommas+1))
             )
  .layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false));
   tree.update();
