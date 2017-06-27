@@ -27,9 +27,6 @@
 </head>
 
 <body>
-  <div id="logo" style="width: 50px; height: 50px;">
-   <img src="phylogician_logo.jpg" />
-</div>
   <div class="maindiv" id=maindiv>
   <label form="usr">Input your tree as Newick text or upload a file:</label>
     <div class="hello">
@@ -39,7 +36,7 @@
     <button type="button" class="btn btn-success" onclick="submitNewick()">Submit Newick</button>
     <button type="button" class="btn btn-success" onclick="submitFile()">Submit File</button>
   </div>
- 
+ <div id="logo"> <img src="phylogician_logo.png" style="width=100px; height=30px"/></div>
   <div id = "verticalradialbuttons" class = "dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tree Display
   <span class="caret"></span></button>
