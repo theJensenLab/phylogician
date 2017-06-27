@@ -3,7 +3,7 @@
 var newick = "";
 var tree = tnt.tree();
 var treeCreated = false;
-var numCommas = 0;
+var numCommas=0;
 var expanded_node = tnt.tree.node_display.circle();
 var collapsed_node = tnt.tree.node_display.triangle();
 var node_display = tree.node_display()
@@ -33,8 +33,7 @@ function makeTree(newick) {
         .node_display(node_display)
         .label (tnt.tree.label.text()
         .fontsize(12)
-        .height(500/(numCommas+1))
-            )
+        .height(window.innerHeight*0.69/(numCommas+2)))
         .layout(tnt.tree.layout.vertical()
         .width(window.innerWidth*0.58)
         .scale(false)
@@ -92,7 +91,12 @@ function updateRadial()
     };
 
 function fitscreen () {
-  tree.layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false));
+  tree.node_display(node_display)
+        .label (tnt.tree.label.text()
+        .fontsize(12)
+     .height(window.innerHeight*0.69/(numCommas+2))
+            )
+ .layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false));
   tree.update();
 }
 
