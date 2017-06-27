@@ -33,7 +33,7 @@ function makeTree(newick) {
         .node_display(node_display)
         .label (tnt.tree.label.text()
         .fontsize(12)
-        .height(window.innerHeight*0.68/(numCommas+1))
+        .height(500/(numCommas+1))
             )
         .layout(tnt.tree.layout.vertical()
         .width(window.innerWidth*0.58)
@@ -91,11 +91,10 @@ function updateRadial()
         pngExporter(d3.select("svg"));
     };
 
-/*dynamic resizing*/
-$(window).resize(function() {
-  var newick=document.getElementById("userInput").value;
-  makeTree(newick);
-});
+function fitscreen () {
+  tree.layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false));
+  tree.update();
+}
 
 tree.on ("click", function(node){
         node.toggle();
