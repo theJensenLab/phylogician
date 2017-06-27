@@ -22,6 +22,7 @@
 #treemaker {
   border: 3px solid lightgray;
   height: 70vh;
+  /*height: 500px*/
   width: 60vw;
   margin-top: 10px;
 }
