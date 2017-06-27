@@ -66,3 +66,9 @@ tree.on("click", function (d) {
                     })
             })
             */
+
+            /*dynamic resizing (with bug: nodes uncollapse)
+$(window).resize(function() {
+  var newick=document.getElementById("userInput").value;
+  makeTree(newick);
+});*/
