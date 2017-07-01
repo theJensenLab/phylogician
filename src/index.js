@@ -1,64 +1,22 @@
 /* eslint-env browser */
 'use strict'
 
+let	d3 = require('d3'),
+	tntTree = require('tnt.tree'),
+	parser = require('tnt.newick')
+
 require('./style.css')
 require('../node_modules/bootstrap/dist/js/bootstrap.min.js')
 require('../node_modules/bootstrap/dist/css/bootstrap.min.css')
+require('./controlBar.js')
 
-function division(myClass, text = '') {
-	let element = document.createElement('div')
-	if (text !== '')
-		element.innerHTML = text
-	element.classList.add(myClass)
-	return element
-}
-
-let navBar = document.createElement('nav')
-navBar.classList.add('navbar')
-navBar.classList.add('navbar-inverse')
-navBar.classList.add('bg-inverse')
-
-let inputMenu = document.createElement('button')
-inputMenu.classList.add('btn')
-inputMenu.classList.add('btn-primary')
-inputMenu.classList.add('dropdown-toggle')
-inputMenu.type = 'button'
-inputMenu.innerHTML = 'Inputs'
-
-navBar.appendChild(inputMenu)
-
-let myForm = document.createElement('input')
-myForm.classList.add('form-control')
-myForm.id = 'userInput'
-myForm.style = 'width: 300px'
-navBar.appendChild(myForm)
-
-let submitFileButton = document.createElement('button')
-submitFileButton.innerHTML = 'Submit Newick'
-submitFileButton.type = 'button'
-submitFileButton.classList.add('btn')
-submitFileButton.classList.add('btn-success')
-submitFileButton.addEventListener('click', submitNewick)
-
-navBar.appendChild(submitFileButton)
-
-
-document.body.appendChild(navBar)
-
-
-
-let maindiv = document.body.appendChild(division('maindiv'))
 
 
 //let	inputForm = maindiv.appendChild(division('fileInput', 'Input your tree as Newick text or upload a file:')),
 let treeBox = document.createElement('div')
 treeBox.id = 'treeBox'
 
-maindiv.appendChild(treeBox)
-
-let	d3 = require('d3'),
-	tntTree = require('tnt.tree'),
-	parser = require('tnt.newick')
+document.body.appendChild(treeBox)
 
 
 let tree = tntTree()

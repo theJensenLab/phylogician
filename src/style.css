@@ -25,7 +25,17 @@
 #treeBox {
   border: 3px solid lightgray;
   height: 70vh;
-  /*height: 500px*/
   width: 60vw;
-  margin-top: 10px;
+  margin: 10px auto;
+}
+
+.navbar {
+  margin-top: 10vh;
+  background-color: #33373d;
+  height: 50px;
+}
+
+.navbar-brand {
+  position: absolute;
+  right: 10px;
 }
