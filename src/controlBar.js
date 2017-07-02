@@ -2,6 +2,7 @@
 'use strict'
 
 let d3 = require('d3')
+require('./phylogician.js')
 
 let maxWidth = document.body.innerWidth
 
@@ -46,6 +47,12 @@ navBarBrand.on('click', () => {
 		.text(newText)
 })
 
+function submitNewick () {
+  var newick=document.getElementById("stringInput").value;
+  console.log(newick)
+  makeTree(newick);
+}
+
 function popForm(form, button) {
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
@@ -56,25 +63,17 @@ function popForm(form, button) {
 		myForm.classList.add('form-control')
 		myForm.id = 'stringInput'
 		myForm.style = 'width: 300px; display: block;'
-		myForm.addEventListener('submit', function() {
-			console.log('dasad')
-			console.log(this)
+		myForm.addEventListener('keydown', function(e) {
+			if(e.keyCode == 13){
+				let newick=document.getElementById("stringInput").value;
+				myForm.style.display = 'none'
+				makeTree(newick)
+			}
 		})
 		document.body.appendChild(myForm)
-
-		let subButton = document.createElement('button')
-		subButton.classList.add('btn')
-		subButton.type = 'button'
-		subButton.id = 'stringSubButton'
-		subButton.style = 'width: 300px; display: block;'
-		subButton.addEventListener('click', function() {
-			console.log('submitting')
-			myForm.style.display = 'none'
-			subButton.style.display = 'none'
-		})
-		document.body.appendChild(subButton)
 	}
 }
+
 
 
 let navBarDOM = document.getElementById('controlBar')
