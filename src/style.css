@@ -1,3 +1,9 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
 .maindiv {
   width: 50%;
   margin: 0 auto;
@@ -22,20 +28,36 @@
   margin-top: 40px;
 }
 
-#treeBox {
-  border: 3px solid lightgray;
-  height: 70vh;
-  width: 60vw;
-  margin: 10px auto;
+.btn {
+  background-color: #33373d;
+  border-style: solid;
+  border-color: white;
+  border-width: 5px;
+  color: white;
 }
 
 .navbar {
-  margin-top: 10vh;
+  top: 10vh;
   background-color: #33373d;
   height: 50px;
 }
 
-.navbar-brand {
+#brand {
   position: absolute;
+  text-align: center;
   right: 10px;
+  color: white;
+  font-size: 20px;
+}
+
+#stringInput {
+  position:absolute;
+  left:50%;
+  top:50%;
+}
+
+#stringSubButton {
+  position: absolute;
+  left: 50%;
+  top: 40px;
 }
