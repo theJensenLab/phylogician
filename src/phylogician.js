@@ -6,8 +6,6 @@ let	d3 = require('d3'),
 	parser = require('tnt.newick')
 
 let tree = tntTree()
-
-let treeCreated = false
 let numCommas = 0
 let expandedNode = tntTree.node_display.circle()
 let collapsedNode = tntTree.node_display.triangle()
