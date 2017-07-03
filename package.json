@@ -4,10 +4,13 @@
   "description": "The Jensen Lab approach to visualization of phylogenetic trees using javascript and d3.js",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "build": "webpack --progress",
+    "server:dev": "webpack-dev-server --open"
   },
   "contributors": [
-    "Davi Ortega"
+    "Davi Ortega",
+    "Tony Kukavica"
   ],
   "repository": {
     "type": "git",
@@ -26,9 +29,22 @@
   },
   "homepage": "https://github.com/theJensenLab/phyloTreeVizJS#readme",
   "devDependencies": {
+    "bootstrap": "^4.0.0-alpha.6",
     "chai": "^3.5.0",
     "coveralls": "^2.13.0",
+    "css-loader": "^0.28.4",
+    "d3": "^4.9.1",
+    "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.29.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.2.0"
-  }
+    "jquery": "^3.2.1",
+    "mocha": "^3.2.0",
+    "style-loader": "^0.18.2",
+    "tnt.newick": "github:daviortega/tnt.newick#f-read-raxml-IC",
+    "tnt.tree": "github:daviortega/tnt.tree#d3v4",
+    "tnt.utils": "github:tntvis/tnt.utils#d3v4",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0"
+  },
+  "dependencies": {}
 }
