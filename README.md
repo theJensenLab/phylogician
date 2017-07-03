@@ -7,12 +7,28 @@ Humbly inspired by the work of others, we will use TnT, d3, express and node.
 
 ## Install and run it.
 
+f-navbar-scaffold
 ```bash
 $ git clone git@github.com:theJensenLab/phyloTreeVizJS.git
 $ cd phyloTreeVizJS
 $ npm install
 $ npm run server:dev
 ```
+=======
+## How to contribute
+
+branch name:
+
+|prefix| meaning |
+|:--:|:--:|
+|f | feature |
+|h | hotfix |
+|t | testing/trying |
+
+example:
+`t-firstTree`
+
+develop
 
 If you are working ona specific branch:
 
