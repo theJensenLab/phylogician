@@ -7,7 +7,6 @@ let	d3 = require('d3'),
 
 let tree = tntTree()
 
-let newick = ''
 let treeCreated = false
 let numCommas = 0
 let expandedNode = tntTree.node_display.circle()
@@ -77,10 +76,9 @@ function submitFile() {
 	reader.readAsText(file)
 }
 
-function updateVertical()
-{
-			tree.layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false))
-			tree.update()
+function updateVertical() {
+	tree.layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false))
+	tree.update()
 }
 
 function updateRadial()
