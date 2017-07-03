@@ -10,16 +10,15 @@ let numCommas = 0
 let expandedNode = tntTree.node_display.circle()
 let collapsedNode = tntTree.node_display.triangle()
 let fontSizeOfTreeLeafs = 12
-let node_display = tree.node_display()
-	.size(3)
-	.fill("black")
-	.display (function (node) {
-		if (node.is_collapsed()) {
+let nodeSize = 3
+let nodeDisplay = tree.node_display()
+	.size(nodeSize)
+	.fill('black')
+	.display(function (node) {
+		if (node.is_collapsed())
 			collapsedNode.display().call(this, node)
-		}
-		else {
+		else
 			expandedNode.display().call(this, node)
-		}
 	})
 
 exports.makeTree = function(newickString) {
@@ -36,11 +35,9 @@ exports.makeTree = function(newickString) {
 			numCommas++
 	}
 
-	
-
 	tree
 		.data(parser.parse_newick(newickString))
-		.node_display(node_display)
+		.node_display(nodeDisplay)
 		.label(tntTree.label
 			.text()
 			.fontsize(fontSizeOfTreeLeafs)
@@ -54,16 +51,9 @@ exports.makeTree = function(newickString) {
 }
 
 
-
-
-function resetPar() {
-  numOpenPar=0
-  numClosedPar=0
-}
-
 function submitFile() {
-	document.getElementById("errorspot").innerHTML = ""
-	let fileInput = document.getElementById("fileInput")
+	document.getElementById('errorspot').innerHTML = ''
+	let fileInput = document.getElementById('fileInput')
 	console.log(fileInput.files[0])
 	let newick = ''
 
@@ -78,32 +68,31 @@ function submitFile() {
 }
 
 function updateVertical() {
-	tree.layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false))
+	tree.layout(tree.layout.vertical().width(window.innerWidth * 0.58)
+		.scale(false))
 	tree.update()
 }
 
-function updateRadial()
-{
-  {
-			tree.layout(tnt.tree.layout.radial().width(Math.min(window.innerWidth*0.58, window.innerHeight*0.58)).scale(false))
-			tree.update()
-		}
+function updateRadial() {
+	tree.layout(tree.layout.radial().width(Math.min(window.innerWidth * 0.58, window.innerHeight * 0.58))
+		.scale(false))
+	tree.update()
 }
 
- function download () {
-		let pngExporter = tnt.utils.png()
-			.filename("treeSample.png")
-		pngExporter(d3.select("svg"))
-	}
+function download() {
+	let pngExporter = tnt.utils.png()
+		.filename('treeSample.png')
+	pngExporter(d3.select('svg'))
+}
 
-function fitscreen () {
-  tree.node_display(node_display)
-		.label (tnt.tree.label.text()
-		.fontsize(12)
-	 .height(window.innerHeight*0.69/(numCommas+1))
-			)
- .layout(tnt.tree.layout.vertical().width(window.innerWidth*0.58).scale(false))
-  tree.update()
+function fitscreen() {
+	tree.node_display(nodeDisplay)
+		.label(tree.label.text()
+			.fontsize(fontSizeOfTreeLeafs)
+			.height(window.innerHeight * 0.69/(numCommas + 1))
+		)
+		.layout(tree.layout.vertical().width(window.innerWidth * 0.58).scale(false))
+	tree.update()
 }
 
 tree.on('click', function(node) {
