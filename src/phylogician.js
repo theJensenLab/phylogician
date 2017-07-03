@@ -1,10 +1,9 @@
-
+/* eslint-env browser */
+'use strict'
 
 let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick')
-
-let treeBox = document.getElementById('treeBox')
 
 let tree = tntTree()
 
@@ -13,6 +12,37 @@ let treeCreated = false
 let numCommas = 0
 let expandedNode = tntTree.node_display.circle()
 let collapsedNode = tntTree.node_display.triangle()
+
+exports.makeTree = function(newickString) {
+	console.log(document.getElementsByClassName('tnt_groupDiv'))
+	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
+		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
+		document.getElementById('treeBox').removeChild(existingTree)
+	}
+
+	let treeBox = document.getElementById('treeBox')
+	numCommas = 0
+	for (let x = 0; x < newickString.length; x++) {
+		if (newickString.charAt(x) === ',')
+			numCommas++
+	}
+
+	let fontSizeOfTreeLeafs = 12
+
+	tree
+		.data(parser.parse_newick(newickString))
+		.node_display(node_display)
+		.label(tntTree.label
+			.text()
+			.fontsize(fontSizeOfTreeLeafs)
+			.height(window.innerHeight * 0.69 / (numCommas + 1))
+		)
+		.layout(tntTree.layout.vertical()
+			.width(window.innerWidth * 0.58)
+			.scale(false)
+		)
+	tree(treeBox)
+}
 
 let node_display = tree.node_display()
 			.size(3)
@@ -24,31 +54,6 @@ let node_display = tree.node_display()
 				expandedNode.display().call(this, node)
 			}
 		})
-
-
-makeTree = function(newick) {
-	numCommas = 0
-	for (let x = 0; x < newick.length; x++) {
-		if (newick.charAt(x) === ',')
-			numCommas++
-	}
-
-	let fontSizeOfTreeLeafs = 12
-
-	tree
-		.data(parser.parse_newick(newick))
-		.node_display(node_display)
-		.label(tntTree.label
-			.text()
-			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight*0.69/(numCommas+1))
-		)
-		.layout(tntTree.layout.vertical()
-		.width(window.innerWidth*0.58)
-		.scale(false)
-			)
-	tree(treeBox)
-	}
 
 
 function resetPar() {
@@ -102,9 +107,9 @@ function fitscreen () {
   tree.update()
 }
 
-tree.on ("click", function(node){
-		node.toggle()
-		tree.update()
-	})
+tree.on('click', function(node) {
+	node.toggle()
+	tree.update()
+})
 
-module.exports = "phylogician"
+// module.exports = 'phylogician'

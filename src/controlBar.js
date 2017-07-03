@@ -2,9 +2,9 @@
 'use strict'
 
 let d3 = require('d3')
-require('./phylogician.js')
+let phylogician = require('./phylogician.js')
 
-let NavBarShow = true
+let NavBarShow = false
 
 let maxWidth = document.body.innerWidth
 
@@ -67,7 +67,7 @@ function popForm(form, button) {
 			if (e.keyCode === enterKeyCode) {
 				let newick = document.getElementById('stringInput').value
 				myForm.style.display = 'none'
-				// makeTree(newick)
+				phylogician.makeTree(newick)
 			}
 		})
 		document.body.appendChild(myForm)
