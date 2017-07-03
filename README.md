@@ -14,6 +14,24 @@ $ cd phyloTreeVizJS
 $ npm install
 $ npm run server:dev
 ```
+
+If you are working on a specific branch:
+
+```bash
+$ git branch _your_specific_branch_
+$ npm install
+$ npm run server:dev
+```
+
+If you get the `error`:
+
+```bash
+npm ERR! missing script: server:dev
+```
+
+then the branch where you are does not have the server:dev script using webpack...
+
+
 =======
 ## How to contribute
 
@@ -29,22 +47,6 @@ example:
 `t-firstTree`
 
 develop
-
-If you are working ona specific branch:
-
-```bash
-$ git branch _your_specific_branch_
-$ npm install
-$ npm run server:dev
-```
-
-If you get the `error`:
-
-```bash
-npm ERR! missing script: server:dev
-```
-
-then the branch where you are does not have the server:dev script using webpack...
 
 ## Credits:
 
