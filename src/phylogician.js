@@ -9,6 +9,18 @@ let tree = tntTree()
 let numCommas = 0
 let expandedNode = tntTree.node_display.circle()
 let collapsedNode = tntTree.node_display.triangle()
+let fontSizeOfTreeLeafs = 12
+let node_display = tree.node_display()
+	.size(3)
+	.fill("black")
+	.display (function (node) {
+		if (node.is_collapsed()) {
+			collapsedNode.display().call(this, node)
+		}
+		else {
+			expandedNode.display().call(this, node)
+		}
+	})
 
 exports.makeTree = function(newickString) {
 	console.log(document.getElementsByClassName('tnt_groupDiv'))
@@ -24,7 +36,7 @@ exports.makeTree = function(newickString) {
 			numCommas++
 	}
 
-	let fontSizeOfTreeLeafs = 12
+	
 
 	tree
 		.data(parser.parse_newick(newickString))
@@ -41,16 +53,7 @@ exports.makeTree = function(newickString) {
 	tree(treeBox)
 }
 
-let node_display = tree.node_display()
-			.size(3)
-			.fill("black")
-			.display (function (node) {
-			if (node.is_collapsed()) {
-				collapsedNode.display().call(this, node)
-			} else {
-				expandedNode.display().call(this, node)
-			}
-		})
+
 
 
 function resetPar() {
