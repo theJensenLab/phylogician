@@ -54,10 +54,9 @@ body {
   position:absolute;
   left:50%;
   top:50%;
-}
+  width: 300px;
+  height: 40px;
 
-#stringSubButton {
-  position: absolute;
-  left: 50%;
-  top: 40px;
+  margin-left: -150px;
+  margin-top: -20px;
 }

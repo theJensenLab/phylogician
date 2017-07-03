@@ -13,7 +13,3 @@ require('./controlBar.js')
 let treeBox = document.createElement('div')
 treeBox.id = 'treeBox'
 document.body.appendChild(treeBox)
-
-
-//let	inputForm = maindiv.appendChild(division('fileInput', 'Input your tree as Newick text or upload a file:')),
-

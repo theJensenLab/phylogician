@@ -4,6 +4,8 @@
 let d3 = require('d3')
 require('./phylogician.js')
 
+let NavBarShow = true
+
 let maxWidth = document.body.innerWidth
 
 let navBar = d3.select('body').append('div')
@@ -13,8 +15,13 @@ let navBar = d3.select('body').append('div')
 navBar.style('left', function() {
 	let barWidth = navBar.node().offsetWidth,
 		apparent = 50
-	console.log(JSON.stringify(barWidth - apparent))
-	return '-' + (barWidth - apparent) + 'px'
+
+	let NavBarPosition = '-' + (barWidth - apparent) + 'px'
+
+	if (NavBarShow)
+		NavBarPosition = '-50px'
+
+	return NavBarPosition
 })
 
 let navBarBrand = d3.select('#controlBar').append('img')
@@ -33,10 +40,8 @@ navBarBrand.on('click', () => {
 		newText = '-',
 		duration = 1000
 
-	if (barLeftPos === parseInt(newpos)) {
+	if (barLeftPos === parseInt(newpos))
 		newpos = '-' + (barWidth - apparent) + 'px'
-		newText = '+'
-	}
 
 	navBar.transition()
 		.duration(duration)
@@ -47,12 +52,6 @@ navBarBrand.on('click', () => {
 		.text(newText)
 })
 
-function submitNewick () {
-  var newick=document.getElementById("stringInput").value;
-  console.log(newick)
-  makeTree(newick);
-}
-
 function popForm(form, button) {
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
@@ -62,19 +61,18 @@ function popForm(form, button) {
 		let myForm = document.createElement('input')
 		myForm.classList.add('form-control')
 		myForm.id = 'stringInput'
-		myForm.style = 'width: 300px; display: block;'
+		myForm.style.display = 'block'
 		myForm.addEventListener('keydown', function(e) {
-			if(e.keyCode == 13){
-				let newick=document.getElementById("stringInput").value;
+			let enterKeyCode = 13
+			if (e.keyCode === enterKeyCode) {
+				let newick = document.getElementById('stringInput').value
 				myForm.style.display = 'none'
-				makeTree(newick)
+				// makeTree(newick)
 			}
 		})
 		document.body.appendChild(myForm)
 	}
 }
-
-
 
 let navBarDOM = document.getElementById('controlBar')
 
@@ -101,13 +99,8 @@ inputDiv.appendChild(inputOptions)
 let submitNwkString = document.createElement('a')
 submitNwkString.classList.add('dropdown-item')
 submitNwkString.innerHTML = 'Input newick string'
-
-inputOptions.appendChild(submitNwkString)
-
 submitNwkString.addEventListener('click', popForm)
-
-
-
+inputOptions.appendChild(submitNwkString)
 
 let submitNwkFile = document.createElement('a')
 submitNwkFile.classList.add('dropdown-item')
@@ -137,20 +130,3 @@ operationsOptions.appendChild(fit2screen)
 
 
 navBarDOM.appendChild(buttonGroup)
-
-/* 
-let subButton = document.createElement('input')
-myForm.classList.add('form-control')
-myForm.id = 'userInput'
-myForm.style = 'width: 300px'
-inputMenu.appendChild(myForm)
-
-let submitFileButton = document.createElement('button')
-submitFileButton.innerHTML = 'Submit Newick'
-submitFileButton.type = 'button'
-submitFileButton.classList.add('btn')
-submitFileButton.classList.add('btn-success')
-submitFileButton.addEventListener('click', submitNewick)
-
-navBarDOM.appendChild(submitFileButton)
- */
