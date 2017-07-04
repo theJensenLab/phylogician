@@ -46,13 +46,23 @@ branch name:
 example:
 `t-firstTree`
 
+### To open a branch:
+```
+# local
+$ git checkout -b f-name-of-my-branch
+
+# push new branch
+$ git push --set-upstream f-name-of-my-branch
+
+```
+
 
 After branch is merged it can be deleted:
 
 ### To delete a branch:
 ```
-git branch -d f-seg #local
-git push origin --delete f-seg
+$ git branch -d f-seg #local
+$ git push origin --delete f-seg
 ```
 
 

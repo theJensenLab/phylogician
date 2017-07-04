@@ -14,7 +14,7 @@ let nodeSize = 3
 let nodeDisplay = tree.node_display()
 	.size(nodeSize)
 	.fill('black')
-	.display(function (node) {
+	.display(function(node) {
 		if (node.is_collapsed())
 			collapsedNode.display().call(this, node)
 		else
