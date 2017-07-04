@@ -97,13 +97,13 @@ inputDiv.appendChild(inputOptions)
 
 let submitNwkString = document.createElement('a')
 submitNwkString.classList.add('dropdown-item')
-submitNwkString.innerHTML = 'Input newick string'
+submitNwkString.innerHTML = 'Input Text'
 submitNwkString.addEventListener('click', popForm)
 inputOptions.appendChild(submitNwkString)
 
 let submitNwkFile = document.createElement('a')
 submitNwkFile.classList.add('dropdown-item')
-submitNwkFile.innerHTML = 'Input newick file'
+submitNwkFile.innerHTML = 'Upload File'
 inputOptions.appendChild(submitNwkFile)
 
 // change tree layout via menu bar
