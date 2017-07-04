@@ -3,7 +3,6 @@
 
 let d3 = require('d3')
 let phylogician = require('./phylogician.js')
-let treeLayout = require('./treelayout.js')
 
 let NavBarShow = false
 
@@ -33,7 +32,6 @@ let navBarBrand = d3.select('#controlBar').append('img')
 	.style('border', '5')
 
 navBarBrand.on('click', () => {
-	console.log('hey')
 	let barLeftPos = navBar.node().offsetLeft,
 		barWidth = navBar.node().offsetWidth,
 		apparent = 50,
@@ -53,7 +51,7 @@ navBarBrand.on('click', () => {
 		.text(newText)
 })
 
-function popForm(form, button) {
+function popForm() {
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
 	}
@@ -128,13 +126,13 @@ treeLayoutDiv.appendChild(displayOptions)
 let makeVertical = document.createElement('a')
 makeVertical.classList.add('dropdown-item')
 makeVertical.innerHTML = 'Vertical'
-makeVertical.addEventListener('click', treeLayout.updateVertical)
+makeVertical.addEventListener('click', phylogician.updateVertical)
 displayOptions.appendChild(makeVertical)
 
 let makeRadial = document.createElement('a')
 makeRadial.classList.add('dropdown-item')
 makeRadial.innerHTML = 'Radial'
-makeRadial.addEventListener('click', treeLayout.updateRadial)
+makeRadial.addEventListener('click', phylogician.updateRadial)
 displayOptions.appendChild(makeRadial)
 
 // conduct tree operations via menu bar

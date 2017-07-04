@@ -3,7 +3,8 @@
 
 let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
-	parser = require('tnt.newick')
+	parser = require('tnt.newick'),
+	treeLayout = require('./treelayout.js')
 
 let tree = tntTree()
 let numCommas = 0
@@ -22,7 +23,6 @@ let nodeDisplay = tree.node_display()
 	})
 
 exports.makeTree = function(newickString) {
-	console.log(document.getElementsByClassName('tnt_groupDiv'))
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
 		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
 		document.getElementById('treeBox').removeChild(existingTree)
@@ -50,6 +50,13 @@ exports.makeTree = function(newickString) {
 	tree(treeBox)
 }
 
+exports.updateVertical = function() {
+	treeLayout.updateVertical(tree)
+}
+
+exports.updateRadial = function() {
+	treeLayout.updateRadial(tree)
+}
 
 function submitFile() {
 	document.getElementById('errorspot').innerHTML = ''
@@ -65,18 +72,6 @@ function submitFile() {
 		makeTree(newick)
 	}
 	reader.readAsText(file)
-}
-
-function updateVertical() {
-	tree.layout(tree.layout.vertical().width(window.innerWidth * 0.58)
-		.scale(false))
-	tree.update()
-}
-
-function updateRadial() {
-	tree.layout(tree.layout.radial().width(Math.min(window.innerWidth * 0.58, window.innerHeight * 0.58))
-		.scale(false))
-	tree.update()
 }
 
 function download() {
