@@ -84,7 +84,7 @@ function fitscreen() {
 	tree.node_display(nodeDisplay)
 		.label(tree.label.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight * 0.95/(numCommas + 1))
+			.height(window.innerHeight * 0.95/(numCommas + 2))
 		)
 		.layout(tree.layout.vertical().width(window.innerWidth * 0.85).scale(false))
 	tree.update()
