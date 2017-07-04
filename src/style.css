@@ -28,6 +28,10 @@ body {
   margin-top: 40px;
 }
 
+.btn-group {
+    width: 90%;
+}
+
 .btn {
   background-color: #33373d;
   border-style: solid;
