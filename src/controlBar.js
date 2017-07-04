@@ -55,7 +55,6 @@ navBarBrand.on('click', () => {
 function popForm(form, button) {
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
-		document.getElementById('stringSubButton').style.display = 'block'
 	}
 	else {
 		let myForm = document.createElement('input')

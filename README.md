@@ -46,6 +46,16 @@ branch name:
 example:
 `t-firstTree`
 
+
+After branch is merged it can be deleted:
+
+### To delete a branch:
+```
+git branch -d f-seg #local
+git push origin --delete f-seg
+```
+
+
 develop
 
 ## Credits:
