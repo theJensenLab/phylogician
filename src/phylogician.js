@@ -3,7 +3,8 @@
 
 let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
-	parser = require('tnt.newick')
+	parser = require('tnt.newick'),
+	treeLayout = require('./treelayout.js')
 
 let tree = tntTree()
 let numCommas = 0
@@ -22,7 +23,6 @@ let nodeDisplay = tree.node_display()
 	})
 
 exports.makeTree = function(newickString) {
-	console.log(document.getElementsByClassName('tnt_groupDiv'))
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
 		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
 		document.getElementById('treeBox').removeChild(existingTree)
@@ -41,15 +41,22 @@ exports.makeTree = function(newickString) {
 		.label(tntTree.label
 			.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight * 0.69 / (numCommas + 1))
+			.height(window.innerHeight * 0.95 / (numCommas + 2))
 		)
 		.layout(tntTree.layout.vertical()
-			.width(window.innerWidth * 0.58)
+			.width(window.innerWidth * 0.85)
 			.scale(false)
 		)
 	tree(treeBox)
 }
 
+exports.updateVertical = function() {
+	treeLayout.updateVertical(tree)
+}
+
+exports.updateRadial = function() {
+	treeLayout.updateRadial(tree)
+}
 
 function submitFile() {
 	document.getElementById('errorspot').innerHTML = ''
@@ -67,18 +74,6 @@ function submitFile() {
 	reader.readAsText(file)
 }
 
-function updateVertical() {
-	tree.layout(tree.layout.vertical().width(window.innerWidth * 0.58)
-		.scale(false))
-	tree.update()
-}
-
-function updateRadial() {
-	tree.layout(tree.layout.radial().width(Math.min(window.innerWidth * 0.58, window.innerHeight * 0.58))
-		.scale(false))
-	tree.update()
-}
-
 function download() {
 	let pngExporter = tnt.utils.png()
 		.filename('treeSample.png')
@@ -89,9 +84,9 @@ function fitscreen() {
 	tree.node_display(nodeDisplay)
 		.label(tree.label.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight * 0.69/(numCommas + 1))
+			.height(window.innerHeight * 0.95/(numCommas + 2))
 		)
-		.layout(tree.layout.vertical().width(window.innerWidth * 0.58).scale(false))
+		.layout(tree.layout.vertical().width(window.innerWidth * 0.85).scale(false))
 	tree.update()
 }
 

@@ -32,7 +32,6 @@ let navBarBrand = d3.select('#controlBar').append('img')
 	.style('border', '5')
 
 navBarBrand.on('click', () => {
-	console.log('hey')
 	let barLeftPos = navBar.node().offsetLeft,
 		barWidth = navBar.node().offsetWidth,
 		apparent = 50,
@@ -52,7 +51,7 @@ navBarBrand.on('click', () => {
 		.text(newText)
 })
 
-function popForm(form, button) {
+function popForm() {
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
 	}
@@ -80,6 +79,7 @@ buttonGroup.classList.add('btn-group')
 buttonGroup.setAttribute('data-toggle', 'buttons')
 buttonGroup.style = 'margin-left: 60px;'
 
+// input string or file via menu bar
 let inputDiv = document.createElement('div')
 inputDiv.classList.add('dropdown')
 buttonGroup.appendChild(inputDiv)
@@ -88,7 +88,7 @@ let inputMenu = document.createElement('button')
 inputMenu.classList.add('btn', 'dropdown-toggle')
 inputMenu.setAttribute('data-toggle', 'dropdown')
 inputMenu.type = 'button'
-inputMenu.innerHTML = 'Load data'
+inputMenu.innerHTML = 'Load Data'
 inputDiv.appendChild(inputMenu)
 
 let inputOptions = document.createElement('div')
@@ -97,15 +97,45 @@ inputDiv.appendChild(inputOptions)
 
 let submitNwkString = document.createElement('a')
 submitNwkString.classList.add('dropdown-item')
-submitNwkString.innerHTML = 'Input newick string'
+submitNwkString.innerHTML = 'Input Text'
 submitNwkString.addEventListener('click', popForm)
 inputOptions.appendChild(submitNwkString)
 
 let submitNwkFile = document.createElement('a')
 submitNwkFile.classList.add('dropdown-item')
-submitNwkFile.innerHTML = 'Input newick file'
+submitNwkFile.innerHTML = 'Upload File'
 inputOptions.appendChild(submitNwkFile)
 
+// change tree layout via menu bar
+let treeLayoutDiv = document.createElement('div')
+treeLayoutDiv.classList.add('dropdown')
+buttonGroup.appendChild(treeLayoutDiv)
+
+let treeLayoutMenu = document.createElement('button')
+treeLayoutMenu.classList.add('btn', 'dropdown-toggle')
+treeLayoutMenu.setAttribute('data-toggle', 'dropdown')
+treeLayoutMenu.type = 'button'
+treeLayoutMenu.innerHTML = 'Tree Layout'
+treeLayoutMenu.style = 'left: 100px;'
+treeLayoutDiv.appendChild(treeLayoutMenu)
+
+let displayOptions = document.createElement('div')
+displayOptions.classList.add('dropdown-menu')
+treeLayoutDiv.appendChild(displayOptions)
+
+let makeVertical = document.createElement('a')
+makeVertical.classList.add('dropdown-item')
+makeVertical.innerHTML = 'Vertical'
+makeVertical.addEventListener('click', phylogician.updateVertical)
+displayOptions.appendChild(makeVertical)
+
+let makeRadial = document.createElement('a')
+makeRadial.classList.add('dropdown-item')
+makeRadial.innerHTML = 'Radial'
+makeRadial.addEventListener('click', phylogician.updateRadial)
+displayOptions.appendChild(makeRadial)
+
+// conduct tree operations via menu bar
 let operationsDiv = document.createElement('div')
 operationsDiv.classList.add('dropdown')
 buttonGroup.appendChild(operationsDiv)
