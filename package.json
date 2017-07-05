@@ -4,7 +4,7 @@
   "description": "The Jensen Lab approach to visualization of phylogenetic trees using javascript and d3.js",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "test": "NODE_PATH=node_modules node_modules/.bin/mocha --reporter ${MOCHA_REPORTER-spec} $(find tests -name '*tests.js')",
     "build": "webpack --progress",
     "server:dev": "webpack-dev-server --open"
   },
@@ -39,7 +39,7 @@
     "html-webpack-plugin": "^2.29.0",
     "istanbul": "^0.4.5",
     "jquery": "^3.2.1",
-    "mocha": "^3.2.0",
+    "mocha": "^3.4.2",
     "style-loader": "^0.18.2",
     "tnt.newick": "github:daviortega/tnt.newick#f-read-raxml-IC",
     "tnt.tree": "github:daviortega/tnt.tree#d3v4",

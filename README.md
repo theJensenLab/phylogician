@@ -31,6 +31,25 @@ npm ERR! missing script: server:dev
 
 then the branch where you are does not have the server:dev script using webpack...
 
+## Testing
+
+Please run:
+```
+npm test
+```
+
+We use [mocha](mochajs.org) and [chai](chaijs.com) to do test.
+
+To make a new test, just put the file in `tests/` and name it with `tests.js` prefix.
+
+You must load `chai` in the beginning if you will be using `expect`:
+
+```js
+'use strict'
+
+let expect = require('chai').expect
+```
+
 
 =======
 ## How to contribute

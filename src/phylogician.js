@@ -4,10 +4,10 @@
 let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick'),
-	treeLayout = require('./treelayout.js')
+	treeLayout = require('./treelayout.js'),
+	utils = require('./utils.js')
 
 let tree = tntTree()
-let numCommas = 0
 let expandedNode = tntTree.node_display.circle()
 let collapsedNode = tntTree.node_display.triangle()
 let fontSizeOfTreeLeafs = 12
@@ -29,19 +29,17 @@ exports.makeTree = function(newickString) {
 	}
 
 	let treeBox = document.getElementById('treeBox')
-	numCommas = 0
-	for (let x = 0; x < newickString.length; x++) {
-		if (newickString.charAt(x) === ',')
-			numCommas++
-	}
+
+	let treeObj = parser.parse_newick(newickString),
+		numOfLeaves = utils.countLeaves(treeObj)
 
 	tree
-		.data(parser.parse_newick(newickString))
+		.data(treeObj)
 		.node_display(nodeDisplay)
 		.label(tntTree.label
 			.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight * 0.95 / (numCommas + 2))
+			.height(window.innerHeight * 0.95 / (numOfLeaves + 2))
 		)
 		.layout(tntTree.layout.vertical()
 			.width(window.innerWidth * 0.85)
