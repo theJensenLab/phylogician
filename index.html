@@ -1,31 +1,55 @@
 <!DOCTYPE html>
-<head>
-    <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+          <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
     <script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js"></script>
+  <script src="http://github.com/zaach/jsonlint"></script>
+
+<!-- D3 -->
+    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+  <!--css references-->
+  <link rel="stylesheet" href="formatting.css">
+
+<!-- TnT -->
+    <link rel="stylesheet" href="http://tntvis.github.io/tnt.tree/build/tnt.tree.css" type="text/css" />
+    <script src="http://tntvis.github.io/tnt.tree/build/tnt.tree.min.js"></script>
+
+  <!-- Tnt utils -->
+    <script src="https://cdn.rawgit.com/tntvis/tnt.utils/master/build/tnt.utils.js"></script>
 
     <!--bootstrap references-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+ <!-- TnT Tooltip -->
+    <link rel="stylesheet" href="http://tntvis.github.io/tnt.tooltip/build/tnt.tooltip.css" type="text/css"/>
+    <script src="http://tntvis.github.io/tnt.tooltip/build/tnt.tooltip.min.js"></script>
 </head>
 
 <body>
-  <div class="form-group">
+  <div class="maindiv" id=maindiv>
   <label form="usr">Input your tree as Newick text or upload a file:</label>
     <div class="hello">
   <input type="text" class="form-control" id="userInput" style="width: 300px"><input type="file" id="fileInput">
-  </div>
+  <div id="errorspot" color="red" </div>
+    </div>
     <button type="button" class="btn btn-success" onclick="submitNewick()">Submit Newick</button>
     <button type="button" class="btn btn-success" onclick="submitFile()">Submit File</button>
   </div>
- 
-  <div id = "verticalradialbuttons" class = "button">    
-        <button type="button" class="btn btn-primary" onclick="updateVertical()">Vertical</button>
-        <button type="button" class="btn btn-primary" onclick="updateRadial()">Radial</button>
+ <div id="logo"> <img src="phylogician_logo.png"></div>
+  <div id = "verticalradialbuttons" class = "dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Tree Display
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#" onclick="updateVertical()">Vertical</a></li>
+    <li><a href="#" onclick="updateRadial()">Radial</a></li></li>
+  </ul>
+        <button type="button" class="btn btn-primary" onclick="fitscreen()">Fit to Screen</button>
+        <button type="button" class="btn btn-info" onclick="download()">Download PGN</button>
     </div>
-
+  
     <div id="treemaker">
-    </div> 
+    </div>
+  <button id="settingsbutton" type="button" class="btn btn-secondary" onclick="">Settings</button>
     <script src="tree1.js"></script>
 </body>
