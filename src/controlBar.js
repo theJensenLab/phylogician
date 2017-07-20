@@ -51,24 +51,57 @@ navBarBrand.on('click', () => {
 		.text(newText)
 })
 
-function popForm() {
+function popFormString() {
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
 	}
 	else {
-		let myForm = document.createElement('input')
-		myForm.classList.add('form-control')
-		myForm.id = 'stringInput'
-		myForm.style.display = 'block'
-		myForm.addEventListener('keydown', function(e) {
+		let myStringForm = document.createElement('input')
+		myStringForm.classList.add('form-control')
+		myStringForm.id = 'stringInput'
+		myStringForm.style.display = 'block'
+		myStringForm.addEventListener('keydown', function(e) {
 			let enterKeyCode = 13
 			if (e.keyCode === enterKeyCode) {
 				let newick = document.getElementById('stringInput').value
-				myForm.style.display = 'none'
+				myStringForm.style.display = 'none'
 				phylogician.makeTree(newick)
 			}
 		})
-		document.body.appendChild(myForm)
+		document.body.appendChild(myStringForm)
+	}
+}
+
+function popFormFile() {
+	if (document.getElementById('fileFormLabel')) {
+		document.getElementById('fileFormLabel').style.display = 'block'
+	}
+	else {
+		let fileFormLabel = document.createElement('label')
+		fileFormLabel.classList.add('btn', 'btn-primary')
+		fileFormLabel.id = 'fileFormLabel'
+		fileFormLabel.setAttribute('for', 'fileInput')
+
+		let fileForm = document.createElement('input')
+		fileForm.id = 'fileInput'
+		fileForm.type = 'file'
+		fileForm.style.display = 'none'
+		fileForm.addEventListener('change', function() {
+			let fileInput = document.getElementById("fileInput"),
+				newick = '',
+				file = fileInput.files[0]
+			let reader = new FileReader()
+			
+			reader.onload = function(err) {
+				newick = reader.result
+				fileFormLabel.style.display = 'none'
+				phylogician.makeTree(newick)
+			}
+			reader.readAsText(file)
+		})
+		fileFormLabel.innerHTML = 'Browse'
+		fileFormLabel.appendChild(fileForm)
+		document.body.appendChild(fileFormLabel)
 	}
 }
 
@@ -98,12 +131,13 @@ inputDiv.appendChild(inputOptions)
 let submitNwkString = document.createElement('a')
 submitNwkString.classList.add('dropdown-item')
 submitNwkString.innerHTML = 'Input Text'
-submitNwkString.addEventListener('click', popForm)
+submitNwkString.addEventListener('click', popFormString)
 inputOptions.appendChild(submitNwkString)
 
 let submitNwkFile = document.createElement('a')
 submitNwkFile.classList.add('dropdown-item')
 submitNwkFile.innerHTML = 'Upload File'
+submitNwkFile.addEventListener('click', popFormFile)
 inputOptions.appendChild(submitNwkFile)
 
 // change tree layout via menu bar
