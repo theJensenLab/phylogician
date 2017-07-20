@@ -77,7 +77,6 @@ function popFormFile() {
 		document.getElementById('fileFormLabel').style.display = 'block'
 	}
 	else {
-		console.log('h')
 		let fileFormLabel = document.createElement('label')
 		fileFormLabel.classList.add('btn', 'btn-primary')
 		fileFormLabel.id = 'fileFormLabel'
@@ -91,7 +90,6 @@ function popFormFile() {
 			let fileInput = document.getElementById("fileInput"),
 				newick = '',
 				file = fileInput.files[0]
-			console.log('here')
 			let reader = new FileReader()
 			
 			reader.onload = function(err) {
