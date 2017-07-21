@@ -190,6 +190,7 @@ operationsDiv.appendChild(operationsOptions)
 let fit2screen = document.createElement('a')
 fit2screen.classList.add('dropdown-item')
 fit2screen.innerHTML = 'Fit to screen'
+fit2screen.addEventListener('click', phylogician.fitScreen)
 operationsOptions.appendChild(fit2screen)
 
 

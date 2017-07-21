@@ -21,6 +21,7 @@ let nodeDisplay = tree.node_display()
 		else
 			expandedNode.display().call(this, node)
 	})
+let storedTree = ''
 
 exports.makeTree = function(newickString) {
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
@@ -55,6 +56,7 @@ exports.makeTree = function(newickString) {
 			svgTree.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')')
 		})
 	)
+	storedTree = tree
 }
 
 exports.updateVertical = function() {
@@ -65,20 +67,13 @@ exports.updateRadial = function() {
 	treeLayout.updateRadial(tree)
 }
 
+exports.fitScreen = function() {
+}
+
 function download() {
 	let pngExporter = tnt.utils.png()
 		.filename('treeSample.png')
 	pngExporter(d3.select('svg'))
-}
-
-function fitscreen() {
-	tree.node_display(nodeDisplay)
-		.label(tree.label.text()
-			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight * 0.95/(numCommas + 2))
-		)
-		.layout(tree.layout.vertical().width(window.innerWidth * 0.85).scale(false))
-	tree.update()
 }
 
 tree.on('click', function(node) {
