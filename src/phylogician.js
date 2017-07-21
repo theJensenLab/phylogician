@@ -52,7 +52,7 @@ exports.makeTree = function(newickString) {
 	svgTree.call(d3.zoom()
 		.scaleExtent([0.1, 10])
 		.on('zoom', function() {
-			svgTree.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.scale + ')')
+			svgTree.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')')
 		})
 	)
 }
