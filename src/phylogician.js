@@ -68,6 +68,8 @@ exports.updateRadial = function() {
 }
 
 exports.fitScreen = function() {
+	let svgTree = d3.select('#treeBox').select('svg')
+	svgTree.attr('transform', 'translate(0,0) scale(1)')
 }
 
 function download() {
