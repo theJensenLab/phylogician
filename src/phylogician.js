@@ -46,6 +46,15 @@ exports.makeTree = function(newickString) {
 			.scale(false)
 		)
 	tree(treeBox)
+
+	let svgTree = d3.select('#treeBox').select('svg')
+
+	svgTree.call(d3.zoom()
+		.scaleExtent([0.1, 10])
+		.on('zoom', function() {
+			svgTree.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.scale + ')')
+		})
+	)
 }
 
 exports.updateVertical = function() {
@@ -54,22 +63,6 @@ exports.updateVertical = function() {
 
 exports.updateRadial = function() {
 	treeLayout.updateRadial(tree)
-}
-
-function submitFile() {
-	document.getElementById('errorspot').innerHTML = ''
-	let fileInput = document.getElementById('fileInput')
-	console.log(fileInput.files[0])
-	let newick = ''
-
-	let file = fileInput.files[0]
-	let reader = new FileReader()
-
-	reader.onload = function(e) {
-		newick = reader.result
-		makeTree(newick)
-	}
-	reader.readAsText(file)
 }
 
 function download() {

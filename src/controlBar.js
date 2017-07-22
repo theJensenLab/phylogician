@@ -65,7 +65,8 @@ function popFormString() {
 			if (e.keyCode === enterKeyCode) {
 				let newick = document.getElementById('stringInput').value
 				myStringForm.style.display = 'none'
-				phylogician.makeTree(newick)
+				if (newick !== '')
+					phylogician.makeTree(newick)
 			}
 		})
 		document.body.appendChild(myStringForm)
