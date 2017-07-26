@@ -232,3 +232,10 @@ operationsOptions.appendChild(fit2screen)
 
 
 navBarDOM.appendChild(buttonGroup)
+
+function navBarShortcut(e) {
+	let x = 88
+	if (e.ctrlKey && e.keyCode === x)
+		toggleNavBar()
+}
+document.addEventListener('keyup', navBarShortcut, false)
