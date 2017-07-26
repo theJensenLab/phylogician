@@ -4,9 +4,8 @@
 let d3 = require('d3')
 let phylogician = require('./phylogician.js')
 
-let NavBarShow = false
-
-let maxWidth = document.body.innerWidth
+let NavBarShow = false,
+	maxWidth = document.body.innerWidth
 
 let navBar = d3.select('body').append('div')
 	.attr('id', 'controlBar')
@@ -32,6 +31,10 @@ let navBarBrand = d3.select('#controlBar').append('img')
 	.style('border', '5')
 
 navBarBrand.on('click', () => {
+	moveNavBar()
+})
+
+function moveNavBar() {
 	let barLeftPos = navBar.node().offsetLeft,
 		barWidth = navBar.node().offsetWidth,
 		apparent = 50,
@@ -49,7 +52,7 @@ navBarBrand.on('click', () => {
 	navBarBrand.transition()
 		.duration(duration)
 		.text(newText)
-})
+}
 
 function popFormString() {
 	if (document.getElementById('stringInput')) {
@@ -88,15 +91,16 @@ function popFormFile() {
 		fileForm.type = 'file'
 		fileForm.style.display = 'none'
 		fileForm.addEventListener('change', function() {
-			let fileInput = document.getElementById("fileInput"),
+			let fileInput = document.getElementById('fileInput'),
 				newick = '',
 				file = fileInput.files[0]
 			let reader = new FileReader()
-			
+
 			reader.onload = function(err) {
 				newick = reader.result
 				fileFormLabel.style.display = 'none'
 				phylogician.makeTree(newick)
+				fileInput.value = null
 			}
 			reader.readAsText(file)
 		})
