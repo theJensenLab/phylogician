@@ -4,54 +4,76 @@
 let d3 = require('d3')
 let phylogician = require('./phylogician.js')
 
-let NavBarShow = false
-
-let maxWidth = document.body.innerWidth
+let NavBarShow = false,
+	maxWidth = document.body.clientWidth,
+	barWidthOffset = 50,
+	barWidth = maxWidth - barWidthOffset
 
 let navBar = d3.select('body').append('div')
 	.attr('id', 'controlBar')
 	.attr('class', 'navbar')
+	.attr('width', barWidth + 'px')
 
-navBar.style('left', function() {
-	let barWidth = navBar.node().offsetWidth,
-		apparent = 50
-
-	let NavBarPosition = '-' + (barWidth - apparent) + 'px'
-
+navBar.style('right', function() {
+	let navBarPosition = barWidth + 'px'
 	if (NavBarShow)
-		NavBarPosition = '-50px'
-
-	return NavBarPosition
+		navBarPosition = barWidthOffset + 'px'
+	return navBarPosition
 })
 
-let navBarBrand = d3.select('#controlBar').append('img')
-	.attr('id', 'brand')
-	.attr('src', './src/navbrand.svg')
-	.style('width', '30px')
-	.style('border-color', 'white')
-	.style('border', '5')
+d3.xml('./src/navbrand.svg')
+	.mimeType('image/svg+xml')
+	.get(function(error, xml) {
+		if (error) throw error
+		xml.documentElement.id = 'brand'
+		xml.documentElement.style.width = '30px'
+		xml.documentElement.style.height = '30px'
+		xml.documentElement.addEventListener('click', () => {
+			toggleNavBar()
+		})
+		document.getElementById('controlBar').appendChild(xml.documentElement)
+	})
 
-navBarBrand.on('click', () => {
-	let barLeftPos = navBar.node().offsetLeft,
-		barWidth = navBar.node().offsetWidth,
-		apparent = 50,
-		newpos = '-50px',
-		newText = '-',
-		duration = 1000
+function toggleNavBar() {
+	if (navBar.node().getBoundingClientRect().right === barWidth)
+		retractNavBar()
+	else
+		expandNavBar()
+}
 
-	if (barLeftPos === parseInt(newpos))
-		newpos = '-' + (barWidth - apparent) + 'px'
+function expandNavBar() {
+	let duration = 1000
+	if (navBar.node().getBoundingClientRect().right !== barWidth) {
+		let navBarPosition = barWidthOffset + 'px'
+		navBar.transition()
+			.duration(duration)
+			.style('right', navBarPosition)
 
-	navBar.transition()
-		.duration(duration)
-		.style('left', newpos)
+		d3.select('#brand').selectAll('path, polygon')
+			.transition()
+			.duration(duration)
+			.attr('fill', '#FF6A13')
+	}
+}
 
-	navBarBrand.transition()
-		.duration(duration)
-		.text(newText)
-})
+function retractNavBar() {
+	let duration = 1000
+	if (navBar.node().getBoundingClientRect().right !== barWidthOffset) {
+		let navBarPosition = barWidth + 'px'
+		navBar.transition()
+			.duration(duration)
+			.style('right', navBarPosition)
+
+		d3.select('#brand').selectAll('path, polygon')
+			.transition()
+			.duration(duration)
+			.attr('fill', '#91DC5A')
+	}
+}
 
 function popFormString() {
+	if (document.getElementById('fileFormLabel'))
+		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
 	}
@@ -65,8 +87,10 @@ function popFormString() {
 			if (e.keyCode === enterKeyCode) {
 				let newick = document.getElementById('stringInput').value
 				myStringForm.style.display = 'none'
-				if (newick !== '')
+				if (newick !== '') {
 					phylogician.makeTree(newick)
+					retractNavBar()
+				}
 			}
 		})
 		document.body.appendChild(myStringForm)
@@ -74,6 +98,8 @@ function popFormString() {
 }
 
 function popFormFile() {
+	if (document.getElementById('stringInput'))
+		document.getElementById('stringInput').style.display = 'none'
 	if (document.getElementById('fileFormLabel')) {
 		document.getElementById('fileFormLabel').style.display = 'block'
 	}
@@ -88,15 +114,17 @@ function popFormFile() {
 		fileForm.type = 'file'
 		fileForm.style.display = 'none'
 		fileForm.addEventListener('change', function() {
-			let fileInput = document.getElementById("fileInput"),
+			let fileInput = document.getElementById('fileInput'),
 				newick = '',
 				file = fileInput.files[0]
 			let reader = new FileReader()
-		
-			reader.onload = function(err) {
+
+      reader.onload = function(err) {
 				newick = reader.result
 				fileFormLabel.style.display = 'none'
 				phylogician.makeTree(newick)
+				fileInput.value = null
+				retractNavBar()
 			}
 			reader.readAsText(file)
 		})
@@ -161,13 +189,19 @@ treeLayoutDiv.appendChild(displayOptions)
 let makeVertical = document.createElement('a')
 makeVertical.classList.add('dropdown-item')
 makeVertical.innerHTML = 'Vertical'
-makeVertical.addEventListener('click', phylogician.updateVertical)
+makeVertical.addEventListener('click', (e) => {
+	phylogician.updateVertical(e)
+	retractNavBar()
+})
 displayOptions.appendChild(makeVertical)
 
 let makeRadial = document.createElement('a')
 makeRadial.classList.add('dropdown-item')
 makeRadial.innerHTML = 'Radial'
-makeRadial.addEventListener('click', phylogician.updateRadial)
+makeRadial.addEventListener('click', (e) => {
+	phylogician.updateRadial(e)
+	retractNavBar()
+})
 displayOptions.appendChild(makeRadial)
 
 // conduct tree operations via menu bar
@@ -190,8 +224,18 @@ operationsDiv.appendChild(operationsOptions)
 let fit2screen = document.createElement('a')
 fit2screen.classList.add('dropdown-item')
 fit2screen.innerHTML = 'Fit to screen'
-fit2screen.addEventListener('click', phylogician.fitScreen)
+fit2screen.addEventListener('click', (e) => {
+	phylogician.fitScreen(e)
+	retractNavBar()
+})
 operationsOptions.appendChild(fit2screen)
 
 
 navBarDOM.appendChild(buttonGroup)
+
+function navBarShortcut(e) {
+	let x = 88
+	if (e.ctrlKey && e.keyCode === x)
+		toggleNavBar()
+}
+document.addEventListener('keyup', navBarShortcut, false)
