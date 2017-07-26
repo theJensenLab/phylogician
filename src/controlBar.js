@@ -55,6 +55,8 @@ function moveNavBar() {
 }
 
 function popFormString() {
+	if (document.getElementById('fileFormLabel'))
+		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
 	}
@@ -77,6 +79,8 @@ function popFormString() {
 }
 
 function popFormFile() {
+	if (document.getElementById('stringInput'))
+		document.getElementById('stringInput').style.display = 'none'
 	if (document.getElementById('fileFormLabel')) {
 		document.getElementById('fileFormLabel').style.display = 'block'
 	}
