@@ -52,7 +52,7 @@ function expandNavBar() {
 		d3.select('#brand').selectAll('path, polygon')
 			.transition()
 			.duration(duration)
-			.attr('fill', 'white')
+			.attr('fill', '#FF6A13')
 	}
 }
 
@@ -189,13 +189,19 @@ treeLayoutDiv.appendChild(displayOptions)
 let makeVertical = document.createElement('a')
 makeVertical.classList.add('dropdown-item')
 makeVertical.innerHTML = 'Vertical'
-makeVertical.addEventListener('click', phylogician.updateVertical)
+makeVertical.addEventListener('click', (e) => {
+	phylogician.updateVertical(e)
+	retractNavBar()
+})
 displayOptions.appendChild(makeVertical)
 
 let makeRadial = document.createElement('a')
 makeRadial.classList.add('dropdown-item')
 makeRadial.innerHTML = 'Radial'
-makeRadial.addEventListener('click', phylogician.updateRadial)
+makeRadial.addEventListener('click', (e) => {
+	phylogician.updateRadial(e)
+	retractNavBar()
+})
 displayOptions.appendChild(makeRadial)
 
 // conduct tree operations via menu bar
@@ -218,7 +224,10 @@ operationsDiv.appendChild(operationsOptions)
 let fit2screen = document.createElement('a')
 fit2screen.classList.add('dropdown-item')
 fit2screen.innerHTML = 'Fit to screen'
-fit2screen.addEventListener('click', phylogician.fitScreen)
+fit2screen.addEventListener('click', (e) => {
+	phylogician.fitScreen(e)
+	retractNavBar()
+})
 operationsOptions.appendChild(fit2screen)
 
 
