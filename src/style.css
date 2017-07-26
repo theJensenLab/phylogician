@@ -44,6 +44,7 @@ body {
   top: 10vh;
   background-color: #33373d;
   height: 50px;
+  position: absolute;
   z-index: 100;
 }
 

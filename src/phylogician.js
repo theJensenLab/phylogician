@@ -51,9 +51,10 @@ exports.makeTree = function(newickString) {
 	let svgTree = d3.select('#treeBox').select('svg')
 
 	svgTree.call(d3.zoom()
-		.scaleExtent([0.1, 10])
+		.scaleExtent([1, 10])
 		.on('zoom', function() {
-			svgTree.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')')
+			svgTree.call(d3.drag)
+				.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')')
 		})
 	)
 	storedTree = tree
