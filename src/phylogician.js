@@ -21,6 +21,7 @@ let nodeDisplay = tree.node_display()
 		else
 			expandedNode.display().call(this, node)
 	})
+let storedTree = ''
 
 exports.makeTree = function(newickString) {
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
@@ -39,13 +40,32 @@ exports.makeTree = function(newickString) {
 		.label(tntTree.label
 			.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight * 0.95 / (numOfLeaves + 2))
+			.height(window.innerHeight / (numOfLeaves + 4))
 		)
 		.layout(tntTree.layout.vertical()
-			.width(window.innerWidth * 0.85)
+			.width(window.innerWidth)
 			.scale(false)
 		)
 	tree(treeBox)
+
+	let svgTree = d3.select('#treeBox').select('svg'),
+		g = svgTree.select('g')
+
+	svgTree.call(d3.zoom()
+		.on('zoom', () => {
+			g.attr('transform', d3.event.transform)
+		})
+	)
+
+	storedTree = tree
+}
+
+exports.fitScreen = function() {
+	let svgTree = d3.select('#treeBox').select('svg'),
+		g = svgTree.select('g')
+
+	svgTree.call(d3.zoom().transform, d3.zoomIdentity)
+	g.attr('transform', {k: 1, x: 0, y: 0})
 }
 
 exports.updateVertical = function() {
@@ -56,36 +76,10 @@ exports.updateRadial = function() {
 	treeLayout.updateRadial(tree)
 }
 
-function submitFile() {
-	document.getElementById('errorspot').innerHTML = ''
-	let fileInput = document.getElementById('fileInput')
-	console.log(fileInput.files[0])
-	let newick = ''
-
-	let file = fileInput.files[0]
-	let reader = new FileReader()
-
-	reader.onload = function(e) {
-		newick = reader.result
-		makeTree(newick)
-	}
-	reader.readAsText(file)
-}
-
 function download() {
 	let pngExporter = tnt.utils.png()
 		.filename('treeSample.png')
 	pngExporter(d3.select('svg'))
-}
-
-function fitscreen() {
-	tree.node_display(nodeDisplay)
-		.label(tree.label.text()
-			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight * 0.95/(numCommas + 2))
-		)
-		.layout(tree.layout.vertical().width(window.innerWidth * 0.85).scale(false))
-	tree.update()
 }
 
 tree.on('click', function(node) {

@@ -44,6 +44,8 @@ body {
   top: 10vh;
   background-color: #33373d;
   height: 50px;
+  position: absolute;
+  z-index: 100;
 }
 
 .tnt_groupDiv {
@@ -54,7 +56,6 @@ body {
   position: absolute;
   text-align: center;
   right: 10px;
-  color: white;
   font-size: 20px;
 }
 
@@ -83,5 +84,5 @@ body {
 
   background-color: #33373d;
   border-color: #33373d;
-  color: #91DC5A;
+  color: #FF6A13;
 }
