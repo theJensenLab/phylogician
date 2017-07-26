@@ -40,24 +40,32 @@ exports.makeTree = function(newickString) {
 		.label(tntTree.label
 			.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight * 0.95 / (numOfLeaves + 2))
+			.height(window.innerHeight / (numOfLeaves + 4))
 		)
 		.layout(tntTree.layout.vertical()
-			.width(window.innerWidth * 0.85)
+			.width(window.innerWidth)
 			.scale(false)
 		)
 	tree(treeBox)
 
-	let svgTree = d3.select('#treeBox').select('svg')
+	let svgTree = d3.select('#treeBox').select('svg'),
+		g = svgTree.select('g')
 
 	svgTree.call(d3.zoom()
-		.scaleExtent([1, 10])
-		.on('zoom', function() {
-			svgTree.call(d3.drag)
-				.attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')')
+		.on('zoom', () => {
+			g.attr('transform', d3.event.transform)
 		})
 	)
+
 	storedTree = tree
+}
+
+exports.fitScreen = function() {
+	let svgTree = d3.select('#treeBox').select('svg'),
+		g = svgTree.select('g')
+
+	svgTree.call(d3.zoom().transform, d3.zoomIdentity)
+	g.attr('transform', {k: 1, x: 0, y: 0})
 }
 
 exports.updateVertical = function() {
@@ -66,11 +74,6 @@ exports.updateVertical = function() {
 
 exports.updateRadial = function() {
 	treeLayout.updateRadial(tree)
-}
-
-exports.fitScreen = function() {
-	let svgTree = d3.select('#treeBox').select('svg')
-	svgTree.attr('transform', 'translate(0,0) scale(1)')
 }
 
 function download() {
