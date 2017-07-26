@@ -5,53 +5,70 @@ let d3 = require('d3')
 let phylogician = require('./phylogician.js')
 
 let NavBarShow = false,
-	maxWidth = document.body.innerWidth
+	maxWidth = document.body.clientWidth,
+	barWidthOffset = 50,
+	barWidth = maxWidth - barWidthOffset
 
 let navBar = d3.select('body').append('div')
 	.attr('id', 'controlBar')
 	.attr('class', 'navbar')
+	.attr('width', barWidth + 'px')
 
-navBar.style('left', function() {
-	let barWidth = navBar.node().offsetWidth,
-		apparent = 50
-
-	let NavBarPosition = '-' + (barWidth - apparent) + 'px'
-
+navBar.style('right', function() {
+	let navBarPosition = barWidth + 'px'
 	if (NavBarShow)
-		NavBarPosition = '-50px'
-
-	return NavBarPosition
+		navBarPosition = barWidthOffset + 'px'
+	return navBarPosition
 })
 
-let navBarBrand = d3.select('#controlBar').append('img')
-	.attr('id', 'brand')
-	.attr('src', './src/navbrand.svg')
-	.style('width', '30px')
-	.style('border-color', 'white')
-	.style('border', '5')
+d3.xml('./src/navbrand.svg')
+	.mimeType('image/svg+xml')
+	.get(function(error, xml) {
+		if (error) throw error
+		xml.documentElement.id = 'brand'
+		xml.documentElement.style.width = '30px'
+		xml.documentElement.style.height = '30px'
+		xml.documentElement.addEventListener('click', () => {
+			toggleNavBar()
+		})
+		document.getElementById('controlBar').appendChild(xml.documentElement)
+	})
 
-navBarBrand.on('click', () => {
-	moveNavBar()
-})
+function toggleNavBar() {
+	if (navBar.node().getBoundingClientRect().right === barWidth)
+		retractNavBar()
+	else
+		expandNavBar()
+}
 
-function moveNavBar() {
-	let barLeftPos = navBar.node().offsetLeft,
-		barWidth = navBar.node().offsetWidth,
-		apparent = 50,
-		newpos = '-50px',
-		newText = '-',
-		duration = 1000
+function expandNavBar() {
+	let duration = 1000
+	if (navBar.node().getBoundingClientRect().right !== barWidth) {
+		let navBarPosition = barWidthOffset + 'px'
+		navBar.transition()
+			.duration(duration)
+			.style('right', navBarPosition)
 
-	if (barLeftPos === parseInt(newpos))
-		newpos = '-' + (barWidth - apparent) + 'px'
+		d3.select('#brand').selectAll('path, polygon')
+			.transition()
+			.duration(duration)
+			.attr('fill', 'white')
+	}
+}
 
-	navBar.transition()
-		.duration(duration)
-		.style('left', newpos)
+function retractNavBar() {
+	let duration = 1000
+	if (navBar.node().getBoundingClientRect().right !== barWidthOffset) {
+		let navBarPosition = barWidth + 'px'
+		navBar.transition()
+			.duration(duration)
+			.style('right', navBarPosition)
 
-	navBarBrand.transition()
-		.duration(duration)
-		.text(newText)
+		d3.select('#brand').selectAll('path, polygon')
+			.transition()
+			.duration(duration)
+			.attr('fill', '#91DC5A')
+	}
 }
 
 function popFormString() {
@@ -70,8 +87,10 @@ function popFormString() {
 			if (e.keyCode === enterKeyCode) {
 				let newick = document.getElementById('stringInput').value
 				myStringForm.style.display = 'none'
-				if (newick !== '')
+				if (newick !== '') {
 					phylogician.makeTree(newick)
+					retractNavBar()
+				}
 			}
 		})
 		document.body.appendChild(myStringForm)
@@ -105,6 +124,7 @@ function popFormFile() {
 				fileFormLabel.style.display = 'none'
 				phylogician.makeTree(newick)
 				fileInput.value = null
+				retractNavBar()
 			}
 			reader.readAsText(file)
 		})
