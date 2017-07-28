@@ -230,6 +230,14 @@ fit2screen.addEventListener('click', (e) => {
 })
 operationsOptions.appendChild(fit2screen)
 
+let toggleSupport = document.createElement('a')
+toggleSupport.classList.add('dropdown-item')
+toggleSupport.innerHTML = 'Toggle Support Values'
+toggleSupport.addEventListener('click', (e) => {
+	phylogician.toggleSupport(e)
+	retractNavBar()
+})
+operationsOptions.appendChild(toggleSupport)
 
 navBarDOM.appendChild(buttonGroup)
 
