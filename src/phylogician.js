@@ -5,7 +5,8 @@ let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick'),
 	treeLayout = require('./treelayout.js'),
-	utils = require('./utils.js')
+	utils = require('./utils.js'),
+	treeOperations = require('./treeOperations.js')
 
 let tree = tntTree()
 let expandedNode = tntTree.node_display.circle()
@@ -74,6 +75,10 @@ exports.updateVertical = function() {
 
 exports.updateRadial = function() {
 	treeLayout.updateRadial(tree)
+}
+
+exports.toggleSupport = function() {
+	treeOperations.toggleSupport(tree)
 }
 
 function download() {
