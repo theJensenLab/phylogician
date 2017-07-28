@@ -119,7 +119,7 @@ function popFormFile() {
 				file = fileInput.files[0]
 			let reader = new FileReader()
 
-      reader.onload = function(err) {
+			reader.onload = function(err) {
 				newick = reader.result
 				fileFormLabel.style.display = 'none'
 				phylogician.makeTree(newick)
