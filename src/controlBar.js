@@ -233,11 +233,20 @@ operationsOptions.appendChild(fit2screen)
 let toggleSupport = document.createElement('a')
 toggleSupport.classList.add('dropdown-item')
 toggleSupport.innerHTML = 'Toggle Support Values'
-toggleSupport.addEventListener('click', (e) => {
-	phylogician.toggleSupport(e)
+toggleSupport.addEventListener('click', () => {
+	phylogician.toggleSupport()
 	retractNavBar()
 })
 operationsOptions.appendChild(toggleSupport)
+
+let changeBranchColor = document.createElement('a')
+changeBranchColor.classList.add('dropdown-item')
+changeBranchColor.innerHTML = 'Change Branch Color'
+changeBranchColor.addEventListener('click', () => {
+	phylogician.changeBranchColor()
+	retractNavBar()
+})
+operationsOptions.appendChild(changeBranchColor)
 
 navBarDOM.appendChild(buttonGroup)
 

@@ -78,7 +78,11 @@ exports.updateRadial = function() {
 }
 
 exports.toggleSupport = function() {
-	treeOperations.toggleSupport(tree)
+	treeOperations.toggleSupport()
+}
+
+exports.changeBranchColor = function() {
+	treeOperations.changeBranchColor()
 }
 
 function download() {
