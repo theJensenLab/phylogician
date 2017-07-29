@@ -85,6 +85,10 @@ exports.changeBranchColor = function() {
 	treeOperations.changeBranchColor()
 }
 
+exports.changeBranchWidth = function(e) {
+	treeOperations.changeBranchWidth(e)
+} 
+
 function download() {
 	let pngExporter = tnt.utils.png()
 		.filename('treeSample.png')

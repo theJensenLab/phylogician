@@ -21,3 +21,9 @@ exports.changeBranchColor = function() {
 	else
 		branches.attr('style', 'stroke: black')
 }
+
+exports.changeBranchWidth = function(width) {
+	let branches = d3.select('.links')
+		.selectAll('path')
+	branches.attr('stroke-width', width)
+}

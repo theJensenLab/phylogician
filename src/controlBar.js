@@ -248,6 +248,40 @@ changeBranchColor.addEventListener('click', () => {
 })
 operationsOptions.appendChild(changeBranchColor)
 
+let changeBranchWidth = document.createElement('a')
+changeBranchWidth.classList.add('dropdown-item')
+changeBranchWidth.innerHTML = 'Change Branch Width'
+changeBranchWidth.addEventListener('click', popFormBranchWidth)
+operationsOptions.appendChild(changeBranchWidth)
+
+function popFormBranchWidth() {
+	if (document.getElementById('fileFormLabel'))
+		document.getElementById('fileFormLabel').style.display = 'none'
+	if (document.getElementById('stringInput'))
+		document.getElementById('stringInput').style.display = 'none'
+	if (document.getElementById('branchWidthInput')) {
+		document.getElementById('branchWidthInput').style.display = 'block'
+	}
+	else {
+		let branchWidthForm = document.createElement('input')
+		branchWidthForm.classList.add('form-control')
+		branchWidthForm.id = 'branchWidthInput'
+		branchWidthForm.style.display = 'block'
+		branchWidthForm.addEventListener('keydown', function(e) {
+			let enterKeyCode = 13
+			if (e.keyCode === enterKeyCode) {
+				let branchWidth = document.getElementById('branchWidthInput').value
+				branchWidthForm.style.display = 'none'
+				if (branchWidth !== '') {
+					phylogician.changeBranchWidth(branchWidth)
+					retractNavBar()
+				}
+			}
+		})
+		document.body.appendChild(branchWidthForm)
+	}
+}
+
 navBarDOM.appendChild(buttonGroup)
 
 function navBarShortcut(e) {
