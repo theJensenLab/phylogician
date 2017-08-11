@@ -48,6 +48,6 @@
     "webpack-dev-server": "^2.5.0"
   },
   "dependencies": {
-    "jscolor": "^0.2.2"
+    "jscolor-picker": "^2.0.4"
   }
 }

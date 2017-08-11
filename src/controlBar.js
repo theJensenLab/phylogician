@@ -264,7 +264,7 @@ function popColorPicker() {
 		document.getElementById('colorPicker').style.display = 'block'
 	}
 	else {
-		let colorPicker = document.createElement('input')
+		let colorPicker = document.createElement('button')
 		colorPicker.classList.add('jscolor')
 		colorPicker.id = 'colorPicker'
 		colorPicker.style.display = 'block'
