@@ -76,6 +76,8 @@ function popFormString() {
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('branchWidthInput'))
 		document.getElementById('branchWidthInput').style.display = 'none'
+	if (document.getElementById('colorPicker'))
+		document.getElementById('colorPicker').style.display = 'none'
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
 	}
@@ -104,6 +106,8 @@ function popFormFile() {
 		document.getElementById('stringInput').style.display = 'none'
 	if (document.getElementById('branchWidthInput'))
 		document.getElementById('branchWidthInput').style.display = 'none'
+	if (document.getElementById('colorPicker'))
+		document.getElementById('colorPicker').style.display = 'none'
 	if (document.getElementById('fileFormLabel')) {
 		document.getElementById('fileFormLabel').style.display = 'block'
 	}
@@ -243,14 +247,30 @@ toggleSupport.addEventListener('click', () => {
 })
 operationsOptions.appendChild(toggleSupport)
 
-let changeBranchColor = document.createElement('a')
+let changeBranchColor = document.createElement('button')
 changeBranchColor.classList.add('dropdown-item')
 changeBranchColor.innerHTML = 'Change Branch Color'
-changeBranchColor.addEventListener('click', () => {
-	phylogician.changeBranchColor()
-	retractNavBar()
-})
+changeBranchColor.addEventListener('click', popColorPicker)
 operationsOptions.appendChild(changeBranchColor)
+
+function popColorPicker() {
+	if (document.getElementById('fileFormLabel'))
+		document.getElementById('fileFormLabel').style.display = 'none'
+	if (document.getElementById('stringInput'))
+		document.getElementById('stringInput').style.display = 'none'
+	if (document.getElementById('branchWidthInput'))
+		document.getElementById('branchWidthInput').style.display = 'none'
+	if (document.getElementById('colorPicker')) {
+		document.getElementById('colorPicker').style.display = 'block'
+	}
+	else {
+		let colorPicker = document.createElement('input')
+		colorPicker.classList.add('jscolor')
+		colorPicker.id = 'colorPicker'
+		colorPicker.style.display = 'block'
+		document.body.appendChild(colorPicker)
+	}
+}
 
 let changeBranchWidth = document.createElement('a')
 changeBranchWidth.classList.add('dropdown-item')
@@ -263,6 +283,8 @@ function popFormBranchWidth() {
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
 		document.getElementById('stringInput').style.display = 'none'
+	if (document.getElementById('colorPicker'))
+		document.getElementById('colorPicker').style.display = 'none'
 	if (document.getElementById('branchWidthInput')) {
 		document.getElementById('branchWidthInput').style.display = 'block'
 	}
