@@ -1,7 +1,11 @@
 /* eslint-env browser */
 'use strict'
 
-let d3 = require('d3')
+require('bootstrap-colorpicker')
+
+let d3 = require('d3'),
+	$ = require('jquery')
+
 let phylogician = require('./phylogician.js')
 
 let NavBarShow = false,
@@ -74,6 +78,10 @@ function retractNavBar() {
 function popFormString() {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
+	if (document.getElementById('branchWidthInput'))
+		document.getElementById('branchWidthInput').style.display = 'none'
+	if (document.getElementById('colorPicker'))
+		document.getElementById('colorPicker').style.display = 'none'
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
 	}
@@ -100,6 +108,10 @@ function popFormString() {
 function popFormFile() {
 	if (document.getElementById('stringInput'))
 		document.getElementById('stringInput').style.display = 'none'
+	if (document.getElementById('branchWidthInput'))
+		document.getElementById('branchWidthInput').style.display = 'none'
+	if (document.getElementById('colorPicker'))
+		document.getElementById('colorPicker').style.display = 'none'
 	if (document.getElementById('fileFormLabel')) {
 		document.getElementById('fileFormLabel').style.display = 'block'
 	}
@@ -119,7 +131,7 @@ function popFormFile() {
 				file = fileInput.files[0]
 			let reader = new FileReader()
 
-      reader.onload = function(err) {
+			reader.onload = function(err) {
 				newick = reader.result
 				fileFormLabel.style.display = 'none'
 				phylogician.makeTree(newick)
@@ -230,6 +242,86 @@ fit2screen.addEventListener('click', (e) => {
 })
 operationsOptions.appendChild(fit2screen)
 
+let toggleSupport = document.createElement('a')
+toggleSupport.classList.add('dropdown-item')
+toggleSupport.innerHTML = 'Toggle Support Values'
+toggleSupport.addEventListener('click', () => {
+	phylogician.toggleSupport()
+	retractNavBar()
+})
+operationsOptions.appendChild(toggleSupport)
+
+let changeBranchColor = document.createElement('button')
+changeBranchColor.classList.add('dropdown-item')
+changeBranchColor.innerHTML = 'Change Branch Color'
+changeBranchColor.addEventListener('click', popColorPicker)
+operationsOptions.appendChild(changeBranchColor)
+
+function popColorPicker() {
+	if (document.getElementById('fileFormLabel'))
+		document.getElementById('fileFormLabel').style.display = 'none'
+	if (document.getElementById('stringInput'))
+		document.getElementById('stringInput').style.display = 'none'
+	if (document.getElementById('branchWidthInput'))
+		document.getElementById('branchWidthInput').style.display = 'none'
+	if (document.getElementById('colorPicker')) {
+		document.getElementById('colorPicker').style.display = 'block'
+	}
+	else {
+		let colorPicker = document.createElement('input')
+		colorPicker.classList.add('form-control')
+		colorPicker.id = 'colorPicker'
+		colorPicker.style.display = 'block'
+		$(function() {
+			$('#colorPicker').colorpicker()
+				.on('changeColor', function(e) {
+					phylogician.changeBranchColor(e)
+					console.log(e)
+				})
+				.on('hidePicker', function() {
+					document.getElementById('colorPicker').style.display = 'none'
+					retractNavBar()
+				})
+		})
+		document.body.appendChild(colorPicker)
+	}
+}
+
+let changeBranchWidth = document.createElement('a')
+changeBranchWidth.classList.add('dropdown-item')
+changeBranchWidth.innerHTML = 'Change Branch Width'
+changeBranchWidth.addEventListener('click', popFormBranchWidth)
+operationsOptions.appendChild(changeBranchWidth)
+
+function popFormBranchWidth() {
+	if (document.getElementById('fileFormLabel'))
+		document.getElementById('fileFormLabel').style.display = 'none'
+	if (document.getElementById('stringInput'))
+		document.getElementById('stringInput').style.display = 'none'
+	if (document.getElementById('colorPicker'))
+		document.getElementById('colorPicker').style.display = 'none'
+	if (document.getElementById('branchWidthInput')) {
+		document.getElementById('branchWidthInput').style.display = 'block'
+	}
+	else {
+		let branchWidthForm = document.createElement('input')
+		branchWidthForm.classList.add('form-control')
+		branchWidthForm.id = 'branchWidthInput'
+		branchWidthForm.style.display = 'block'
+		branchWidthForm.addEventListener('keydown', function(e) {
+			let enterKeyCode = 13
+			if (e.keyCode === enterKeyCode) {
+				let branchWidth = document.getElementById('branchWidthInput').value
+				branchWidthForm.style.display = 'none'
+				if (branchWidth !== '') {
+					phylogician.changeBranchWidth(branchWidth)
+					retractNavBar()
+				}
+			}
+		})
+		document.body.appendChild(branchWidthForm)
+	}
+}
 
 navBarDOM.appendChild(buttonGroup)
 
