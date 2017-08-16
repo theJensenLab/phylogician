@@ -7,7 +7,7 @@ let path = require('path'),
 module.exports = {
 	entry: {
 		app: './src/index.js',
-		vendor: ['jquery', 'jscolor-picker']
+		vendor: ['jquery']
 	},
 	output: {
 		filename: '[name].bundle.js',

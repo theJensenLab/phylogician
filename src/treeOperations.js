@@ -13,13 +13,10 @@ exports.toggleSupport = function() {
 		text.attr('display', 'none')
 }
 
-exports.changeBranchColor = function() {
+exports.changeBranchColor = function(newColor) {
 	let branches = d3.select('.links')
 		.selectAll('path')
-	if (branches.attr('style') === 'stroke: black;')
-		branches.attr('style', 'stroke: red')
-	else
-		branches.attr('style', 'stroke: black;')
+	branches.attr('style', 'stroke: ' + newColor.color)
 }
 
 exports.changeBranchWidth = function(width) {

@@ -48,6 +48,6 @@
     "webpack-dev-server": "^2.5.0"
   },
   "dependencies": {
-    "jscolor-picker": "^2.0.4"
+    "bootstrap-colorpicker": "^2.5.1"
   }
 }

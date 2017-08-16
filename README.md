@@ -1,13 +1,14 @@
-# phyloTreeVizJS
+# Phylogician - 0.1v
 Our approach to visualization of phylogenetics trees using javascript and d3.js
 
-We will build a webApp for tree visualization.
+We will build a web app for tree visualization taking in consideration commentaries and criticisms of the community such as:
+
+
 
 Humbly inspired by the work of others, we will use TnT, d3, express and node.
 
 ## Install and run it.
 
-f-navbar-scaffold
 ```bash
 $ git clone git@github.com:theJensenLab/phyloTreeVizJS.git
 $ cd phyloTreeVizJS
@@ -18,7 +19,7 @@ $ npm run server:dev
 If you are working on a specific branch:
 
 ```bash
-$ git branch _your_specific_branch_
+$ git checkout specific_branch
 $ npm install
 $ npm run server:dev
 ```
@@ -50,10 +51,17 @@ You must load `chai` in the beginning if you will be using `expect`:
 let expect = require('chai').expect
 ```
 
+## Development roadmap
+We have a development roadmap separated in [milestones](https://github.com/theJensenLab/phyloTreeVizJS/blob/develop/Milestone.md) 
 
-=======
+
+## Bugs & suggestions
+We welcome suggestions and criticism from the community. Please use the github [issue tracker](https://github.com/theJensenLab/phyloTreeVizJS/issues)
+
+Also, check out the [milestone page](https://github.com/theJensenLab/phyloTreeVizJS/blob/develop/Milestone.md) to see if a feature you are requesting is already schedule to be part of Phylogician.
+
+
 ## How to contribute
-
 branch name:
 
 |prefix| meaning |

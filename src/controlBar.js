@@ -1,7 +1,11 @@
 /* eslint-env browser */
 'use strict'
 
-let d3 = require('d3')
+require('bootstrap-colorpicker')
+
+let d3 = require('d3'),
+	$ = require('jquery')
+
 let phylogician = require('./phylogician.js')
 
 let NavBarShow = false,
@@ -264,10 +268,21 @@ function popColorPicker() {
 		document.getElementById('colorPicker').style.display = 'block'
 	}
 	else {
-		let colorPicker = document.createElement('button')
-		colorPicker.classList.add('jscolor')
+		let colorPicker = document.createElement('input')
+		colorPicker.classList.add('form-control')
 		colorPicker.id = 'colorPicker'
 		colorPicker.style.display = 'block'
+		$(function() {
+			$('#colorPicker').colorpicker()
+				.on('changeColor', function(e) {
+					phylogician.changeBranchColor(e)
+					console.log(e)
+				})
+				.on('hidePicker', function() {
+					document.getElementById('colorPicker').style.display = 'none'
+					retractNavBar()
+				})
+		})
 		document.body.appendChild(colorPicker)
 	}
 }

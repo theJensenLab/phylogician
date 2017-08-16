@@ -81,13 +81,13 @@ exports.toggleSupport = function() {
 	treeOperations.toggleSupport()
 }
 
-exports.changeBranchColor = function() {
-	treeOperations.changeBranchColor()
+exports.changeBranchColor = function(e) {
+	treeOperations.changeBranchColor(e)
 }
 
 exports.changeBranchWidth = function(e) {
 	treeOperations.changeBranchWidth(e)
-} 
+}
 
 function download() {
 	let pngExporter = tnt.utils.png()

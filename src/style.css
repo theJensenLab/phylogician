@@ -100,7 +100,7 @@ body {
   opacity: 0.8;
 }
 
-.jscolor {
+#colorPicker {
   position:absolute;
   left:50%;
   top:50%;
