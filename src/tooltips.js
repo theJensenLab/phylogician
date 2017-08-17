@@ -16,6 +16,7 @@ let tooltip = d3.select('body').append('div')
 tntTree.on('mouseover', function(node) {
 	if (document.getElementById('tooltip1').style.display === 'none')
 		tooltip.style('display', 'block')
+		console.log('Tooltip display is now set as "block"')
 	else
 		tooltip.style('display', 'none')
 	// can add html here or append
