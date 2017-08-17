@@ -7,7 +7,7 @@ let phylogician = require('./phylogician.js')
 let tntTree = require('tnt.tree')
 
 let tooltip = d3.select('body').append('div')
-	.attri('id', 'tooltip1')
+	.attr('id', 'tooltip1')
 	.attr('class', 'tooltip')
 	.style('display', 'none')
 	.style('left', (d3.event.pageX + 30) + 'px')
