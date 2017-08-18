@@ -48,6 +48,11 @@ body {
   z-index: 100;
 }
 
+.tooltippy {
+  top: 0;
+  background-color: #33373d;
+}
+
 .tnt_groupDiv {
   margin: auto;
 }

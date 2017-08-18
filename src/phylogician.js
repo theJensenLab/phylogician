@@ -6,7 +6,8 @@ let	d3 = require('d3'),
 	parser = require('tnt.newick'),
 	treeLayout = require('./treelayout.js'),
 	utils = require('./utils.js'),
-	treeOperations = require('./treeOperations.js')
+	treeOperations = require('./treeOperations.js'),
+	tp = require('./tooltips.js')
 
 let tree = tntTree()
 let expandedNode = tntTree.node_display.circle()
@@ -57,7 +58,7 @@ exports.makeTree = function(newickString) {
 			g.attr('transform', d3.event.transform)
 		})
 	)
-
+	tp.mouseovernodes()
 	storedTree = tree
 }
 

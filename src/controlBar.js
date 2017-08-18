@@ -254,10 +254,10 @@ operationsOptions.appendChild(toggleSupport)
 let changeBranchColor = document.createElement('button')
 changeBranchColor.classList.add('dropdown-item')
 changeBranchColor.innerHTML = 'Change Branch Color'
-changeBranchColor.addEventListener('click', popColorPicker)
+changeBranchColor.addEventListener('click', console.log(''))
 operationsOptions.appendChild(changeBranchColor)
 
-function popColorPicker() {
+exports.popColorPicker = function() {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
