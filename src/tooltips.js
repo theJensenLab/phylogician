@@ -22,6 +22,15 @@ changeBranchColor.innerHTML = 'Change Branch Color'
 changeBranchColor.addEventListener('click', controlBar.popColorPicker)
 tooltipDiv.appendChild(changeBranchColor)
 
+let collapseNode = document.createElement('button')
+collapseNode.setAttribute('type', 'button')
+collapseNode.classList.add('btn')
+collapseNode.innerHTML = 'Collapse Node'
+collapseNode.addEventListener('click', function (node) {
+	node.toggle()
+	tree.update()
+})
+tooltipDiv.appendChild(collapseNode)
 
 exports.mouseovernodes = function() {
 	d3.select('.nodes')
