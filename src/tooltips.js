@@ -39,7 +39,7 @@ exports.mouseovernodes = function() {
 		.on('click', function() {
 			if (document.getElementById('tooltip1').style.display === 'block')
 				document.getElementById('tooltip1').style.display = 'none'
-			if (document.getElementById('tooltip1').style.display === 'none')
+			else
 				document.getElementById('tooltip1').style.display = 'block'
 			document.getElementById('tooltip1').style.right = (d3.event.pageX + 30) + 'px'
 			document.getElementById('tooltip1').style.top = (d3.event.pageY + 30) + 'px'	
