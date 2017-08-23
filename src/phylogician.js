@@ -23,7 +23,6 @@ let nodeDisplay = tree.node_display()
 		else
 			expandedNode.display().call(this, node)
 	})
-let storedTree = ''
 
 exports.makeTree = function(newickString) {
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
@@ -59,7 +58,6 @@ exports.makeTree = function(newickString) {
 		})
 	)
 	tp.mouseovernodes()
-	storedTree = tree
 }
 
 exports.fitScreen = function() {

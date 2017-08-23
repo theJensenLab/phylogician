@@ -26,7 +26,7 @@ let collapseNode = document.createElement('button')
 collapseNode.setAttribute('type', 'button')
 collapseNode.classList.add('btn')
 collapseNode.innerHTML = 'Collapse Node'
-collapseNode.addEventListener('click', function (node) {
+collapseNode.addEventListener('click', function(node) {
 	node.toggle()
 	tree.update()
 })
