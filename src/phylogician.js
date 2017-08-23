@@ -96,9 +96,9 @@ function download() {
 	pngExporter(d3.select('svg'))
 }
 
-tree.on('click', function(node) {
+/* tree.on('click', function(node) {
 	node.toggle()
 	tree.update()
-})
+}) */
 
 // module.exports = 'phylogician'

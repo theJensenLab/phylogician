@@ -11,7 +11,7 @@ let tree = tntTree()
 let tooltip = d3.select('body').append('div')
 	.attr('id', 'tooltip1')
 	.attr('class', 'tooltippy')
-	.style('display', 'block')
+	.style('display', 'none')
 
 let tooltipDiv = document.getElementById('tooltip1')
 
@@ -28,9 +28,14 @@ exports.mouseovernodes = function() {
 		.selectAll('g')
 		.select('circle')
 		.on('mouseover', function() {
-			document.getElementById('tooltip1').style.left = (d3.event.pageX + 30) + 'px'
+			if (document.getElementById('tooltip1'))
+				document.getElementById('tooltip1').style.display = 'block'
+			document.getElementById('tooltip1').style.right = (d3.event.pageX + 30) + 'px'
 			document.getElementById('tooltip1').style.top = (d3.event.pageY + 30) + 'px'	
-			console.log('Tooltip display is now set as "block"')
+		})
+		.on('mouseout', function() {
+			if (document.getElementById('tooltip1'))
+				document.getElementById('tooltip1').style.display = 'none'
 		})
 }
 
