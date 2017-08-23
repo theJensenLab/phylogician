@@ -10,14 +10,15 @@ let controlBar = require('./controlBar.js')
 let tree = tntTree()
 let tooltip = d3.select('body').append('div')
 	.attr('id', 'tooltip1')
-	.attr('class', 'tooltippy')
-	.style('display', 'none')
+	.attr('class', 'btn-group-vertical')
+	.style('display', 'block')
 
 let tooltipDiv = document.getElementById('tooltip1')
 
 let changeBranchColor = document.createElement('button')
 changeBranchColor.setAttribute('type', 'button')
 changeBranchColor.classList.add('btn')
+changeBranchColor.classList.add('btn-sm')
 changeBranchColor.innerHTML = 'Change Branch Color'
 changeBranchColor.addEventListener('click', controlBar.popColorPicker)
 tooltipDiv.appendChild(changeBranchColor)
@@ -25,8 +26,10 @@ tooltipDiv.appendChild(changeBranchColor)
 let collapseNode = document.createElement('button')
 collapseNode.setAttribute('type', 'button')
 collapseNode.classList.add('btn')
+collapseNode.classList.add('btn-sm')
 collapseNode.innerHTML = 'Collapse Node'
 collapseNode.addEventListener('click', function(node) {
+	// this needs to be fixed without using TNT
 	node.toggle()
 	tree.update()
 })
@@ -41,8 +44,7 @@ exports.mouseovernodes = function() {
 				document.getElementById('tooltip1').style.display = 'none'
 			else
 				document.getElementById('tooltip1').style.display = 'block'
-			document.getElementById('tooltip1').style.right = (d3.event.pageX + 30) + 'px'
-			document.getElementById('tooltip1').style.top = (d3.event.pageY + 30) + 'px'	
+			document.getElementById('tooltip1').style.transform = 'translate(' + (d3.event.pageX + 10) + 'px,' + (d3.event.pageY + 10) + 'px)'
 		})
 }
 

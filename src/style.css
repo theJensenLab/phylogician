@@ -48,9 +48,10 @@ body {
   z-index: 100;
 }
 
-.tooltippy {
-  top: 0;
-  background-color: #33373d;
+.btn-group-vertical {
+  position: absolute;
+  width: 150px;
+  background-color: rgba(210, 118, 118, 0.00);
 }
 
 .tnt_groupDiv {
