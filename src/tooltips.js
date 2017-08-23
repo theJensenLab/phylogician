@@ -27,15 +27,13 @@ exports.mouseovernodes = function() {
 	d3.select('.nodes')
 		.selectAll('g')
 		.select('circle')
-		.on('mouseover', function() {
-			if (document.getElementById('tooltip1'))
+		.on('click', function() {
+			if (document.getElementById('tooltip1').style.display === 'block')
+				document.getElementById('tooltip1').style.display = 'none'
+			if (document.getElementById('tooltip1').style.display === 'none')
 				document.getElementById('tooltip1').style.display = 'block'
 			document.getElementById('tooltip1').style.right = (d3.event.pageX + 30) + 'px'
 			document.getElementById('tooltip1').style.top = (d3.event.pageY + 30) + 'px'	
-		})
-		.on('mouseout', function() {
-			if (document.getElementById('tooltip1'))
-				document.getElementById('tooltip1').style.display = 'none'
 		})
 }
 
