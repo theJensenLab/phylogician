@@ -9,10 +9,17 @@ let controlBar = require('./controlBar.js')
 let popforms = require('./popforms.js')
 
 let tree = tntTree()
-let tooltip = d3.select('body').append('div')
+
+let tooltipContainer = d3.select('body').append('div')
+	.attr('id', 'tooltipContainer')
+	.attr('class', 'tooltipContainer')
+	.style('display', 'block')
+
+let tooltip = d3.select('body').select('div')
+	.append('div')
 	.attr('id', 'tooltip1')
 	.attr('class', 'btn-group-vertical')
-	.style('display', 'block')
+	.style('display', 'none')
 
 let tooltipDiv = document.getElementById('tooltip1')
 
@@ -36,17 +43,27 @@ collapseNode.addEventListener('click', function(node) {
 })
 tooltipDiv.appendChild(collapseNode)
 
+let closeMenu = document.createElement('button')
+closeMenu.setAttribute('type', 'button')
+closeMenu.classList.add('btn')
+closeMenu.classList.add('btn-sm')
+closeMenu.innerHTML = 'Close Menu'
+closeMenu.addEventListener('click', closeTooltip)
+tooltipDiv.appendChild(closeMenu)
+
 exports.mouseovernodes = function() {
 	d3.select('.nodes')
 		.selectAll('g')
 		.select('circle')
 		.on('click', function() {
-			if (document.getElementById('tooltip1').style.display === 'block')
-				document.getElementById('tooltip1').style.display = 'none'
-			else
-				document.getElementById('tooltip1').style.display = 'block'
+			document.getElementById('tooltip1').style.display = 'block'				
 			document.getElementById('tooltip1').style.transform = 'translate(' + (d3.event.pageX + 10) + 'px,' + (d3.event.pageY + 10) + 'px)'
 		})
+}
+
+
+function closeTooltip() {
+	document.getElementById('tooltip1').style.display = 'none'
 }
 
 

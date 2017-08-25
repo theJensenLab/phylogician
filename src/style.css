@@ -48,10 +48,16 @@ body {
   z-index: 100;
 }
 
+.tooltipContainer {
+  position: relative;
+  height: 1px;
+}
+
 .btn-group-vertical {
   position: absolute;
   width: 150px;
   background-color: rgba(210, 118, 118, 0.00);
+  z-index: 50;
 }
 
 .tnt_groupDiv {
