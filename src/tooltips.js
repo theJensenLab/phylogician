@@ -6,6 +6,7 @@ let $ = require('jquery')
 let phylogician = require('./phylogician.js')
 let tntTree = require('tnt.tree')
 let controlBar = require('./controlBar.js')
+let popforms = require('./popforms.js')
 
 let tree = tntTree()
 let tooltip = d3.select('body').append('div')
@@ -20,7 +21,7 @@ changeBranchColor.setAttribute('type', 'button')
 changeBranchColor.classList.add('btn')
 changeBranchColor.classList.add('btn-sm')
 changeBranchColor.innerHTML = 'Change Branch Color'
-changeBranchColor.addEventListener('click', controlBar.popColorPicker)
+changeBranchColor.addEventListener('click', popforms.popColorPicker)
 tooltipDiv.appendChild(changeBranchColor)
 
 let collapseNode = document.createElement('button')
