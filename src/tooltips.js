@@ -47,7 +47,7 @@ let closeMenu = document.createElement('button')
 closeMenu.setAttribute('type', 'button')
 closeMenu.classList.add('btn')
 closeMenu.classList.add('btn-sm')
-closeMenu.innerHTML = 'Close Menu'
+closeMenu.innerHTML = 'Close'
 closeMenu.addEventListener('click', closeTooltip)
 tooltipDiv.appendChild(closeMenu)
 
