@@ -4,7 +4,8 @@
 require('bootstrap-colorpicker')
 
 let d3 = require('d3'),
-	$ = require('jquery')
+	$ = require('jquery'),
+	phylogician = require('./phylogician.js')
 
 exports.popColorPicker = function() {
 	if (document.getElementById('fileFormLabel'))
@@ -29,7 +30,6 @@ exports.popColorPicker = function() {
 				})
 				.on('hidePicker', function() {
 					document.getElementById('colorPicker').style.display = 'none'
-					retractNavBar()
 				})
 		})
 		document.body.appendChild(colorPicker)

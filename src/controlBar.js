@@ -257,36 +257,6 @@ changeBranchColor.innerHTML = 'Change Branch Color'
 changeBranchColor.addEventListener('click', console.log(''))
 operationsOptions.appendChild(changeBranchColor)
 
-exports.popColorPicker = function() {
-	if (document.getElementById('fileFormLabel'))
-		document.getElementById('fileFormLabel').style.display = 'none'
-	if (document.getElementById('stringInput'))
-		document.getElementById('stringInput').style.display = 'none'
-	if (document.getElementById('branchWidthInput'))
-		document.getElementById('branchWidthInput').style.display = 'none'
-	if (document.getElementById('colorPicker')) {
-		document.getElementById('colorPicker').style.display = 'block'
-	}
-	else {
-		let colorPicker = document.createElement('input')
-		colorPicker.classList.add('form-control')
-		colorPicker.id = 'colorPicker'
-		colorPicker.style.display = 'block'
-		$(function() {
-			$('#colorPicker').colorpicker()
-				.on('changeColor', function(e) {
-					phylogician.changeBranchColor(e)
-					console.log(e)
-				})
-				.on('hidePicker', function() {
-					document.getElementById('colorPicker').style.display = 'none'
-					retractNavBar()
-				})
-		})
-		document.body.appendChild(colorPicker)
-	}
-}
-
 let changeBranchWidth = document.createElement('a')
 changeBranchWidth.classList.add('dropdown-item')
 changeBranchWidth.innerHTML = 'Change Branch Width'
