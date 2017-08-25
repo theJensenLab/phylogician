@@ -251,12 +251,6 @@ toggleSupport.addEventListener('click', () => {
 })
 operationsOptions.appendChild(toggleSupport)
 
-let changeBranchColor = document.createElement('button')
-changeBranchColor.classList.add('dropdown-item')
-changeBranchColor.innerHTML = 'Change Branch Color'
-changeBranchColor.addEventListener('click', console.log(''))
-operationsOptions.appendChild(changeBranchColor)
-
 let changeBranchWidth = document.createElement('a')
 changeBranchWidth.classList.add('dropdown-item')
 changeBranchWidth.innerHTML = 'Change Branch Width'
