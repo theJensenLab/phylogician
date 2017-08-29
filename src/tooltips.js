@@ -55,10 +55,10 @@ exports.mouseovernodes = function() {
 	d3.select('.nodes')
 		.selectAll('g')
 		.select('circle')
-		.on('click', function() {
-			document.getElementById('tooltip1').style.display = 'block'				
-			document.getElementById('tooltip1').style.transform = 'translate(' + (d3.event.pageX + 10) + 'px,' + (d3.event.pageY + 10) + 'px)'
-		})
+		//.on('click', function() {
+			//document.getElementById('tooltip1').style.display = 'block'				
+			//document.getElementById('tooltip1').style.transform = 'translate(' + (d3.event.pageX + 10) + 'px,' + (d3.event.pageY + 10) + 'px)'
+		//})
 }
 
 

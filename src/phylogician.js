@@ -7,7 +7,8 @@ let	d3 = require('d3'),
 	treeLayout = require('./treelayout.js'),
 	utils = require('./utils.js'),
 	treeOperations = require('./treeOperations.js'),
-	tp = require('./tooltips.js')
+	tp = require('./tooltips.js'),
+	tntTooltip = require('./tnt_tooltip.js')
 
 let tree = tntTree()
 let expandedNode = tntTree.node_display.circle()
@@ -94,9 +95,17 @@ function download() {
 	pngExporter(d3.select('svg'))
 }
 
-/* tree.on('click', function(node) {
-	node.toggle()
-	tree.update()
-}) */
+tree.on('click', function(node) {
+	//node.toggle()
+	//tree.update()
+	tntTooltip.table()
+	.width(120)
+	.call(this, {
+		"header" : "Node",
+		"rows" : [
+			{"label": "id", "value": d.id()}
+		]
+	})
+})
 
 // module.exports = 'phylogician'
