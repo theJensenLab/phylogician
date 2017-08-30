@@ -1,6 +1,10 @@
+/* eslint-env browser */
+'use strict'
 
-let d3 = require('d3')
-let apijs = require('tnt.api')
+let d3 = require('d3'),
+	apijs = require('tnt.api'),
+	popforms = require('./popforms.js')
+
 
 
 let tooltip = function () {
@@ -258,6 +262,17 @@ tooltip.table = function () {
 			.append('td')
 			.attr('colspan', 2)
 			.text('Change Branch Color')
+			.on('click', function() {
+				if (document.getElementById('colorPicker')) {
+					if (document.getElementById('colorPicker').style.display === 'none')
+						popforms.popColorPicker()
+					else
+						document.getElementById('colorPicker').style.display = 'none'
+				}
+				else {
+					popforms.popColorPicker()
+				}
+			})
 			.style('text-align', 'center')
 
 		let table_clickable_2 = obj_info_table
@@ -266,6 +281,14 @@ tooltip.table = function () {
 			.append('td')
 			.attr('colspan', 2)
 			.text('Collapse Node')
+			.style('text-align', 'center')
+
+		let table_clickable_3 = obj_info_table
+			.append('tr')
+			.attr('class', 'tnt_zmenu_clickable')
+			.append('td')
+			.attr('colspan', 2)
+			.text('Re-Root Tree')
 			.style('text-align', 'center')
 	})
 
