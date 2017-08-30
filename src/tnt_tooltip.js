@@ -288,7 +288,7 @@ tooltip.table = function () {
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
 			.attr('colspan', 2)
-			.text('Re-Root Tree')
+			.text('Set as Root')
 			.style('text-align', 'center')
 	})
 

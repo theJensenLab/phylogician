@@ -101,7 +101,7 @@ body {
   margin-left: -150px;
   margin-top: -20px;
 
-  opacity: 0.8;
+  opacity: 1;
 }
 
 #fileFormLabel {
@@ -129,7 +129,7 @@ body {
   margin-left: -150px;
   margin-top: -20px;
 
-  opacity: 0.8;
+  opacity: 1;
 }
 
 #colorPicker {
@@ -142,5 +142,5 @@ body {
   margin-left: -150px;
   margin-top: -20px;
 
-  opacity: 0.8;
+  opacity: 1;
 }
