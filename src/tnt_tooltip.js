@@ -63,7 +63,7 @@ let tooltip = function () {
 		let d3mouse = d3.mouse(containerElem)
 		d3.event = null
 
-		let xoffset = 0
+		let xoffset = -10
 		if (conf.position === 'left') {
 			xoffset = conf.width
 		}
@@ -199,7 +199,7 @@ tooltip.table = function () {
 				.text(obj.header)
 		}
 
-		// Tooltip rows
+		// Tooltip rows -- THIS IS WHERE CLICKABLE FUNCTIONALITY IS ADDED
 		let table_rows = obj_info_table.selectAll('.tnt_zmenu_row')
 			.data(obj.rows)
 			.enter()
@@ -246,6 +246,13 @@ tooltip.table = function () {
 						t.close.call(this)
 					})
 			})
+		//new additions
+		let table_clickable = obj_info_table
+			.append('tr')
+			.attr('class', 'tnt_zmenu_clickable')
+			.append('th')
+			.attr('colspan', 2)
+			.text('Test')
 	})
 
 	return t

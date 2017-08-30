@@ -4,19 +4,8 @@ body {
   height: 100%;
 }
 
-.maindiv {
-  width: 50%;
-  margin: 0 auto;
-  background-color: none;
-  /*cursor: move;*/
-}
-
 .settingsbutton {
   margin-top: 10px;
-}
-
-.verticalradialbuttons {
-  margin-top: 0px;
 }
 
 .fileInput {
@@ -48,20 +37,45 @@ body {
   z-index: 100;
 }
 
-.tooltipContainer {
-  position: relative;
-  height: 1px;
+.tnt_tree_node {
+  cursor: default;
 }
 
-.btn-group-vertical {
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+/* .tooltipContainer {
+  position: relative;
+  height: 1px;
+} */
+
+/* .btn-group-vertical {
   position: absolute;
   width: 150px;
   background-color: rgba(210, 118, 118, 0.00);
   z-index: 50;
-}
+} */
 
 .tnt_groupDiv {
   margin: auto;
+}
+
+#tnt_tooltip_1 {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 1);
+}
+
+#treeBox {
+  cursor: pointer;
 }
 
 #brand {
@@ -69,6 +83,7 @@ body {
   text-align: center;
   right: 10px;
   font-size: 20px;
+  cursor: pointer;
 }
 
 #stringInput {

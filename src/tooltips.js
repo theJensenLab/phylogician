@@ -1,4 +1,4 @@
-/* eslint-env browser */
+/* eslint-env browser
 'use strict'
 
 let d3 = require('d3')
@@ -67,7 +67,7 @@ function closeTooltip() {
 }
 
 
-/* nodes.on('mouseover', function() {
+nodes.on('mouseover', function() {
 	if (document.getElementById('tooltip1').style.display === 'none') {
 		document.getElementById('tooltip1').style.display = 'block'
 		document.getElementById('tooltip1').style.left = (d3.event.pageX + 30) + 'px'
@@ -78,4 +78,5 @@ function closeTooltip() {
 		document.getElementById('tooltip1').style.display = 'none'
 	}
 	// can add html here or append
-}) */
+})
+ */

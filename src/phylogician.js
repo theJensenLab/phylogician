@@ -7,7 +7,6 @@ let	d3 = require('d3'),
 	treeLayout = require('./treelayout.js'),
 	utils = require('./utils.js'),
 	treeOperations = require('./treeOperations.js'),
-	tp = require('./tooltips.js'),
 	tntTooltip = require('./tnt_tooltip.js')
 
 let tree = tntTree()
@@ -58,7 +57,6 @@ exports.makeTree = function(newickString) {
 			g.attr('transform', d3.event.transform)
 		})
 	)
-	tp.mouseovernodes()
 }
 
 exports.fitScreen = function() {
@@ -98,13 +96,12 @@ function download() {
 tree.on('click', function(node) {
 	//node.toggle()
 	//tree.update()
-	console.log('hi')
 	tntTooltip.table()
 		.width(120)
 		.call(this, {
 			"header" : "Node",
 			"rows" : [
-				{"label": "id", "value": node.id()}
+				{"label": "ID", "value": node.id()}
 			]
 		})
 })
