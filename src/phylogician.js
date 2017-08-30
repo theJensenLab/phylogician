@@ -98,14 +98,14 @@ function download() {
 tree.on('click', function(node) {
 	//node.toggle()
 	//tree.update()
-	tntTooltip.table()
-	.width(120)
-	.call(this, {
-		"header" : "Node",
-		"rows" : [
-			{"label": "id", "value": d.id()}
-		]
-	})
+	tntTooltip.tooltip.table()
+		.width(120)
+		.call(this, {
+			"header" : "Node",
+			"rows" : [
+				{"label": "id", "value": d.id()}
+			]
+		})
 })
 
 // module.exports = 'phylogician'
