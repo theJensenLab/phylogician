@@ -53,6 +53,10 @@ body {
   cursor: pointer;
 }
 
+.tnt_zmenu_clickable {
+  cursor: pointer;
+}
+
 /* .tooltipContainer {
   position: relative;
   height: 1px;
@@ -72,6 +76,7 @@ body {
 #tnt_tooltip_1 {
   position: absolute;
   background-color: rgba(255, 255, 255, 1);
+  cursor: default;
 }
 
 #treeBox {

@@ -135,7 +135,8 @@ tooltip.list = function () {
 			.append('table')
 			.attr('class', 'tnt_zmenu')
 			.attr('border', 'solid')
-			.style('width', t.width() + 'px')
+			.style('width', '200px')
+			//.style('width', t.width() + 'px')
 
 		// Tooltip header
 		if (obj.header) {
@@ -187,7 +188,8 @@ tooltip.table = function () {
 			.append('table')
 			.attr('class', 'tnt_zmenu')
 			.attr('border', 'solid')
-			.style('width', t.width() + 'px')
+			.style('width', '200px')
+			//.style('width', t.width() + 'px')
 
 		// Tooltip header
 		if (obj.header) {
@@ -197,10 +199,10 @@ tooltip.table = function () {
 				.append('th')
 				.attr('colspan', 2)
 				.text(obj.header)
+				.style('text-align', 'center')
 		}
 
-		// Tooltip rows -- THIS IS WHERE CLICKABLE FUNCTIONALITY IS ADDED
-		let table_rows = obj_info_table.selectAll('.tnt_zmenu_row')
+		/* let table_rows = obj_info_table.selectAll('.tnt_zmenu_row')
 			.data(obj.rows)
 			.enter()
 			.append('tr')
@@ -208,6 +210,7 @@ tooltip.table = function () {
 
 		table_rows
 			.append('th')
+			.style('text-align', 'center')
 			.attr('colspan', function (d, i) {
 				if (d.value === '') {
 					return 2
@@ -226,6 +229,7 @@ tooltip.table = function () {
 
 		table_rows
 			.append('td')
+			.style('text-align', 'center')
 			.html(function(d, i) {
 				if (typeof obj.rows[i].value === 'function')
 					obj.rows[i].value.call(this, d)
@@ -245,14 +249,24 @@ tooltip.table = function () {
 						f.link(f.obj)
 						t.close.call(this)
 					})
-			})
-		//new additions
-		let table_clickable = obj_info_table
+			}) */
+		
+		//THIS IS WHERE TOOLTIP ADDITIONS ARE MADE
+		let table_clickable_1 = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
-			.append('th')
+			.append('td')
 			.attr('colspan', 2)
-			.text('Test')
+			.text('Change Branch Color')
+			.style('text-align', 'center')
+
+		let table_clickable_2 = obj_info_table
+			.append('tr')
+			.attr('class', 'tnt_zmenu_clickable')
+			.append('td')
+			.attr('colspan', 2)
+			.text('Collapse Node')
+			.style('text-align', 'center')
 	})
 
 	return t
@@ -269,7 +283,8 @@ tooltip.plain = function () {
 			.append('table')
 			.attr('class', 'tnt_zmenu')
 			.attr('border', 'solid')
-			.style('width', t.width() + 'px')
+			.style('width', '200px')
+			//DEFAULT BY TNT.style('width', t.width() + 'px')
 
 		if (obj.header) {
 			obj_info_table
