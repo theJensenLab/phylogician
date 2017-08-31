@@ -20,9 +20,6 @@ exports.changeBranchColor = function(newColor, nodeID, numChildren) {
 		let branch = d3.select(id)
 		branch.attr('style', 'stroke: ' + newColor.color)
 	}
-	/* let branches = d3.select('.links')
-		.selectAll('path')
-	branches.attr('style', 'stroke: ' + newColor.color) */
 }
 
 exports.changeBranchWidth = function(width) {
