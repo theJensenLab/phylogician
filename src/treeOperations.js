@@ -28,10 +28,6 @@ exports.changeBranchWidth = function(width, nodeID, numChildren) {
 		let branch = d3.select(id)
 		branch.attr('stroke-width', width)
 	}
-
-	/* let branches = d3.select('.links')
-		.selectAll('path')
-	branches.attr('stroke-width', width) */
 }
 
 exports.toggleNode = function(tree, node) {
