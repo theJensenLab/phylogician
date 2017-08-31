@@ -13,6 +13,7 @@ exports.toggleSupport = function() {
 		text.attr('display', 'none')
 }
 
+// changes each individual branch by id starting from the node in question and taking into account numChildren
 exports.changeBranchColor = function(newColor, nodeID, numChildren) {
 	for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
 		let id = '#tnt_tree_link_treeBox_' + x
