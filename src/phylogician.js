@@ -104,7 +104,7 @@ tree.on('click', function(node) {
 	tntTooltip.table(tree, node)
 		.width(120)
 		.call(this, {
-			"header" : "Node #" + node.id(),
+			'header' : 'Node #' + node.id(),
 			/* "rows" : [
 				{"label": "ID", "value": node.id()}
 			] */
