@@ -14,23 +14,20 @@ exports.popColorPicker = function(nodeID, numChildren) {
 		document.getElementById('stringInput').style.display = 'none'
 	if (document.getElementById('branchWidthInput'))
 		document.getElementById('branchWidthInput').style.display = 'none'
-	if (document.getElementById('colorPicker')) {
-		document.getElementById('colorPicker').style.display = 'block'
-	}
-	else {
-		let colorPicker = document.createElement('input')
-		colorPicker.classList.add('form-control')
-		colorPicker.id = 'colorPicker'
-		colorPicker.style.display = 'block'
-		$(function() {
-			$('#colorPicker').colorpicker()
-				.on('changeColor', function(e) {
-					phylogician.changeBranchColor(e, nodeID, numChildren)
-				})
-				.on('hidePicker', function() {
-					document.getElementById('colorPicker').style.display = 'none'
-				})
-		})
-		document.body.appendChild(colorPicker)
-	}
+	if (document.getElementById('colorPicker'))
+		$('#colorPicker').remove()
+	let colorPicker = document.createElement('input')
+	colorPicker.classList.add('form-control')
+	colorPicker.id = 'colorPicker'
+	colorPicker.style.display = 'block'
+	$(function() {
+		$('#colorPicker').colorpicker()
+			.on('changeColor', function(e) {
+				phylogician.changeBranchColor(e, nodeID, numChildren)
+			})
+			.on('hidePicker', function() {
+				document.getElementById('colorPicker').style.display = 'none'
+			})
+	})
+	document.body.appendChild(colorPicker)
 }

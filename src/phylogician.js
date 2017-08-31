@@ -101,8 +101,6 @@ function download() {
 
 // installs a listener at each node that displays a tooltip upon click
 tree.on('click', function(node) {
-	// node.toggle()
-	// tree.update()
 	tntTooltip.table(tree, node)
 		.width(120)
 		.call(this, {
