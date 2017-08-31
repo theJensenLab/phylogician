@@ -255,7 +255,7 @@ tooltip.table = function (fullTree, selectedNode) {
 			}) */
 
 		//THIS IS WHERE TOOLTIP ADDITIONS ARE MADE
-		let table_clickable_1 = obj_info_table
+		let changeBranchColorClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
@@ -276,10 +276,34 @@ tooltip.table = function (fullTree, selectedNode) {
 				t.close()
 			})
 			.style('text-align', 'center')
-		table_clickable_1.on ('mouseover', function() {table_clickable_1.style('color', '#3287d7')})
-		table_clickable_1.on ('mouseout', function() {table_clickable_1.style('color', 'black')})
+		changeBranchColorClickable.on('mouseover', function() {changeBranchColorClickable.style('color', '#3287d7')})
+		changeBranchColorClickable.on('mouseout', function() {changeBranchColorClickable.style('color', 'black')})
 
-		let table_clickable_2 = obj_info_table
+		let changeBranchWidthClickable = obj_info_table
+			.append('tr')
+			.attr('class', 'tnt_zmenu_clickable')
+			.append('td')
+			.attr('colspan', 2)
+			.text('Change Branch Width')
+			.on('click', function() {
+				let nodeID = selectedNode.id()
+				let numChildren = selectedNode.get_all_nodes().length - 1
+				if (document.getElementById('branchWidthInput')) {
+					if (document.getElementById('branchWidthInput').style.display === 'none')
+						popforms.popFormBranchWidth(nodeID, numChildren)
+					else
+						document.getElementById('branchWidthInput').style.display = 'none'
+				}
+				else {
+					popforms.popFormBranchWidth(nodeID, numChildren)
+				}
+				t.close()
+			})
+			.style('text-align', 'center')
+		changeBranchWidthClickable.on ('mouseover', function() {changeBranchWidthClickable.style('color', '#3287d7')})
+		changeBranchWidthClickable.on ('mouseout', function() {changeBranchWidthClickable.style('color', 'black')})
+
+		let toggleClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
@@ -290,10 +314,10 @@ tooltip.table = function (fullTree, selectedNode) {
 				t.close()
 			})	
 			.style('text-align', 'center')
-		table_clickable_2.on ('mouseover', function() {table_clickable_2.style('color', '#3287d7')})
-		table_clickable_2.on ('mouseout', function() {table_clickable_2.style('color', 'black')})
+		toggleClickable.on ('mouseover', function() {toggleClickable.style('color', '#3287d7')})
+		toggleClickable.on ('mouseout', function() {toggleClickable.style('color', 'black')})
 
-		let table_clickable_3 = obj_info_table
+		let reRootClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
@@ -303,10 +327,10 @@ tooltip.table = function (fullTree, selectedNode) {
 			.on('click', function() {
 				t.close()
 			})
-		table_clickable_3.on ('mouseover', function() {table_clickable_3.style('color', '#3287d7')})
-		table_clickable_3.on ('mouseout', function() {table_clickable_3.style('color', 'black')})
+		reRootClickable.on ('mouseover', function() {reRootClickable.style('color', '#3287d7')})
+		reRootClickable.on ('mouseout', function() {reRootClickable.style('color', 'black')})
 		
-		let table_clickable_4 = obj_info_table
+		let closeClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
@@ -314,8 +338,8 @@ tooltip.table = function (fullTree, selectedNode) {
 			.text('Close')
 			.on('click', function() {t.close()})
 			.style('text-align', 'center')
-		table_clickable_4.on ('mouseover', function() {table_clickable_4.style('color', '#3287d7')})
-		table_clickable_4.on ('mouseout', function() {table_clickable_4.style('color', 'black')})
+		closeClickable.on ('mouseover', function() {closeClickable.style('color', '#3287d7')})
+		closeClickable.on ('mouseout', function() {closeClickable.style('color', 'black')})
 	})
 
 	return t

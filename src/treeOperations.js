@@ -22,10 +22,16 @@ exports.changeBranchColor = function(newColor, nodeID, numChildren) {
 	}
 }
 
-exports.changeBranchWidth = function(width) {
-	let branches = d3.select('.links')
+exports.changeBranchWidth = function(width, nodeID, numChildren) {
+	for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
+		let id = '#tnt_tree_link_treeBox_' + x
+		let branch = d3.select(id)
+		branch.attr('stroke-width', width)
+	}
+
+	/* let branches = d3.select('.links')
 		.selectAll('path')
-	branches.attr('stroke-width', width)
+	branches.attr('stroke-width', width) */
 }
 
 exports.toggleNode = function(tree, node) {

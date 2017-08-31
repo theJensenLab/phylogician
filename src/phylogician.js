@@ -88,8 +88,8 @@ exports.changeBranchColor = function(e, nodeID, numOfChildren) {
 	treeOperations.changeBranchColor(e, nodeID, numOfChildren)
 }
 
-exports.changeBranchWidth = function(e) {
-	treeOperations.changeBranchWidth(e)
+exports.changeBranchWidth = function(e, nodeID, numOfChildren) {
+	treeOperations.changeBranchWidth(e, nodeID, numOfChildren)
 }
 
 // exports a PNG image of the SVG display
