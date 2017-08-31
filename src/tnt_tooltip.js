@@ -329,7 +329,7 @@ tooltip.table = function (fullTree, selectedNode) {
 			})
 		reRootClickable.on('mouseover', function() {reRootClickable.style('color', '#3287d7')})
 		reRootClickable.on('mouseout', function() {reRootClickable.style('color', 'black')})
-		
+	
 		let closeClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
