@@ -253,7 +253,7 @@ tooltip.table = function (fullTree, selectedNode) {
 						t.close.call(this)
 					})
 			}) */
-		
+
 		//THIS IS WHERE TOOLTIP ADDITIONS ARE MADE
 		let table_clickable_1 = obj_info_table
 			.append('tr')
