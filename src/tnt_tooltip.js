@@ -300,8 +300,8 @@ tooltip.table = function (fullTree, selectedNode) {
 				t.close()
 			})
 			.style('text-align', 'center')
-		changeBranchWidthClickable.on ('mouseover', function() {changeBranchWidthClickable.style('color', '#3287d7')})
-		changeBranchWidthClickable.on ('mouseout', function() {changeBranchWidthClickable.style('color', 'black')})
+		changeBranchWidthClickable.on('mouseover', function() {changeBranchWidthClickable.style('color', '#3287d7')})
+		changeBranchWidthClickable.on('mouseout', function() {changeBranchWidthClickable.style('color', 'black')})
 
 		let toggleClickable = obj_info_table
 			.append('tr')
@@ -314,8 +314,8 @@ tooltip.table = function (fullTree, selectedNode) {
 				t.close()
 			})	
 			.style('text-align', 'center')
-		toggleClickable.on ('mouseover', function() {toggleClickable.style('color', '#3287d7')})
-		toggleClickable.on ('mouseout', function() {toggleClickable.style('color', 'black')})
+		toggleClickable.on('mouseover', function() {toggleClickable.style('color', '#3287d7')})
+		toggleClickable.on('mouseout', function() {toggleClickable.style('color', 'black')})
 
 		let reRootClickable = obj_info_table
 			.append('tr')
@@ -327,8 +327,8 @@ tooltip.table = function (fullTree, selectedNode) {
 			.on('click', function() {
 				t.close()
 			})
-		reRootClickable.on ('mouseover', function() {reRootClickable.style('color', '#3287d7')})
-		reRootClickable.on ('mouseout', function() {reRootClickable.style('color', 'black')})
+		reRootClickable.on('mouseover', function() {reRootClickable.style('color', '#3287d7')})
+		reRootClickable.on('mouseout', function() {reRootClickable.style('color', 'black')})
 		
 		let closeClickable = obj_info_table
 			.append('tr')
@@ -338,8 +338,8 @@ tooltip.table = function (fullTree, selectedNode) {
 			.text('Close')
 			.on('click', function() {t.close()})
 			.style('text-align', 'center')
-		closeClickable.on ('mouseover', function() {closeClickable.style('color', '#3287d7')})
-		closeClickable.on ('mouseout', function() {closeClickable.style('color', 'black')})
+		closeClickable.on('mouseover', function() {closeClickable.style('color', '#3287d7')})
+		closeClickable.on('mouseout', function() {closeClickable.style('color', 'black')})
 	})
 
 	return t
