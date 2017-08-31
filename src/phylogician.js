@@ -84,8 +84,8 @@ exports.toggleSupport = function() {
 	treeOperations.toggleSupport()
 }
 
-exports.changeBranchColor = function(e) {
-	treeOperations.changeBranchColor(e)
+exports.changeBranchColor = function(e, nodeID, numOfChildren) {
+	treeOperations.changeBranchColor(e, nodeID, numOfChildren)
 }
 
 exports.changeBranchWidth = function(e) {

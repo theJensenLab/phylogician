@@ -13,10 +13,15 @@ exports.toggleSupport = function() {
 		text.attr('display', 'none')
 }
 
-exports.changeBranchColor = function(newColor) {
-	let branches = d3.select('.links')
+exports.changeBranchColor = function(newColor, nodeID, numChildren) {
+	for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
+		let id = '#tnt_tree_link_treeBox_' + x
+		let branch = d3.select(id)
+		branch.attr('style', 'stroke: ' + newColor.color)
+	}
+	/* let branches = d3.select('.links')
 		.selectAll('path')
-	branches.attr('style', 'stroke: ' + newColor.color)
+	branches.attr('style', 'stroke: ' + newColor.color) */
 }
 
 exports.changeBranchWidth = function(width) {

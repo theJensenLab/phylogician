@@ -262,14 +262,16 @@ tooltip.table = function (fullTree, selectedNode) {
 			.attr('colspan', 2)
 			.text('Change Branch Color')
 			.on('click', function() {
+				let nodeID = selectedNode.id()
+				let numChildren = selectedNode.get_all_nodes().length - 1
 				if (document.getElementById('colorPicker')) {
 					if (document.getElementById('colorPicker').style.display === 'none')
-						popforms.popColorPicker()
+						popforms.popColorPicker(nodeID, numChildren)
 					else
 						document.getElementById('colorPicker').style.display = 'none'
 				}
 				else {
-					popforms.popColorPicker()
+					popforms.popColorPicker(nodeID, numChildren)
 				}
 				t.close()
 			})

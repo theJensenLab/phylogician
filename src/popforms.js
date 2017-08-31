@@ -7,7 +7,7 @@ let d3 = require('d3'),
 	$ = require('jquery'),
 	phylogician = require('./phylogician.js')
 
-exports.popColorPicker = function() {
+exports.popColorPicker = function(nodeID, numChildren) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -25,8 +25,7 @@ exports.popColorPicker = function() {
 		$(function() {
 			$('#colorPicker').colorpicker()
 				.on('changeColor', function(e) {
-					phylogician.changeBranchColor(e)
-					console.log(e)
+					phylogician.changeBranchColor(e, nodeID, numChildren)
 				})
 				.on('hidePicker', function() {
 					document.getElementById('colorPicker').style.display = 'none'
