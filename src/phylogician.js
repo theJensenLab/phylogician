@@ -98,12 +98,13 @@ function download() {
 tree.on('click', function(node) {
 	//node.toggle()
 	//tree.update()
-	tntTooltip.tooltip.table()
+	console.log('hi')
+	tntTooltip.table()
 		.width(120)
 		.call(this, {
 			"header" : "Node",
 			"rows" : [
-				{"label": "id", "value": d.id()}
+				{"label": "id", "value": node.id()}
 			]
 		})
 })
