@@ -3,9 +3,8 @@
 
 let d3 = require('d3'),
 	apijs = require('tnt.api'),
-	popforms = require('./popforms.js')
-
-
+	popforms = require('./popforms.js'),
+	treeOperations = require('./treeOperations.js')
 
 let tooltip = function () {
 	'use strict'
@@ -179,7 +178,7 @@ tooltip.list = function () {
 	return t
 }
 
-tooltip.table = function () {
+tooltip.table = function (fullTree, selectedNode) {
 	// table tooltips are based on general tooltips
 	let t = tooltip()
 
@@ -272,16 +271,25 @@ tooltip.table = function () {
 				else {
 					popforms.popColorPicker()
 				}
+				t.close()
 			})
 			.style('text-align', 'center')
+		table_clickable_1.on ('mouseover', function() {table_clickable_1.style('color', '#3287d7')})
+		table_clickable_1.on ('mouseout', function() {table_clickable_1.style('color', 'black')})
 
 		let table_clickable_2 = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
 			.attr('colspan', 2)
-			.text('Collapse Node')
+			.text('Toggle Node')
+			.on('click', function() {
+				treeOperations.toggleNode(fullTree, selectedNode)
+				t.close()
+			})	
 			.style('text-align', 'center')
+		table_clickable_2.on ('mouseover', function() {table_clickable_2.style('color', '#3287d7')})
+		table_clickable_2.on ('mouseout', function() {table_clickable_2.style('color', 'black')})
 
 		let table_clickable_3 = obj_info_table
 			.append('tr')
@@ -290,6 +298,22 @@ tooltip.table = function () {
 			.attr('colspan', 2)
 			.text('Set as Root')
 			.style('text-align', 'center')
+			.on('click', function() {
+				t.close()
+			})
+		table_clickable_3.on ('mouseover', function() {table_clickable_3.style('color', '#3287d7')})
+		table_clickable_3.on ('mouseout', function() {table_clickable_3.style('color', 'black')})
+		
+		let table_clickable_4 = obj_info_table
+			.append('tr')
+			.attr('class', 'tnt_zmenu_clickable')
+			.append('td')
+			.attr('colspan', 2)
+			.text('Close')
+			.on('click', function() {t.close()})
+			.style('text-align', 'center')
+		table_clickable_4.on ('mouseover', function() {table_clickable_4.style('color', '#3287d7')})
+		table_clickable_4.on ('mouseout', function() {table_clickable_4.style('color', 'black')})
 	})
 
 	return t

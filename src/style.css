@@ -80,7 +80,7 @@ body {
 }
 
 #treeBox {
-  cursor: pointer;
+  cursor: move;
 }
 
 #brand {
@@ -117,6 +117,8 @@ body {
   background-color: #33373d;
   border-color: #33373d;
   color: #FF6A13;
+
+  cursor: pointer;
 }
 
 #branchWidthInput {

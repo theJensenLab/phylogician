@@ -24,3 +24,8 @@ exports.changeBranchWidth = function(width) {
 		.selectAll('path')
 	branches.attr('stroke-width', width)
 }
+
+exports.toggleNode = function(tree, node) {
+	node.toggle()
+	tree.update()
+}

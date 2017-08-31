@@ -24,6 +24,7 @@ let nodeDisplay = tree.node_display()
 			expandedNode.display().call(this, node)
 	})
 
+// creates the tree and renders it to the div 'treeBox'
 exports.makeTree = function(newickString) {
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
 		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
@@ -59,6 +60,7 @@ exports.makeTree = function(newickString) {
 	)
 }
 
+// resets the zoom and transform of tree to original
 exports.fitScreen = function() {
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
@@ -67,14 +69,17 @@ exports.fitScreen = function() {
 	g.attr('transform', {k: 1, x: 0, y: 0})
 }
 
+// calls the function to update the layout of the tree to vertical view
 exports.updateVertical = function() {
 	treeLayout.updateVertical(tree)
 }
 
+// calls the function to update the layout of the tree to radial view
 exports.updateRadial = function() {
 	treeLayout.updateRadial(tree)
 }
 
+// calls the function to toggle support values displayed at individual nodes
 exports.toggleSupport = function() {
 	treeOperations.toggleSupport()
 }
@@ -87,16 +92,18 @@ exports.changeBranchWidth = function(e) {
 	treeOperations.changeBranchWidth(e)
 }
 
+// exports a PNG image of the SVG display
 function download() {
 	let pngExporter = tnt.utils.png()
 		.filename('treeSample.png')
 	pngExporter(d3.select('svg'))
 }
 
+// installs a listener at each node that displays a tooltip upon click
 tree.on('click', function(node) {
-	//node.toggle()
-	//tree.update()
-	tntTooltip.table()
+	// node.toggle()
+	// tree.update()
+	tntTooltip.table(tree, node)
 		.width(120)
 		.call(this, {
 			"header" : "Node #" + node.id(),
