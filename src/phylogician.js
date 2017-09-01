@@ -84,10 +84,12 @@ exports.toggleSupport = function() {
 	treeOperations.toggleSupport()
 }
 
+// calls the function to change the branch color of the subtree of the node #[nodeID]
 exports.changeBranchColor = function(e, nodeID, numOfChildren) {
 	treeOperations.changeBranchColor(e, nodeID, numOfChildren)
 }
 
+// calls the function to change the branch width of the subtree of the node #[nodeID]
 exports.changeBranchWidth = function(e, nodeID, numOfChildren) {
 	treeOperations.changeBranchWidth(e, nodeID, numOfChildren)
 }
@@ -101,6 +103,12 @@ function download() {
 
 // installs a listener at each node that displays a tooltip upon click
 tree.on('click', function(node) {
+	// resets color of all nodes to black
+	d3.selectAll('.tnt_tree_node')
+		.selectAll('.tnt_node_display_elem')
+		.attr('fill', 'black')
+
+	// generates tooltip for selected node
 	tntTooltip.table(tree, node)
 		.width(120)
 		.call(this, {
