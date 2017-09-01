@@ -225,7 +225,7 @@ let operationsMenu = document.createElement('button')
 operationsMenu.classList.add('btn', 'dropdown-toggle')
 operationsMenu.setAttribute('data-toggle', 'dropdown')
 operationsMenu.type = 'button'
-operationsMenu.innerHTML = 'Tree Operations'
+operationsMenu.innerHTML = 'Tree Display'
 operationsMenu.style = 'left: 100px;'
 operationsDiv.appendChild(operationsMenu)
 
