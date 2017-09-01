@@ -225,7 +225,7 @@ let operationsMenu = document.createElement('button')
 operationsMenu.classList.add('btn', 'dropdown-toggle')
 operationsMenu.setAttribute('data-toggle', 'dropdown')
 operationsMenu.type = 'button'
-operationsMenu.innerHTML = 'Tree Operations'
+operationsMenu.innerHTML = 'Tree Display'
 operationsMenu.style = 'left: 100px;'
 operationsDiv.appendChild(operationsMenu)
 
@@ -235,7 +235,7 @@ operationsDiv.appendChild(operationsOptions)
 
 let fit2screen = document.createElement('a')
 fit2screen.classList.add('dropdown-item')
-fit2screen.innerHTML = 'Fit to screen'
+fit2screen.innerHTML = 'Fit To Screen'
 fit2screen.addEventListener('click', (e) => {
 	phylogician.fitScreen(e)
 	retractNavBar()
@@ -250,78 +250,6 @@ toggleSupport.addEventListener('click', () => {
 	retractNavBar()
 })
 operationsOptions.appendChild(toggleSupport)
-
-let changeBranchColor = document.createElement('button')
-changeBranchColor.classList.add('dropdown-item')
-changeBranchColor.innerHTML = 'Change Branch Color'
-changeBranchColor.addEventListener('click', popColorPicker)
-operationsOptions.appendChild(changeBranchColor)
-
-function popColorPicker() {
-	if (document.getElementById('fileFormLabel'))
-		document.getElementById('fileFormLabel').style.display = 'none'
-	if (document.getElementById('stringInput'))
-		document.getElementById('stringInput').style.display = 'none'
-	if (document.getElementById('branchWidthInput'))
-		document.getElementById('branchWidthInput').style.display = 'none'
-	if (document.getElementById('colorPicker')) {
-		document.getElementById('colorPicker').style.display = 'block'
-	}
-	else {
-		let colorPicker = document.createElement('input')
-		colorPicker.classList.add('form-control')
-		colorPicker.id = 'colorPicker'
-		colorPicker.style.display = 'block'
-		$(function() {
-			$('#colorPicker').colorpicker()
-				.on('changeColor', function(e) {
-					phylogician.changeBranchColor(e)
-					console.log(e)
-				})
-				.on('hidePicker', function() {
-					document.getElementById('colorPicker').style.display = 'none'
-					retractNavBar()
-				})
-		})
-		document.body.appendChild(colorPicker)
-	}
-}
-
-let changeBranchWidth = document.createElement('a')
-changeBranchWidth.classList.add('dropdown-item')
-changeBranchWidth.innerHTML = 'Change Branch Width'
-changeBranchWidth.addEventListener('click', popFormBranchWidth)
-operationsOptions.appendChild(changeBranchWidth)
-
-function popFormBranchWidth() {
-	if (document.getElementById('fileFormLabel'))
-		document.getElementById('fileFormLabel').style.display = 'none'
-	if (document.getElementById('stringInput'))
-		document.getElementById('stringInput').style.display = 'none'
-	if (document.getElementById('colorPicker'))
-		document.getElementById('colorPicker').style.display = 'none'
-	if (document.getElementById('branchWidthInput')) {
-		document.getElementById('branchWidthInput').style.display = 'block'
-	}
-	else {
-		let branchWidthForm = document.createElement('input')
-		branchWidthForm.classList.add('form-control')
-		branchWidthForm.id = 'branchWidthInput'
-		branchWidthForm.style.display = 'block'
-		branchWidthForm.addEventListener('keydown', function(e) {
-			let enterKeyCode = 13
-			if (e.keyCode === enterKeyCode) {
-				let branchWidth = document.getElementById('branchWidthInput').value
-				branchWidthForm.style.display = 'none'
-				if (branchWidth !== '') {
-					phylogician.changeBranchWidth(branchWidth)
-					retractNavBar()
-				}
-			}
-		})
-		document.body.appendChild(branchWidthForm)
-	}
-}
 
 navBarDOM.appendChild(buttonGroup)
 

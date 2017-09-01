@@ -6,7 +6,8 @@ let	d3 = require('d3'),
 	parser = require('tnt.newick'),
 	treeLayout = require('./treelayout.js'),
 	utils = require('./utils.js'),
-	treeOperations = require('./treeOperations.js')
+	treeOperations = require('./treeOperations.js'),
+	tntTooltip = require('./tnt_tooltip.js')
 
 let tree = tntTree()
 let expandedNode = tntTree.node_display.circle()
@@ -22,8 +23,8 @@ let nodeDisplay = tree.node_display()
 		else
 			expandedNode.display().call(this, node)
 	})
-let storedTree = ''
 
+// creates the tree and renders it to the div 'treeBox'
 exports.makeTree = function(newickString) {
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
 		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
@@ -57,10 +58,9 @@ exports.makeTree = function(newickString) {
 			g.attr('transform', d3.event.transform)
 		})
 	)
-
-	storedTree = tree
 }
 
+// resets the zoom and transform of tree to original
 exports.fitScreen = function() {
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
@@ -69,35 +69,54 @@ exports.fitScreen = function() {
 	g.attr('transform', {k: 1, x: 0, y: 0})
 }
 
+// calls the function to update the layout of the tree to vertical view
 exports.updateVertical = function() {
 	treeLayout.updateVertical(tree)
 }
 
+// calls the function to update the layout of the tree to radial view
 exports.updateRadial = function() {
 	treeLayout.updateRadial(tree)
 }
 
+// calls the function to toggle support values displayed at individual nodes
 exports.toggleSupport = function() {
 	treeOperations.toggleSupport()
 }
 
-exports.changeBranchColor = function(e) {
-	treeOperations.changeBranchColor(e)
+// calls the function to change the branch color of the subtree of the node #[nodeID]
+exports.changeBranchColor = function(e, nodeID, numOfChildren) {
+	treeOperations.changeBranchColor(e, nodeID, numOfChildren)
 }
 
-exports.changeBranchWidth = function(e) {
-	treeOperations.changeBranchWidth(e)
+// calls the function to change the branch width of the subtree of the node #[nodeID]
+exports.changeBranchWidth = function(e, nodeID, numOfChildren) {
+	treeOperations.changeBranchWidth(e, nodeID, numOfChildren)
 }
 
+// exports a PNG image of the SVG display
 function download() {
 	let pngExporter = tnt.utils.png()
 		.filename('treeSample.png')
 	pngExporter(d3.select('svg'))
 }
 
+// installs a listener at each node that displays a tooltip upon click
 tree.on('click', function(node) {
-	node.toggle()
-	tree.update()
+	// resets color of all nodes to black
+	d3.selectAll('.tnt_tree_node')
+		.selectAll('.tnt_node_display_elem')
+		.attr('fill', 'black')
+
+	// generates tooltip for selected node
+	tntTooltip.table(tree, node)
+		.width(120)
+		.call(this, {
+			'header' : 'Node #' + node.id(),
+			/* "rows" : [
+				{"label": "ID", "value": node.id()}
+			] */
+		})
 })
 
 // module.exports = 'phylogician'

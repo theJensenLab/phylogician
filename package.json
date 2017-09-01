@@ -42,6 +42,7 @@
     "mocha": "^3.4.2",
     "style-loader": "^0.18.2",
     "tnt.newick": "github:daviortega/tnt.newick#f-read-raxml-IC",
+    "tnt.tooltip": "github:tkukavica1/tnt.tooltip#d3v4",
     "tnt.tree": "github:daviortega/tnt.tree#d3v4",
     "tnt.utils": "github:tntvis/tnt.utils#d3v4",
     "webpack": "^3.0.0",
