@@ -178,7 +178,14 @@ tooltip.list = function () {
 	return t
 }
 
-tooltip.table = function (fullTree, selectedNode) {
+tooltip.table = function(fullTree, selectedNode) {
+	// fills the selected node -- KEEP WORKING HERE
+	let id = '#tnt_tree_node_treeBox_' + selectedNode.id()
+	console.log(id)
+	d3.select(id)
+		.select('circle')
+		.attr('fill', '#FF6A13')
+
 	// table tooltips are based on general tooltips
 	let t = tooltip()
 
@@ -273,6 +280,9 @@ tooltip.table = function (fullTree, selectedNode) {
 				else {
 					popforms.popColorPicker(nodeID, numChildren)
 				}
+				d3.select(id)
+					.select('circle')
+					.attr('fill', 'black')
 				t.close()
 			})
 			.style('text-align', 'center')
@@ -297,6 +307,9 @@ tooltip.table = function (fullTree, selectedNode) {
 				else {
 					popforms.popFormBranchWidth(nodeID, numChildren)
 				}
+				d3.select(id)
+					.select('circle')
+					.attr('fill', 'black')
 				t.close()
 			})
 			.style('text-align', 'center')
@@ -311,6 +324,9 @@ tooltip.table = function (fullTree, selectedNode) {
 			.text('Toggle Node')
 			.on('click', function() {
 				treeOperations.toggleNode(fullTree, selectedNode)
+				d3.select(id)
+					.select('circle')
+					.attr('fill', 'black')
 				t.close()
 			})	
 			.style('text-align', 'center')
@@ -325,6 +341,9 @@ tooltip.table = function (fullTree, selectedNode) {
 			.text('Set as Root')
 			.style('text-align', 'center')
 			.on('click', function() {
+				d3.select(id)
+					.select('circle')
+					.attr('fill', 'black')
 				t.close()
 			})
 		reRootClickable.on('mouseover', function() {reRootClickable.style('color', '#3287d7')})
@@ -336,7 +355,12 @@ tooltip.table = function (fullTree, selectedNode) {
 			.append('td')
 			.attr('colspan', 2)
 			.text('Close')
-			.on('click', function() {t.close()})
+			.on('click', function() {
+				d3.select(id)
+					.select('circle')
+					.attr('fill', 'black')
+				t.close()
+			})
 			.style('text-align', 'center')
 		closeClickable.on('mouseover', function() {closeClickable.style('color', '#3287d7')})
 		closeClickable.on('mouseout', function() {closeClickable.style('color', 'black')})
