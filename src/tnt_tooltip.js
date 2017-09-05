@@ -181,7 +181,6 @@ tooltip.list = function () {
 tooltip.table = function(fullTree, selectedNode) {
 	// fills the selected node -- KEEP WORKING HERE
 	let id = '#tnt_tree_node_treeBox_' + selectedNode.id()
-	console.log(id)
 	d3.select(id)
 		.select('circle')
 		.attr('fill', '#FF6A13')
