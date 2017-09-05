@@ -251,6 +251,15 @@ toggleSupport.addEventListener('click', () => {
 })
 operationsOptions.appendChild(toggleSupport)
 
+let ladderizeTree = document.createElement('a')
+ladderizeTree.classList.add('dropdown-item')
+ladderizeTree.innerHTML = 'Ladderize Tree'
+ladderizeTree.addEventListener('click', () => {
+	phylogician.ladderizeTree()
+	retractNavBar()
+})
+operationsOptions.appendChild(ladderizeTree)
+
 // export tree in various formats via menu bar
 let exportDiv = document.createElement('div')
 exportDiv.classList.add('dropdown')

@@ -103,6 +103,17 @@ exports.exportPNG = function(e) {
 		.select('svg'))
 }
 
+// sorts the tree ?? (need better description)
+exports.ladderizeTree = function() {
+	tree.root().sort(function(node1, node2) {
+		let highest1 = node1.root_dist() // getHighestVal(node1, node1.root_dist())
+		let highest2 = node2.root_dist() // getHighestVal(node2, node2.root_dist())
+		return node1.root_dist() - node2.root_dist()
+	})
+	tree.update()
+}
+
+
 // installs a listener at each node that displays a tooltip upon click
 tree.on('click', function(node) {
 	// resets color of all nodes to black
