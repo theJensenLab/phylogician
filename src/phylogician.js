@@ -103,12 +103,24 @@ exports.exportPNG = function(e) {
 		.select('svg'))
 }
 
+// helper function for sorting
+function getShortestPathToLeaf(node) {
+	if (node.is_leaf()) {
+		console.log('return working')
+		return 1
+	}
+	let x = node.children()
+	for (let i = 0; i < x.length; i++) {
+		return 1 + getShortestPathToLeaf(x[i])
+	}
+}
+
 // sorts the tree ?? (need better description)
 exports.ladderizeTree = function() {
 	tree.root().sort(function(node1, node2) {
-		let highest1 = node1.root_dist() // getHighestVal(node1, node1.root_dist())
-		let highest2 = node2.root_dist() // getHighestVal(node2, node2.root_dist())
-		return node1.root_dist() - node2.root_dist()
+		let highest1 = getShortestPathToLeaf(node1)
+		let highest2 = getShortestPathToLeaf(node2)
+		return getShortestPathToLeaf(node1) - getShortestPathToLeaf(node2)
 	})
 	tree.update()
 }
