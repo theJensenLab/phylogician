@@ -251,6 +251,34 @@ toggleSupport.addEventListener('click', () => {
 })
 operationsOptions.appendChild(toggleSupport)
 
+// export tree in various formats via menu bar
+let exportDiv = document.createElement('div')
+exportDiv.classList.add('dropdown')
+buttonGroup.appendChild(exportDiv)
+
+let exportMenu = document.createElement('button')
+exportMenu.classList.add('btn', 'dropdown-toggle')
+exportMenu.setAttribute('data-toggle', 'dropdown')
+exportMenu.type = 'button'
+exportMenu.innerHTML = 'Export'
+exportMenu.style = 'left: 100px;'
+exportDiv.appendChild(exportMenu)
+
+let exportOptions = document.createElement('div')
+exportOptions.classList.add('dropdown-menu')
+exportDiv.appendChild(exportOptions)
+
+let exportPNG = document.createElement('a')
+exportPNG.classList.add('dropdown-item')
+exportPNG.innerHTML = 'PNG Image'
+exportPNG.addEventListener('click', (e) => {
+	phylogician.exportPNG(e)
+	retractNavBar()
+})
+exportOptions.appendChild(exportPNG)
+
+// end section
+
 navBarDOM.appendChild(buttonGroup)
 
 function navBarShortcut(e) {

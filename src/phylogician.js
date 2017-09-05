@@ -2,6 +2,7 @@
 'use strict'
 
 let	d3 = require('d3'),
+	tnt = require('tnt.utils'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick'),
 	treeLayout = require('./treelayout.js'),
@@ -95,10 +96,11 @@ exports.changeBranchWidth = function(e, nodeID, numOfChildren) {
 }
 
 // exports a PNG image of the SVG display
-function download() {
-	let pngExporter = tnt.utils.png()
+exports.exportPNG = function(e) {
+	let pngExporter = tnt.png()
 		.filename('treeSample.png')
-	pngExporter(d3.select('svg'))
+	pngExporter(d3.select('#treeBox')
+		.select('svg'))
 }
 
 // installs a listener at each node that displays a tooltip upon click
