@@ -103,15 +103,20 @@ exports.exportPNG = function(e) {
 		.select('svg'))
 }
 
+let min = 1000
+
 // helper function for sorting
 function getShortestPathToLeaf(node) {
 	if (node.is_leaf()) {
-		console.log('return working')
 		return 1
 	}
 	let x = node.children()
 	for (let i = 0; i < x.length; i++) {
-		return 1 + getShortestPathToLeaf(x[i])
+		temp = 1 + getShortestPathToLeaf(x[i])
+		if (temp < min) {
+			min = temp
+			temp = 0
+		}
 	}
 }
 
@@ -123,6 +128,21 @@ exports.ladderizeTree = function() {
 		return getShortestPathToLeaf(node1) - getShortestPathToLeaf(node2)
 	})
 	tree.update()
+}
+
+// changes the expanded node shape of the tree
+exports.changeExpandedNodeShape = function(shape) {
+	if (shape === 'circle') {
+		expandedNode = tntTree.node_display.circle()
+	}
+	else if (shape === 'triangle') {
+		expandedNode = tntTree.node_display.triangle()
+	}
+	else if (shape === 'rectangle') {
+		expandedNode = tntTree.node_display.rectangle()
+	}
+	tree.node_display(nodeDisplay)
+	tree.update_nodes()
 }
 
 
