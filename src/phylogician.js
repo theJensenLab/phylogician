@@ -145,6 +145,11 @@ exports.changeExpandedNodeShape = function(shape) {
 	tree.update_nodes()
 }
 
+// changes the collapsed node shape of the tree -- TO BE COMPLETED
+exports.changeCollapsedNodeShape = function(shape) {
+	tree.update_nodes()
+}
+
 
 // installs a listener at each node that displays a tooltip upon click
 tree.on('click', function(node) {
