@@ -76,12 +76,7 @@ function retractNavBar() {
 }
 
 function popFormString() {
-	if (document.getElementById('fileFormLabel'))
-		document.getElementById('fileFormLabel').style.display = 'none'
-	if (document.getElementById('branchWidthInput'))
-		document.getElementById('branchWidthInput').style.display = 'none'
-	if (document.getElementById('colorPicker'))
-		document.getElementById('colorPicker').style.display = 'none'
+	turnOffOtherForms()
 	if (document.getElementById('stringInput')) {
 		document.getElementById('stringInput').style.display = 'block'
 	}
@@ -106,12 +101,7 @@ function popFormString() {
 }
 
 function popFormFile() {
-	if (document.getElementById('stringInput'))
-		document.getElementById('stringInput').style.display = 'none'
-	if (document.getElementById('branchWidthInput'))
-		document.getElementById('branchWidthInput').style.display = 'none'
-	if (document.getElementById('colorPicker'))
-		document.getElementById('colorPicker').style.display = 'none'
+	turnOffOtherForms()
 	if (document.getElementById('fileFormLabel')) {
 		document.getElementById('fileFormLabel').style.display = 'block'
 	}
@@ -144,6 +134,107 @@ function popFormFile() {
 		fileFormLabel.appendChild(fileForm)
 		document.body.appendChild(fileFormLabel)
 	}
+}
+
+// pops the div that allows user to select node shape
+function popFormNodeShape() {
+	turnOffOtherForms()
+	if (document.getElementById('changeNodeShapeForm')) {
+		document.getElementById('changeNodeShapeForm').style.display = 'block'
+	}
+	else {
+		let changeNodeShapeForm = document.createElement('div')
+		changeNodeShapeForm.id = 'changeNodeShapeForm'
+		document.body.appendChild(changeNodeShapeForm)
+
+		let expandedNodeText = document.createElement('div')
+		expandedNodeText.id = 'expandedNodeText'
+		expandedNodeText.innerHTML = 'Select Expanded Node Shape:'
+		changeNodeShapeForm.appendChild(expandedNodeText)
+
+		let expandedNodeButtons = document.createElement('div')
+		expandedNodeButtons.id = 'expandedNodeButtons'
+		changeNodeShapeForm.appendChild(expandedNodeButtons)
+
+		let collapsedNodeText = document.createElement('div')
+		collapsedNodeText.id = 'collapsedNodeText'
+		collapsedNodeText.innerHTML = 'Select Collapsed Node Shape:'
+		changeNodeShapeForm.appendChild(collapsedNodeText)
+
+		let collapsedNodeButtons = document.createElement('div')
+		collapsedNodeButtons.id = 'collapsedNodeButtons'
+		changeNodeShapeForm.appendChild(collapsedNodeButtons)
+
+		let circleButtonExpanded = document.createElement('label')
+		circleButtonExpanded.classList.add('btn', 'expanded-collapsed-buttons')
+		circleButtonExpanded.id = 'circleButtonExpanded'
+		circleButtonExpanded.onclick = function() {phylogician.changeExpandedNodeShape('circle')}
+		circleButtonExpanded.innerHTML = 'Circle'
+		expandedNodeButtons.appendChild(circleButtonExpanded)
+
+		let squareButtonExpanded = document.createElement('label')
+		squareButtonExpanded.classList.add('btn', 'expanded-collapsed-buttons')
+		squareButtonExpanded.id = 'squareButtonExpanded'
+		squareButtonExpanded.onclick = function() {phylogician.changeExpandedNodeShape('square')}
+		squareButtonExpanded.innerHTML = 'Square'
+		expandedNodeButtons.appendChild(squareButtonExpanded)
+
+		let triangleButtonExpanded = document.createElement('label')
+		triangleButtonExpanded.classList.add('btn', 'expanded-collapsed-buttons')
+		triangleButtonExpanded.id = 'triangleButtonExpanded'
+		triangleButtonExpanded.onclick = function() {phylogician.changeExpandedNodeShape('triangle')}
+		triangleButtonExpanded.innerHTML = 'Triangle'
+		expandedNodeButtons.appendChild(triangleButtonExpanded)
+
+		let circleButtonCollapsed = document.createElement('label')
+		circleButtonCollapsed.classList.add('btn', 'expanded-collapsed-buttons')
+		circleButtonCollapsed.id = 'circleButtonCollapsed'
+		circleButtonCollapsed.onclick = function() {phylogician.changeCollapsedNodeShape('circle')}
+		circleButtonCollapsed.innerHTML = 'Circle'
+		collapsedNodeButtons.appendChild(circleButtonCollapsed)
+
+		let squareButtonCollapsed = document.createElement('label')
+		squareButtonCollapsed.classList.add('btn', 'expanded-collapsed-buttons')
+		squareButtonCollapsed.id = 'squareButtonCollapsed'
+		squareButtonCollapsed.onclick = function() {phylogician.changeCollapsedNodeShape('square')}
+		squareButtonCollapsed.innerHTML = 'Square'
+		collapsedNodeButtons.appendChild(squareButtonCollapsed)
+
+		let triangleButtonCollapsed = document.createElement('label')
+		triangleButtonCollapsed.classList.add('btn', 'expanded-collapsed-buttons')
+		triangleButtonCollapsed.id = 'triangleButtonCollapsed'
+		triangleButtonCollapsed.onclick = function() {phylogician.changeCollapsedNodeShape('triangle')}
+		triangleButtonCollapsed.innerHTML = 'Triangle'
+		collapsedNodeButtons.appendChild(triangleButtonCollapsed)
+
+		let turnOffNodeShape = document.createElement('label')
+		turnOffNodeShape.classList.add('btn')
+		turnOffNodeShape.id = 'turnOffNodeShape'
+		turnOffNodeShape.onclick = function() {phylogician.changeExpandedNodeShape('none')}
+		turnOffNodeShape.innerHTML = 'Turn Off Node Shape'
+		changeNodeShapeForm.appendChild(turnOffNodeShape)
+
+		let closeNodeShape = document.createElement('label')
+		closeNodeShape.classList.add('btn')
+		closeNodeShape.id = 'closeNodeShape'
+		closeNodeShape.onclick = function() {document.getElementById('changeNodeShapeForm').style.display = 'none'}
+		closeNodeShape.innerHTML = 'Close'
+		changeNodeShapeForm.appendChild(closeNodeShape)
+	}
+}
+
+// turns off all active forms so that new form can open unobstructed
+function turnOffOtherForms() {
+	if (document.getElementById('stringInput'))
+		document.getElementById('stringInput').style.display = 'none'
+	if (document.getElementById('branchWidthInput'))
+		document.getElementById('branchWidthInput').style.display = 'none'
+	if (document.getElementById('colorPicker'))
+		document.getElementById('colorPicker').style.display = 'none'
+	if (document.getElementById('fileFormLabel'))
+		document.getElementById('fileFormLabel').style.display = 'none'
+	if (document.getElementById('changeNodeShapeForm'))
+		document.getElementById('changeNodeShapeForm').style.display = 'none'
 }
 
 let navBarDOM = document.getElementById('controlBar')
@@ -259,6 +350,15 @@ ladderizeTree.addEventListener('click', () => {
 	retractNavBar()
 })
 operationsOptions.appendChild(ladderizeTree)
+
+let changeNodeShape = document.createElement('a')
+changeNodeShape.classList.add('dropdown-item')
+changeNodeShape.innerHTML = 'Change Node Shape'
+changeNodeShape.addEventListener('click', () => {
+	popFormNodeShape()
+	retractNavBar()
+})
+operationsOptions.appendChild(changeNodeShape)
 
 // export tree in various formats via menu bar
 let exportDiv = document.createElement('div')

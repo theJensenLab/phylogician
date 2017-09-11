@@ -132,14 +132,17 @@ exports.ladderizeTree = function() {
 
 // changes the expanded node shape of the tree
 exports.changeExpandedNodeShape = function(shape) {
-	if (shape === 'circle') {
+	if (shape === 'none') {
+		expandedNode = ''
+	}
+	else if (shape === 'circle') {
 		expandedNode = tntTree.node_display.circle()
 	}
 	else if (shape === 'triangle') {
 		expandedNode = tntTree.node_display.triangle()
 	}
-	else if (shape === 'rectangle') {
-		expandedNode = tntTree.node_display.rectangle()
+	else if (shape === 'square') {
+		expandedNode = tntTree.node_display.square()
 	}
 	tree.node_display(nodeDisplay)
 	tree.update_nodes()
@@ -147,6 +150,19 @@ exports.changeExpandedNodeShape = function(shape) {
 
 // changes the collapsed node shape of the tree -- TO BE COMPLETED
 exports.changeCollapsedNodeShape = function(shape) {
+	if (shape === 'none') {
+		collapsedNode = ''
+	}
+	else if (shape === 'circle') {
+		collapsedNode = tntTree.node_display.circle()
+	}
+	else if (shape === 'triangle') {
+		collapsedNode = tntTree.node_display.triangle()
+	}
+	else if (shape === 'square') {
+		collapsedNode = tntTree.node_display.square()
+	}
+	tree.node_display(nodeDisplay)
 	tree.update_nodes()
 }
 
