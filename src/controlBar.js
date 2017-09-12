@@ -260,12 +260,14 @@ let inputOptions = document.createElement('div')
 inputOptions.classList.add('dropdown-menu')
 inputDiv.appendChild(inputOptions)
 
+// button that allows user to input a newick string
 let submitNwkString = document.createElement('a')
 submitNwkString.classList.add('dropdown-item')
 submitNwkString.innerHTML = 'Input Text'
 submitNwkString.addEventListener('click', popFormString)
 inputOptions.appendChild(submitNwkString)
 
+// button that allows the user to upload a newick file
 let submitNwkFile = document.createElement('a')
 submitNwkFile.classList.add('dropdown-item')
 submitNwkFile.innerHTML = 'Upload File'
@@ -289,6 +291,7 @@ let displayOptions = document.createElement('div')
 displayOptions.classList.add('dropdown-menu')
 treeLayoutDiv.appendChild(displayOptions)
 
+// dropdown option to change the layout to Vertical
 let makeVertical = document.createElement('a')
 makeVertical.classList.add('dropdown-item')
 makeVertical.innerHTML = 'Vertical'
@@ -298,6 +301,7 @@ makeVertical.addEventListener('click', (e) => {
 })
 displayOptions.appendChild(makeVertical)
 
+// dropdown option to change the layout to Radial
 let makeRadial = document.createElement('a')
 makeRadial.classList.add('dropdown-item')
 makeRadial.innerHTML = 'Radial'
@@ -324,6 +328,7 @@ let operationsOptions = document.createElement('div')
 operationsOptions.classList.add('dropdown-menu')
 operationsDiv.appendChild(operationsOptions)
 
+// button that causes the tree to resize to fit the viewing window
 let fit2screen = document.createElement('a')
 fit2screen.classList.add('dropdown-item')
 fit2screen.innerHTML = 'Fit To Screen'
@@ -333,6 +338,7 @@ fit2screen.addEventListener('click', (e) => {
 })
 operationsOptions.appendChild(fit2screen)
 
+// button that toggles the node support values on and off
 let toggleSupport = document.createElement('a')
 toggleSupport.classList.add('dropdown-item')
 toggleSupport.innerHTML = 'Toggle Support Values'
@@ -342,6 +348,7 @@ toggleSupport.addEventListener('click', () => {
 })
 operationsOptions.appendChild(toggleSupport)
 
+// button that ladderizes the tree
 let ladderizeTree = document.createElement('a')
 ladderizeTree.classList.add('dropdown-item')
 ladderizeTree.innerHTML = 'Ladderize Tree'
@@ -351,6 +358,7 @@ ladderizeTree.addEventListener('click', () => {
 })
 operationsOptions.appendChild(ladderizeTree)
 
+// button that allows the user to change/turn off expanded and collapsed node shapes
 let changeNodeShape = document.createElement('a')
 changeNodeShape.classList.add('dropdown-item')
 changeNodeShape.innerHTML = 'Change Node Shape'
@@ -377,6 +385,7 @@ let exportOptions = document.createElement('div')
 exportOptions.classList.add('dropdown-menu')
 exportDiv.appendChild(exportOptions)
 
+// button that exports the SVG canvas in PNG format
 let exportPNG = document.createElement('a')
 exportPNG.classList.add('dropdown-item')
 exportPNG.innerHTML = 'PNG Image'
