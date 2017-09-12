@@ -105,11 +105,21 @@ exports.exportPNG = function(e) {
 
 let min = 1000
 
-// sorts the tree ?? (need better description)
+// ladderizes the tree and toggles if already ladderized
+let ladderized = 'false'
 exports.ladderizeTree = function() {
-	tree.root().sort(function(node1, node2) {
-		return node1.get_all_leaves().length - node2.get_all_leaves().length
-	})
+	if (ladderized !== 'true') {
+		tree.root().sort(function(node1, node2) {
+			return node1.get_all_leaves().length - node2.get_all_leaves().length
+		})
+		ladderized = 'true'
+	}
+	else if (ladderized === 'true') {
+		tree.root().sort(function(node1, node2) {
+			return node2.get_all_leaves().length - node1.get_all_leaves().length
+		})
+		ladderized = 'false'
+	}
 	tree.update()
 }
 
