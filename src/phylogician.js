@@ -95,6 +95,24 @@ exports.changeBranchWidth = function(e, nodeID, numOfChildren) {
 	treeOperations.changeBranchWidth(e, nodeID, numOfChildren)
 }
 
+// changes the node size for the tree
+exports.changeNodeSize = function(size) {
+	/* nodeSize = size
+	tree.node_display()
+		.size(nodeSize)
+	tree.update_nodes() */
+
+	let nodes = d3.selectAll('.tnt_tree_node')
+		.select('.tnt_node_display_elem')
+
+	nodes.attr('r', size)
+	nodes.attr('width', size)
+	nodes.attr('height', size)
+	nodes.attr('x', -1 * size / 2)
+	nodes.attr('y', -1 * size / 2)
+	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
+}
+
 // exports a PNG image of the SVG display
 exports.exportPNG = function(e) {
 	let pngExporter = tnt.png()
@@ -126,27 +144,32 @@ exports.ladderizeTree = function() {
 // changes the expanded node shape of the tree
 exports.changeExpandedNodeShape = function(shape) {
 	if (shape === 'none') {
-		expandedNode = ''
+		expandedNode = tntTree.node_display.circle()
+		let allNodes = d3.selectAll('.tnt_tree_node')
+			.select('.tnt_node_display_elem')
+
+		allNodes.attr('r', '0')
 	}
 	else if (shape === 'circle') {
 		expandedNode = tntTree.node_display.circle()
+		tree.node_display(nodeDisplay)
+		tree.update_nodes()
 	}
 	else if (shape === 'triangle') {
 		expandedNode = tntTree.node_display.triangle()
+		tree.node_display(nodeDisplay)
+		tree.update_nodes()
 	}
 	else if (shape === 'square') {
 		expandedNode = tntTree.node_display.square()
-	}
-	tree.node_display(nodeDisplay)
-	tree.update_nodes()
+		tree.node_display(nodeDisplay)
+		tree.update_nodes()
+	}	
 }
 
 // changes the collapsed node shape of the tree -- TO BE COMPLETED
 exports.changeCollapsedNodeShape = function(shape) {
-	if (shape === 'none') {
-		collapsedNode = ''
-	}
-	else if (shape === 'circle') {
+	if (shape === 'circle') {
 		collapsedNode = tntTree.node_display.circle()
 	}
 	else if (shape === 'triangle') {

@@ -223,6 +223,31 @@ function popFormNodeShape() {
 	}
 }
 
+function popFormNodeSize() {
+	turnOffOtherForms()
+	if (document.getElementById('nodeSizeInput')) {
+		document.getElementById('nodeSizeInput').style.display = 'block'
+	}
+	else {
+		let myNodeSizeForm = document.createElement('input')
+		myNodeSizeForm.classList.add('form-control')
+		myNodeSizeForm.id = 'nodeSizeInput'
+		myNodeSizeForm.style.display = 'block'
+		myNodeSizeForm.addEventListener('keydown', function(e) {
+			let enterKeyCode = 13
+			if (e.keyCode === enterKeyCode) {
+				let newNodeSize = document.getElementById('nodeSizeInput').value
+				myNodeSizeForm.style.display = 'none'
+				if (newNodeSize !== '') {
+					phylogician.changeNodeSize(newNodeSize)
+					retractNavBar()
+				}
+			}
+		})
+		document.body.appendChild(myNodeSizeForm)
+	}
+}
+
 // turns off all active forms so that new form can open unobstructed
 function turnOffOtherForms() {
 	if (document.getElementById('stringInput'))
@@ -235,6 +260,8 @@ function turnOffOtherForms() {
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('changeNodeShapeForm'))
 		document.getElementById('changeNodeShapeForm').style.display = 'none'
+	if (document.getElementById('nodeSizeInput'))
+		document.getElementById('nodeSizeInput').style.display = 'none'
 }
 
 let navBarDOM = document.getElementById('controlBar')
@@ -367,6 +394,16 @@ changeNodeShape.addEventListener('click', () => {
 	retractNavBar()
 })
 operationsOptions.appendChild(changeNodeShape)
+
+// button that allows the user to change/turn off expanded and collapsed node shapes
+let changeNodeSize = document.createElement('a')
+changeNodeSize.classList.add('dropdown-item')
+changeNodeSize.innerHTML = 'Change Node Size'
+changeNodeSize.addEventListener('click', () => {
+	popFormNodeSize()
+	retractNavBar()
+})
+operationsOptions.appendChild(changeNodeSize)
 
 // export tree in various formats via menu bar
 let exportDiv = document.createElement('div')
