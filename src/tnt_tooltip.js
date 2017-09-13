@@ -344,6 +344,26 @@ tooltip.table = function(fullTree, selectedNode) {
 		toggleClickable.on('mouseover', function() {toggleClickable.style('color', '#3287d7')})
 		toggleClickable.on('mouseout', function() {toggleClickable.style('color', 'black')})
 
+		let ladderizeSubtree = obj_info_table
+			.append('tr')
+			.attr('class', 'tnt_zmenu_clickable')
+			.append('td')
+			.attr('colspan', 2)
+			.text('Ladderize Subtree')
+			.on('click', function() {
+				treeOperations.ladderizeSubtree(fullTree, selectedNode)
+				d3.select(id)
+					.select('circle')
+					.attr('fill', 'black')
+				d3.select(id)
+					.select('polygon')
+					.attr('fill', 'black')
+				t.close()
+			})	
+			.style('text-align', 'center')
+		ladderizeSubtree.on('mouseover', function() {ladderizeSubtree.style('color', '#3287d7')})
+		ladderizeSubtree.on('mouseout', function() {ladderizeSubtree.style('color', 'black')})
+
 		let reRootClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')

@@ -34,3 +34,21 @@ exports.toggleNode = function(tree, node) {
 	node.toggle()
 	tree.update()
 }
+
+// ladderizes a subtree
+let ladderized = 'false'
+exports.ladderizeSubtree = function(tree, node) {
+	if (ladderized !== 'true') {
+		node.sort(function(node1, node2) {
+			return node1.get_all_leaves().length - node2.get_all_leaves().length
+		})
+		ladderized = 'true'
+	}
+	else if (ladderized === 'true') {
+		node.sort(function(node1, node2) {
+			return node2.get_all_leaves().length - node1.get_all_leaves().length
+		})
+		ladderized = 'false'
+	}
+	tree.update()
+}
