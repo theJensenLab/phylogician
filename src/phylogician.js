@@ -105,27 +105,10 @@ exports.exportPNG = function(e) {
 
 let min = 1000
 
-// helper function for sorting
-function getShortestPathToLeaf(node) {
-	if (node.is_leaf()) {
-		return 1
-	}
-	let x = node.children()
-	for (let i = 0; i < x.length; i++) {
-		temp = 1 + getShortestPathToLeaf(x[i])
-		if (temp < min) {
-			min = temp
-			temp = 0
-		}
-	}
-}
-
 // sorts the tree ?? (need better description)
 exports.ladderizeTree = function() {
 	tree.root().sort(function(node1, node2) {
-		let highest1 = getShortestPathToLeaf(node1)
-		let highest2 = getShortestPathToLeaf(node2)
-		return getShortestPathToLeaf(node1) - getShortestPathToLeaf(node2)
+		return node1.get_all_leaves().length - node2.get_all_leaves().length
 	})
 	tree.update()
 }
