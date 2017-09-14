@@ -7,8 +7,6 @@ let d3 = require('d3'),
 	treeOperations = require('./treeOperations.js')
 
 let tooltip = function () {
-	'use strict'
-
 	let drag = d3.drag()
 	let tooltip_div
 
@@ -24,7 +22,7 @@ let tooltip = function () {
 
 	let t = function (data, event) {
 		drag
-			.subject(function(){
+			.subject(function() {
 				return {
 					x : parseInt(d3.select(this).style('left')),
 					y : parseInt(d3.select(this).style('top'))
@@ -394,6 +392,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.text('Set as Root')
 			.style('text-align', 'center')
 			.on('click', function() {
+				treeOperations.reroot(fullTree, selectedNode)
 				d3.select(id)
 					.select('circle')
 					.attr('fill', 'black')
