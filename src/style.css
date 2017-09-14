@@ -4,19 +4,8 @@ body {
   height: 100%;
 }
 
-.maindiv {
-  width: 50%;
-  margin: 0 auto;
-  background-color: none;
-  /*cursor: move;*/
-}
-
 .settingsbutton {
   margin-top: 10px;
-}
-
-.verticalradialbuttons {
-  margin-top: 0px;
 }
 
 .fileInput {
@@ -44,18 +33,67 @@ body {
   top: 10vh;
   background-color: #33373d;
   height: 50px;
+  position: absolute;
+  z-index: 100;
 }
+
+.tnt_tree_node {
+  cursor: default;
+}
+
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  cursor: pointer;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.tnt_zmenu_header {
+  cursor: move;
+}
+
+.tnt_zmenu_clickable {
+  cursor: pointer;
+}
+
+/* .tooltipContainer {
+  position: relative;
+  height: 1px;
+} */
+
+/* .btn-group-vertical {
+  position: absolute;
+  width: 150px;
+  background-color: rgba(210, 118, 118, 0.00);
+  z-index: 50;
+} */
 
 .tnt_groupDiv {
   margin: auto;
+}
+
+#tnt_tooltip_1 {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 1);
+  cursor: default;
+}
+
+#treeBox {
+  cursor: move;
+  z-index: 1;
 }
 
 #brand {
   position: absolute;
   text-align: center;
   right: 10px;
-  color: white;
   font-size: 20px;
+  cursor: pointer;
 }
 
 #stringInput {
@@ -68,5 +106,119 @@ body {
   margin-left: -150px;
   margin-top: -20px;
 
-  opacity: 0.8;
+  opacity: 1;
+}
+
+#fileFormLabel {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width: 150px;
+  height: 40px;
+
+  margin-left: -150px;
+  margin-top: -20px;
+
+  background-color: #33373d;
+  border-color: #33373d;
+  color: #FF6A13;
+
+  cursor: pointer;
+}
+
+/* BEGIN change node shape div styling */
+#changeNodeShapeForm {
+  border: 3px solid lightgray;
+  position: absolute;
+  left: 20%;
+  top: 30%;
+  height: 330px;
+  background-color: white;
+}
+
+#expandedNodeText {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+#collapsedNodeText {
+  margin-left: 30px;
+  margin-top: 30px;
+}
+
+.expanded-collapsed-buttons {
+  background-color: #33373d;
+  border-color: #33373d;
+  color: #FF6A13;
+  width: 125px;
+  margin-right: 30px;
+  margin-top: 10px;
+  margin-left: 30px;
+
+  cursor: pointer;
+}
+
+#turnOffNodeShape {
+  background-color: #33373d;
+  border-color: #33373d;
+  color: #FF6A13;
+  width: 200px;
+  position: absolute;
+  margin-top: 50px;
+  left: 60px;
+  margin-right: 75px;
+
+  cursor: pointer;
+}
+
+#closeNodeShape {
+  background-color: #33373d;
+  border-color: #33373d;
+  color: #FF6A13;
+  width: 200px;
+  position: absolute;
+  left: 300px;
+  margin-top: 50px;
+
+  cursor: pointer;
+}
+/* END change node shape div styling */
+
+#nodeSizeInput {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width: 300px;
+  height: 40px;
+
+  margin-left: -150px;
+  margin-top: -20px;
+
+  opacity: 1;
+}
+
+#branchWidthInput {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width: 300px;
+  height: 40px;
+
+  margin-left: -150px;
+  margin-top: -20px;
+
+  opacity: 1;
+}
+
+#colorPicker {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width: 300px;
+  height: 40px;
+
+  margin-left: -150px;
+  margin-top: -20px;
+
+  opacity: 1;
 }
