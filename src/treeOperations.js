@@ -1,7 +1,9 @@
 /* eslint-env browser */
 'use strict'
 
-let	d3 = require('d3')
+let	d3 = require('d3'),
+	tntTree = require('tnt.tree'),
+	parser = require('tnt.newick')
 
 exports.toggleSupport = function() {
 	let text = d3.select('.nodes')
@@ -77,5 +79,33 @@ exports.ladderizeSubtree = function(tree, node) {
 		})
 		ladderized = 'false'
 	}
+	tree.update()
+}
+
+function getTheOtherBranch(tree, node) {
+	let nodeParent = node.parent()
+	let otherBranches = ''
+	if (nodeParent) {
+		let childrenOfNodeParent = nodeParent.children()
+		childrenOfNodeParent.forEach(function(child) {
+			if (child.data() !== node.data())
+				otherBranches = child.subtree(child.get_all_leaves())
+		})
+	}
+	return otherBranches
+}
+
+exports.reroot = function(tree, node) {
+	let newTree = tntTree()
+
+	let subTree1 = node.subtree(node.get_all_leaves())
+	let subTree2 = getTheOtherBranch(tree, node)
+
+	newTree.data(tree.root().data())
+	console.log(subTree1.data())
+	console.log(subTree2.data())
+	newTree.root().property('children', [subTree1.data(), subTree2.data()])
+	console.log(newTree.data())
+	tree.data(newTree.data())
 	tree.update()
 }
