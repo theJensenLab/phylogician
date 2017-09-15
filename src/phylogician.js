@@ -54,6 +54,7 @@ exports.makeTree = function(newickString) {
 	for (let i = 0; i < childrenArray.length; i++) {
 		childrenArray[i].property('branchColor', 'black')
 		childrenArray[i].property('branchWidth', 1)
+		childrenArray[i].property('certaintyOnOff', 'off')
 	}
 
 	let svgTree = d3.select('#treeBox').select('svg'),

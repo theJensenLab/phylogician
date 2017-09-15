@@ -71,16 +71,28 @@ exports.toggleCertainty = function(selectedNode) {
 			let opacity = certainty / 100 // converts certainty into decimal since opacity must be from 0 to 1
 			let branch = d3.select(branchID)
 			branch.attr('opacity', opacity)
+			childrenArray[x].property('certaintyOnOff', opacity)
 		}
 		toggledCertainty = 'true'
 	}
 	else if (toggledCertainty === 'true') {
 		for (let x = 1; x < childrenArray.length; x++) {
+			childrenArray[x].property('certaintyOnOff', 'off')
 			let branchID = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 			let branch = d3.select(branchID)
 			branch.attr('opacity', 1)
 		}
 		toggledCertainty = 'false'
+	}
+}
+
+// changes each individual branch opacity in the given subtree by accessing the node property "certaintyOnOff"
+function toggleCertainty(tree) {
+	let childrenArray = tree.root().get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
+		let branch = d3.select(id)
+		branch.attr('opacity', childrenArray[x].property('certaintyOnOff'))
 	}
 }
 
@@ -112,6 +124,7 @@ function updateUserChanges(tree) {
 	tree.update()
 	changeBranchColor(tree)
 	changeBranchWidth(tree)
+	toggleCertainty(tree)
 }
 
 function getTheOtherBranches(tree, node) {
