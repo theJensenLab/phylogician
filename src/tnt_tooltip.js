@@ -299,12 +299,12 @@ tooltip.table = function(fullTree, selectedNode) {
 				let numChildren = selectedNode.get_all_nodes().length - 1
 				if (document.getElementById('branchWidthInput')) {
 					if (document.getElementById('branchWidthInput').style.display === 'none')
-						popforms.popFormBranchWidth(nodeID, numChildren, selectedNode)
+						popforms.popFormBranchWidth(selectedNode)
 					else
 						document.getElementById('branchWidthInput').style.display = 'none'
 				}
 				else {
-					popforms.popFormBranchWidth(nodeID, numChildren, selectedNode)
+					popforms.popFormBranchWidth(selectedNode)
 				}
 				d3.select(id)
 					.select('.tnt_node_display_elem')

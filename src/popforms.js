@@ -7,7 +7,7 @@ let d3 = require('d3'),
 	$ = require('jquery'),
 	phylogician = require('./phylogician.js')
 
-exports.popFormBranchWidth = function(nodeID, numChildren, selectedNode) {
+exports.popFormBranchWidth = function(selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
@@ -27,11 +27,9 @@ exports.popFormBranchWidth = function(nodeID, numChildren, selectedNode) {
 			let branchWidth = document.getElementById('branchWidthInput').value
 			branchWidthForm.style.display = 'none'
 			if (branchWidth !== '')
-				phylogician.changeBranchWidth(branchWidth, nodeID, numChildren)
-			for (let x = 1; x < childrenArray.length; x++) {
+				phylogician.changeBranchWidth(branchWidth, selectedNode)
+			for (let x = 1; x < childrenArray.length; x++)
 				childrenArray[x].property('branchWidth', branchWidth)
-				console.log(childrenArray[x].property('branchWidth'))
-			}
 		}
 	})
 	document.body.appendChild(branchWidthForm)

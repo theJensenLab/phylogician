@@ -55,10 +55,6 @@ exports.makeTree = function(newickString) {
 		childrenArray[i].property('branchColor', 'black')
 		childrenArray[i].property('branchWidth', 1)
 	}
-	console.log(childrenArray[5].property('branchColor'))
-	console.log(childrenArray[5].property('branchWidth'))
-	console.log(childrenArray[5].id())
-	
 
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
@@ -95,13 +91,13 @@ exports.toggleSupport = function() {
 }
 
 // calls the function to change the branch color of the subtree of the node #[nodeID]
-exports.changeBranchColor = function(e, nodeID, numOfChildren) {
-	treeOperations.changeBranchColor(e, nodeID, numOfChildren)
+exports.changeBranchColor = function(newColor, nodeID, numOfChildren) {
+	treeOperations.changeBranchColor(newColor, nodeID, numOfChildren)
 }
 
 // calls the function to change the branch width of the subtree of the node #[nodeID]
-exports.changeBranchWidth = function(e, nodeID, numOfChildren) {
-	treeOperations.changeBranchWidth(e, nodeID, numOfChildren)
+exports.changeBranchWidth = function(newWidth, selectedNode) {
+	treeOperations.changeBranchWidth(newWidth, selectedNode)
 }
 
 // changes the node size for the tree
