@@ -59,11 +59,12 @@ function changeBranchWidth(tree) {
 
 // changes each individual branch opacity based on transparency support value by id starting from the node in question and taking into account numChildren
 let toggledCertainty = 'false'
-exports.toggleCertainty = function(nodeID, numChildren) {
+exports.toggleCertainty = function(selectedNode) {
+	let childrenArray = selectedNode.get_all_nodes()
 	if (toggledCertainty !== 'true') {
-		for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
-			let branchID = '#tnt_tree_link_treeBox_' + x
-			let nodeID = '#tnt_tree_node_treeBox_' + x
+		for (let x = 1; x < childrenArray.length; x++) {
+			let branchID = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
+			let nodeID = '#tnt_tree_node_treeBox_' + childrenArray[x].id()
 			let certainty = d3.select(nodeID)
 				.select('text')
 				.html()
@@ -74,8 +75,8 @@ exports.toggleCertainty = function(nodeID, numChildren) {
 		toggledCertainty = 'true'
 	}
 	else if (toggledCertainty === 'true') {
-		for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
-			let branchID = '#tnt_tree_link_treeBox_' + x
+		for (let x = 1; x < childrenArray.length; x++) {
+			let branchID = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 			let branch = d3.select(branchID)
 			branch.attr('opacity', 1)
 		}
