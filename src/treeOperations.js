@@ -131,9 +131,7 @@ function getTheOtherBranches(tree, node) {
 	let nodeParent = node.parent()
 	let newTree = tntTree()
 	let otherBranches = ''
-	console.log(node.data())
 	if (nodeParent) {
-		console.log('non-root')
 		newTree.data(nodeParent.data())
 		let childrenOfNodeParent = nodeParent.children()
 		childrenOfNodeParent.forEach(function(child) {
@@ -141,8 +139,6 @@ function getTheOtherBranches(tree, node) {
 				otherBranches = child.subtree(child.get_all_leaves())
 		})
 		let subtree1 = getTheOtherBranches(tree, nodeParent)
-		console.log("This subtree of node: " + nodeParent.data()._id)
-		console.log(subtree1)
 		if (subtree1 !== false) {
 			newTree.root().property('children', [subtree1.data(), otherBranches.data()])
 		}
@@ -152,7 +148,6 @@ function getTheOtherBranches(tree, node) {
 		}
 	}
 	else {
-		console.log('root')
 		newTree = false
 	}
 	return newTree
@@ -165,11 +160,7 @@ exports.reroot = function(tree, node) {
 	let subTree2 = getTheOtherBranches(tree, node)
 
 	//newTree.data(node.data())
-	console.log('Final subtree')
-	console.log(subTree1.data())
-	console.log(subTree2.data())
 	newTree.root().property('children', [subTree1.data(), subTree2.data()])
-	console.log(newTree.data())
 	tree.data(newTree.data())
 	tree.update()
 }
