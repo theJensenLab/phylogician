@@ -82,26 +82,45 @@ exports.ladderizeSubtree = function(tree, node) {
 	tree.update()
 }
 
-function getTheOtherBranch(tree, node) {
+function getTheOtherBranches(tree, node) {
 	let nodeParent = node.parent()
+	let newTree = tntTree()
 	let otherBranches = ''
+	console.log(node.data())
 	if (nodeParent) {
+		console.log('non-root')
+		newTree.data(nodeParent.data())
 		let childrenOfNodeParent = nodeParent.children()
 		childrenOfNodeParent.forEach(function(child) {
 			if (child.data() !== node.data())
 				otherBranches = child.subtree(child.get_all_leaves())
 		})
+		let subtree1 = getTheOtherBranches(tree, nodeParent)
+		console.log("This subtree of node: " + nodeParent.data()._id)
+		console.log(subtree1)
+		if (subtree1 !== false) {
+			newTree.root().property('children', [subtree1.data(), otherBranches.data()])
+		}
+		else {
+			newTree = tntTree()
+			newTree.data(otherBranches.data())
+		}
 	}
-	return otherBranches
+	else {
+		console.log('root')
+		newTree = false
+	}
+	return newTree
 }
 
 exports.reroot = function(tree, node) {
-	let newTree = tntTree()
+	let newTree = tntTree().data(parser.parse_newick('(phylogician)'))
 
 	let subTree1 = node.subtree(node.get_all_leaves())
-	let subTree2 = getTheOtherBranch(tree, node)
+	let subTree2 = getTheOtherBranches(tree, node)
 
-	newTree.data(tree.root().data())
+	//newTree.data(node.data())
+	console.log('Final subtree')
 	console.log(subTree1.data())
 	console.log(subTree2.data())
 	newTree.root().property('children', [subTree1.data(), subTree2.data()])
