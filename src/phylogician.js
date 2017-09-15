@@ -91,8 +91,8 @@ exports.toggleSupport = function() {
 }
 
 // calls the function to change the branch color of the subtree of the node #[nodeID]
-exports.changeBranchColor = function(newColor, nodeID, numOfChildren) {
-	treeOperations.changeBranchColor(newColor, nodeID, numOfChildren)
+exports.changeBranchColor = function(newColor, selectedNode) {
+	treeOperations.changeBranchColor(newColor, selectedNode)
 }
 
 // calls the function to change the branch width of the subtree of the node #[nodeID]

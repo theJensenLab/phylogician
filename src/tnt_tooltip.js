@@ -272,12 +272,12 @@ tooltip.table = function(fullTree, selectedNode) {
 				let numChildren = selectedNode.get_all_nodes().length - 1
 				if (document.getElementById('colorPicker')) {
 					if (document.getElementById('colorPicker').style.display === 'none')
-						popforms.popColorPicker(nodeID, numChildren, selectedNode)
+						popforms.popColorPicker(selectedNode)
 					else
 						document.getElementById('colorPicker').style.display = 'none'
 				}
 				else {
-					popforms.popColorPicker(nodeID, numChildren, selectedNode)
+					popforms.popColorPicker(selectedNode)
 				}
 				d3.select(id)
 					.select('.tnt_node_display_elem')
@@ -295,8 +295,6 @@ tooltip.table = function(fullTree, selectedNode) {
 			.attr('colspan', 2)
 			.text('Change Branch Width')
 			.on('click', function() {
-				let nodeID = selectedNode.id()
-				let numChildren = selectedNode.get_all_nodes().length - 1
 				if (document.getElementById('branchWidthInput')) {
 					if (document.getElementById('branchWidthInput').style.display === 'none')
 						popforms.popFormBranchWidth(selectedNode)

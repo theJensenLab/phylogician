@@ -14,8 +14,8 @@ exports.toggleSupport = function() {
 }
 
 // changes each individual branch color by id starting from the node in question and taking into account numChildren
-exports.changeBranchColor = function(newColor, nodeID, numChildren) {
-	for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
+exports.changeBranchColor = function(newColor, selectedNode) {
+	for (let x = selectedNode.id() + 1; x <= selectedNode.id() + selectedNode.get_all_nodes().length - 1; x++) {
 		let id = '#tnt_tree_link_treeBox_' + x
 		let branch = d3.select(id)
 		branch.attr('style', 'stroke: ' + newColor.color)

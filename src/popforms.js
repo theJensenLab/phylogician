@@ -36,7 +36,7 @@ exports.popFormBranchWidth = function(selectedNode) {
 
 }
 
-exports.popColorPicker = function(nodeID, numChildren, selectedNode) {
+exports.popColorPicker = function(selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
@@ -53,11 +53,10 @@ exports.popColorPicker = function(nodeID, numChildren, selectedNode) {
 	$(function() {
 		$('#colorPicker').colorpicker()
 			.on('changeColor', function(newColor) {
-				phylogician.changeBranchColor(newColor, nodeID, numChildren)
+				phylogician.changeBranchColor(newColor, selectedNode)
 				for (let x = 1; x < childrenArray.length; x++) {
 					if (newColor.value !== 'undefined')
 						childrenArray[x].property('branchColor', newColor.value)
-					console.log(newColor.value)
 				}
 			})
 			.on('hidePicker', function() {
