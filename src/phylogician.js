@@ -91,6 +91,16 @@ exports.toggleSupport = function() {
 	treeOperations.toggleSupport()
 }
 
+// calls the function to toggle scaling of the tree
+exports.scaleTree = function() {
+	treeLayout.updateScale(tree)
+}
+
+// returns whether or not the tree is currently scaled
+exports.checkScaled = function() {
+	return treeLayout.checkScaled()
+}
+
 // calls the function to change the branch color of the subtree of the node #[nodeID]
 exports.changeBranchColor = function(newColor, selectedNode) {
 	treeOperations.changeBranchColor(newColor, selectedNode)

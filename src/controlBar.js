@@ -365,6 +365,16 @@ fit2screen.addEventListener('click', (e) => {
 })
 operationsOptions.appendChild(fit2screen)
 
+// button that causes the tree to resize to fit the viewing window
+let toggleScale = document.createElement('a')
+toggleScale.classList.add('dropdown-item', 'scalingOption')
+toggleScale.innerHTML = 'Turn On Scaling'
+toggleScale.addEventListener('click', () => {
+	phylogician.scaleTree()
+	retractNavBar()
+})
+operationsOptions.appendChild(toggleScale)
+
 // button that toggles the node support values on and off
 let toggleSupport = document.createElement('a')
 toggleSupport.classList.add('dropdown-item')
