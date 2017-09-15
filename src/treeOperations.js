@@ -22,12 +22,32 @@ exports.changeBranchColor = function(newColor, nodeID, numChildren) {
 	}
 }
 
+// changes each individual branch color in the given subtree by accessing the node property "branchColor"
+function changeBranchColor(tree) {
+	let childrenArray = tree.root().get_all_nodes()
+	for (let x = 0; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + (x + 1)
+		let branch = d3.select(id)
+		branch.attr('style', 'stroke: ' + childrenArray[x].property('branchColor'))
+	}
+}
+
 // changes each individual branch width by id starting from the node in question and taking into account numChildren
 exports.changeBranchWidth = function(width, nodeID, numChildren) {
 	for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
 		let id = '#tnt_tree_link_treeBox_' + x
 		let branch = d3.select(id)
 		branch.attr('stroke-width', width)
+	}
+}
+
+// changes each individual branch width in the given subtree by accessing the node property "branchWidth"
+function changeBranchWidth(tree) {
+	let childrenArray = tree.root().get_all_nodes()
+	for (let x = 0; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + (x + 1)
+		let branch = d3.select(id)
+		branch.attr('stroke-width', childrenArray[x].property('branchWidth'))
 	}
 }
 
@@ -59,7 +79,7 @@ exports.toggleCertainty = function(nodeID, numChildren) {
 
 exports.toggleNode = function(tree, node) {
 	node.toggle()
-	tree.update()
+	updateUserChanges(tree)
 }
 
 // ladderizes a subtree
@@ -78,4 +98,11 @@ exports.ladderizeSubtree = function(tree, node) {
 		ladderized = 'false'
 	}
 	tree.update()
+}
+
+// custom update function that uses the TNT update then also updates the branch color and width based on node properties
+function updateUserChanges(tree) {
+	tree.update()
+	changeBranchColor(tree)
+	changeBranchWidth(tree)
 }

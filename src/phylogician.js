@@ -50,6 +50,15 @@ exports.makeTree = function(newickString) {
 			.scale(false)
 		)
 	tree(treeBox)
+	let childrenArray = tree.root().get_all_nodes()
+	for (let i = 0; i < childrenArray.length; i++) {
+		childrenArray[i].property('branchColor', 'black')
+		childrenArray[i].property('branchWidth', 1)
+	}
+	console.log(childrenArray[5].property('branchColor'))
+	console.log(childrenArray[5].property('branchWidth'))
+	console.log(childrenArray[5].id())
+	
 
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
@@ -145,6 +154,7 @@ exports.ladderizeTree = function() {
 exports.changeExpandedNodeShape = function(shape) {
 	if (shape === 'none') {
 		expandedNode = tntTree.node_display.circle()
+		tree.update()
 		let allNodes = d3.selectAll('.tnt_tree_node')
 			.select('.tnt_node_display_elem')
 
