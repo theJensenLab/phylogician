@@ -17,8 +17,10 @@ exports.toggleSupport = function() {
 
 // changes each individual branch color by id starting from the node in question and taking into account numChildren
 exports.changeBranchColor = function(newColor, selectedNode) {
-	for (let x = selectedNode.id() + 1; x <= selectedNode.id() + selectedNode.get_all_nodes().length - 1; x++) {
-		let id = '#tnt_tree_link_treeBox_' + x
+	let childrenArray = selectedNode.get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		childrenArray[x].property('branchColor', newColor.color)
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('style', 'stroke: ' + newColor.color)
 	}
@@ -27,8 +29,8 @@ exports.changeBranchColor = function(newColor, selectedNode) {
 // changes each individual branch color in the given subtree by accessing the node property "branchColor"
 function changeBranchColor(tree) {
 	let childrenArray = tree.root().get_all_nodes()
-	for (let x = 0; x < childrenArray.length; x++) {
-		let id = '#tnt_tree_link_treeBox_' + (x + 1)
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('style', 'stroke: ' + childrenArray[x].property('branchColor'))
 	}
@@ -36,8 +38,10 @@ function changeBranchColor(tree) {
 
 // changes each individual branch width by id starting from the node in question and taking into account length of subtree
 exports.changeBranchWidth = function(width, selectedNode) {
-	for (let x = selectedNode.id() + 1; x <= selectedNode.id() + selectedNode.get_all_nodes().length - 1; x++) {
-		let id = '#tnt_tree_link_treeBox_' + x
+	let childrenArray = selectedNode.get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		childrenArray[x].property('branchWidth', width)
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('stroke-width', width)
 	}
@@ -46,8 +50,8 @@ exports.changeBranchWidth = function(width, selectedNode) {
 // changes each individual branch width in the given subtree by accessing the node property "branchWidth"
 function changeBranchWidth(tree) {
 	let childrenArray = tree.root().get_all_nodes()
-	for (let x = 0; x < childrenArray.length; x++) {
-		let id = '#tnt_tree_link_treeBox_' + (x + 1)
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('stroke-width', childrenArray[x].property('branchWidth'))
 	}
