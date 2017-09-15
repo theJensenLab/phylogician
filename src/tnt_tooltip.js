@@ -180,10 +180,7 @@ tooltip.table = function(fullTree, selectedNode) {
 	// fills the selected node -- KEEP WORKING HERE
 	let id = '#tnt_tree_node_treeBox_' + selectedNode.id()
 	d3.select(id)
-		.select('circle')
-		.attr('fill', '#FF6A13')
-	d3.select(id)
-		.select('polygon')
+		.select('.tnt_node_display_elem')
 		.attr('fill', '#FF6A13')
 
 	// table tooltips are based on general tooltips
@@ -273,18 +270,15 @@ tooltip.table = function(fullTree, selectedNode) {
 				let numChildren = selectedNode.get_all_nodes().length - 1
 				if (document.getElementById('colorPicker')) {
 					if (document.getElementById('colorPicker').style.display === 'none')
-						popforms.popColorPicker(nodeID, numChildren)
+						popforms.popColorPicker(selectedNode)
 					else
 						document.getElementById('colorPicker').style.display = 'none'
 				}
 				else {
-					popforms.popColorPicker(nodeID, numChildren)
+					popforms.popColorPicker(selectedNode)
 				}
 				d3.select(id)
-					.select('circle')
-					.attr('fill', 'black')
-				d3.select(id)
-					.select('polygon')
+					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
 				t.close()
 			})
@@ -299,22 +293,17 @@ tooltip.table = function(fullTree, selectedNode) {
 			.attr('colspan', 2)
 			.text('Change Branch Width')
 			.on('click', function() {
-				let nodeID = selectedNode.id()
-				let numChildren = selectedNode.get_all_nodes().length - 1
 				if (document.getElementById('branchWidthInput')) {
 					if (document.getElementById('branchWidthInput').style.display === 'none')
-						popforms.popFormBranchWidth(nodeID, numChildren)
+						popforms.popFormBranchWidth(selectedNode)
 					else
 						document.getElementById('branchWidthInput').style.display = 'none'
 				}
 				else {
-					popforms.popFormBranchWidth(nodeID, numChildren)
+					popforms.popFormBranchWidth(selectedNode)
 				}
 				d3.select(id)
-					.select('circle')
-					.attr('fill', 'black')
-				d3.select(id)
-					.select('polygon')
+					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
 				t.close()
 			})
@@ -331,10 +320,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.on('click', function() {
 				treeOperations.toggleNode(fullTree, selectedNode)
 				d3.select(id)
-					.select('circle')
-					.attr('fill', 'black')
-				d3.select(id)
-					.select('polygon')
+					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
 				t.close()
 			})	
@@ -353,10 +339,7 @@ tooltip.table = function(fullTree, selectedNode) {
 				let numChildren = selectedNode.get_all_nodes().length - 1
 				treeOperations.toggleCertainty(nodeID, numChildren)
 				d3.select(id)
-					.select('circle')
-					.attr('fill', 'black')
-				d3.select(id)
-					.select('polygon')
+					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
 				t.close()
 			})
@@ -373,10 +356,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.on('click', function() {
 				treeOperations.ladderizeSubtree(fullTree, selectedNode)
 				d3.select(id)
-					.select('circle')
-					.attr('fill', 'black')
-				d3.select(id)
-					.select('polygon')
+					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
 				t.close()
 			})	
@@ -394,10 +374,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.on('click', function() {
 				treeOperations.reroot(fullTree, selectedNode)
 				d3.select(id)
-					.select('circle')
-					.attr('fill', 'black')
-				d3.select(id)
-					.select('polygon')
+					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
 				t.close()
 			})
@@ -412,10 +389,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.text('Close')
 			.on('click', function() {
 				d3.select(id)
-					.select('circle')
-					.attr('fill', 'black')
-				d3.select(id)
-					.select('polygon')
+					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
 				t.close()
 			})

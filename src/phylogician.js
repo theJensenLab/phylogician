@@ -50,6 +50,11 @@ exports.makeTree = function(newickString) {
 			.scale(false)
 		)
 	tree(treeBox)
+	let childrenArray = tree.root().get_all_nodes()
+	for (let i = 0; i < childrenArray.length; i++) {
+		childrenArray[i].property('branchColor', 'black')
+		childrenArray[i].property('branchWidth', 1)
+	}
 
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
@@ -86,13 +91,13 @@ exports.toggleSupport = function() {
 }
 
 // calls the function to change the branch color of the subtree of the node #[nodeID]
-exports.changeBranchColor = function(e, nodeID, numOfChildren) {
-	treeOperations.changeBranchColor(e, nodeID, numOfChildren)
+exports.changeBranchColor = function(newColor, selectedNode) {
+	treeOperations.changeBranchColor(newColor, selectedNode)
 }
 
 // calls the function to change the branch width of the subtree of the node #[nodeID]
-exports.changeBranchWidth = function(e, nodeID, numOfChildren) {
-	treeOperations.changeBranchWidth(e, nodeID, numOfChildren)
+exports.changeBranchWidth = function(newWidth, selectedNode) {
+	treeOperations.changeBranchWidth(newWidth, selectedNode)
 }
 
 // changes the node size for the tree
@@ -145,6 +150,7 @@ exports.ladderizeTree = function() {
 exports.changeExpandedNodeShape = function(shape) {
 	if (shape === 'none') {
 		expandedNode = tntTree.node_display.circle()
+		tree.update()
 		let allNodes = d3.selectAll('.tnt_tree_node')
 			.select('.tnt_node_display_elem')
 
