@@ -432,15 +432,15 @@ let exportOptions = document.createElement('div')
 exportOptions.classList.add('dropdown-menu')
 exportDiv.appendChild(exportOptions)
 
-// button that exports the SVG canvas in PNG format
-let exportPNG = document.createElement('a')
-exportPNG.classList.add('dropdown-item')
-exportPNG.innerHTML = 'PNG Image'
-exportPNG.addEventListener('click', (e) => {
-	phylogician.exportPNG(e)
+// button that exports the current state of the SVG
+let exportCurrentState = document.createElement('a')
+exportCurrentState.classList.add('dropdown-item')
+exportCurrentState.innerHTML = 'Current State'
+exportCurrentState.addEventListener('click', (e) => {
+	phylogician.exportCurrentState(e)
 	retractNavBar()
 })
-exportOptions.appendChild(exportPNG)
+exportOptions.appendChild(exportCurrentState)
 
 // end section
 
