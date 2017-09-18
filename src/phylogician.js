@@ -129,12 +129,10 @@ exports.changeNodeSize = function(size) {
 	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
 }
 
-// exports a PNG image of the SVG display
-exports.exportPNG = function(e) {
-	let pngExporter = tnt.png()
-		.filename('treeSample.png')
-	pngExporter(d3.select('#treeBox')
-		.select('svg'))
+// exports the current state of the svg
+exports.exportCurrentState = function() {
+	console.log(treeObj)
+	return treeObj
 }
 
 let min = 1000
