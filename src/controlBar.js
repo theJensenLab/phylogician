@@ -498,7 +498,7 @@ let helpMenu = document.createElement('button')
 helpMenu.classList.add('btn', 'dropdown-toggle')
 helpMenu.setAttribute('data-toggle', 'dropdown')
 helpMenu.type = 'button'
-helpMenu.innerHTML = 'About'
+helpMenu.innerHTML = 'Help'
 helpMenu.style = 'left: 500px;'
 helpDiv.appendChild(helpMenu)
 
