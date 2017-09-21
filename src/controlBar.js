@@ -330,14 +330,14 @@ inputDiv.appendChild(inputOptions)
 // button that allows user to input a newick string
 let submitNwkString = document.createElement('a')
 submitNwkString.classList.add('dropdown-item')
-submitNwkString.innerHTML = 'Input Newick'
+submitNwkString.innerHTML = 'Newick Input'
 submitNwkString.addEventListener('click', popFormString)
 inputOptions.appendChild(submitNwkString)
 
 // button that allows the user to upload a newick file
 let submitNwkFile = document.createElement('a')
 submitNwkFile.classList.add('dropdown-item')
-submitNwkFile.innerHTML = 'Upload Newick'
+submitNwkFile.innerHTML = 'Newick File'
 submitNwkFile.addEventListener('click', popFormFile)
 inputOptions.appendChild(submitNwkFile)
 
