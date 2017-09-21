@@ -135,13 +135,22 @@ exports.restoreState = function(data) {
 	tree.data(data)
 }
 
-// exports the current state of the svg
+// calls the function that export the current state of the svg
 exports.exportCurrentState = function() {
-	console.log(tree.root().data())
+	exportCurrentState('tree.phy', tree.root().data())
 	return tree.root().data()
 }
 
-let min = 1000
+// function from: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
+function exportCurrentState(filename, text) {
+	let element = document.createElement('a')
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
+	element.setAttribute('exportCurrentState', filename)
+	element.style.display = 'none'
+	document.body.appendChild(element)
+	element.click()
+	document.body.removeChild(element)
+}
 
 // ladderizes the tree and toggles if already ladderized
 let ladderized = 'false'
