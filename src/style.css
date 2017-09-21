@@ -126,6 +126,23 @@ body {
   cursor: pointer;
 }
 
+#filePreviousState {
+  position:absolute;
+  left:50%;
+  top:50%;
+  width: 150px;
+  height: 40px;
+
+  margin-left: -150px;
+  margin-top: -20px;
+
+  background-color: #33373d;
+  border-color: #33373d;
+  color: #FF6A13;
+
+  cursor: pointer;
+}
+
 /* BEGIN change node shape div styling */
 #changeNodeShapeForm {
   border: 3px solid lightgray;

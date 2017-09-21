@@ -129,10 +129,16 @@ exports.changeNodeSize = function(size) {
 	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
 }
 
+// overrides the data in current tree with the passed data
+exports.restoreState = function(data) {
+	console.log('restoring')
+	tree.data(data)
+}
+
 // exports the current state of the svg
 exports.exportCurrentState = function() {
-	console.log(treeObj)
-	return treeObj
+	console.log(tree.root().data())
+	return tree.root().data()
 }
 
 let min = 1000
