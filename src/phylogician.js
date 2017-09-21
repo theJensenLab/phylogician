@@ -137,7 +137,9 @@ exports.restoreState = function(data) {
 
 // calls the function that export the current state of the svg
 exports.exportCurrentState = function() {
-	exportCurrentState('tree.phy', tree.root().data())
+	//console.log(tree.root().get_all_nodes())
+	console.log(tree.root().data())
+	exportCurrentState('tree.phy', JSON.stringify(tree.root().data()))
 	return tree.root().data()
 }
 
@@ -145,7 +147,7 @@ exports.exportCurrentState = function() {
 function exportCurrentState(filename, text) {
 	let element = document.createElement('a')
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
-	element.setAttribute('exportCurrentState', filename)
+	element.setAttribute('download', filename)
 	element.style.display = 'none'
 	document.body.appendChild(element)
 	element.click()
