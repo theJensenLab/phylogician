@@ -10,8 +10,7 @@ module.exports = {
 		vendor: ['jquery']
 	},
 	output: {
-		filename: '[name].bundle.js',
-		path: path.resolve(__dirname, 'dist')
+		filename: '[name].bundle.js'
 	},
 	module: {
 		rules: [

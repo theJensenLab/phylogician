@@ -9,6 +9,8 @@ require('./controlBar.js')
 require('./popforms.js')
 require('./tnt_tooltip.js')
 
+require('./backdrop.js')
+
 let treeBox = document.createElement('div')
 treeBox.id = 'treeBox'
 document.body.appendChild(treeBox)

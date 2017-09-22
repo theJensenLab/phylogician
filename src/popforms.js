@@ -7,7 +7,7 @@ let d3 = require('d3'),
 	$ = require('jquery'),
 	phylogician = require('./phylogician.js')
 
-exports.popFormBranchWidth = function(nodeID, numChildren) {
+exports.popFormBranchWidth = function(selectedNode) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -26,14 +26,14 @@ exports.popFormBranchWidth = function(nodeID, numChildren) {
 			let branchWidth = document.getElementById('branchWidthInput').value
 			branchWidthForm.style.display = 'none'
 			if (branchWidth !== '')
-				phylogician.changeBranchWidth(branchWidth, nodeID, numChildren)
+				phylogician.changeBranchWidth(branchWidth, selectedNode)
 		}
 	})
 	document.body.appendChild(branchWidthForm)
 
 }
 
-exports.popColorPicker = function(nodeID, numChildren) {
+exports.popColorPicker = function(selectedNode) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -48,8 +48,8 @@ exports.popColorPicker = function(nodeID, numChildren) {
 	colorPicker.style.display = 'block'
 	$(function() {
 		$('#colorPicker').colorpicker()
-			.on('changeColor', function(e) {
-				phylogician.changeBranchColor(e, nodeID, numChildren)
+			.on('changeColor', function(newColor) {
+				phylogician.changeBranchColor(newColor, selectedNode)
 			})
 			.on('hidePicker', function() {
 				document.getElementById('colorPicker').style.display = 'none'

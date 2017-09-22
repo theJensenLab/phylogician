@@ -50,6 +50,15 @@ exports.makeTree = function(newickString) {
 			.scale(false)
 		)
 	tree(treeBox)
+	let childrenArray = tree.root().get_all_nodes()
+	for (let i = 0; i < childrenArray.length; i++) {
+		if (!(childrenArray[i].property('branchWidth')))
+			childrenArray[i].property('branchWidth', 1)
+		if (!(childrenArray[i].property('branchColor')))
+			childrenArray[i].property('branchColor', 'black')
+		if (!(childrenArray[i].property('certaintyOnOff')))
+			childrenArray[i].property('certaintyOnOff', 'off')
+	}
 
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
@@ -59,6 +68,7 @@ exports.makeTree = function(newickString) {
 			g.attr('transform', d3.event.transform)
 		})
 	)
+	treeOperations.updateUserChanges(tree)
 }
 
 // resets the zoom and transform of tree to original
@@ -85,14 +95,24 @@ exports.toggleSupport = function() {
 	treeOperations.toggleSupport()
 }
 
+// calls the function to toggle scaling of the tree
+exports.scaleTree = function() {
+	treeLayout.updateScale(tree)
+}
+
+// returns whether or not the tree is currently scaled
+exports.checkScaled = function() {
+	return treeLayout.checkScaled()
+}
+
 // calls the function to change the branch color of the subtree of the node #[nodeID]
-exports.changeBranchColor = function(e, nodeID, numOfChildren) {
-	treeOperations.changeBranchColor(e, nodeID, numOfChildren)
+exports.changeBranchColor = function(newColor, selectedNode) {
+	treeOperations.changeBranchColor(newColor, selectedNode)
 }
 
 // calls the function to change the branch width of the subtree of the node #[nodeID]
-exports.changeBranchWidth = function(e, nodeID, numOfChildren) {
-	treeOperations.changeBranchWidth(e, nodeID, numOfChildren)
+exports.changeBranchWidth = function(newWidth, selectedNode) {
+	treeOperations.changeBranchWidth(newWidth, selectedNode)
 }
 
 // changes the node size for the tree
@@ -113,15 +133,46 @@ exports.changeNodeSize = function(size) {
 	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
 }
 
-// exports a PNG image of the SVG display
-exports.exportPNG = function(e) {
-	let pngExporter = tnt.png()
-		.filename('treeSample.png')
-	pngExporter(d3.select('#treeBox')
-		.select('svg'))
+// overrides the data in current tree with the passed data
+exports.restoreState = function(data) {
+	tree.data(JSON.parse(data))
+	treeOperations.updateUserChanges(tree)
 }
 
-let min = 1000
+function simpleStringify(object) {
+	let simpleObject = {}
+	if (object.children) {
+		for (let i = 0; i < object.children.length; i++)
+			object.children[i] = simpleStringify(object.children[i])
+	}
+	for (let prop in object) {
+		if (!object.hasOwnProperty(prop))
+			continue
+		if (typeof (object[prop]) == 'object' && prop !== 'children')
+			continue
+		simpleObject[prop] = object[prop]
+	}
+	return simpleObject // returns cleaned up JSON
+}
+
+// calls the function that export the current state of the svg
+exports.exportCurrentState = function() {
+	let exportState = tree.root().data()
+	exportState = simpleStringify(exportState)
+	_exportCurrentState('tree.phy', JSON.stringify(exportState))
+	return exportState
+}
+
+// function from: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
+function _exportCurrentState(filename, text) {
+	let element = document.createElement('a')
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
+	element.setAttribute('download', filename)
+	element.style.display = 'none'
+	document.body.appendChild(element)
+	element.click()
+	document.body.removeChild(element)
+}
 
 // ladderizes the tree and toggles if already ladderized
 let ladderized = 'false'
@@ -145,6 +196,7 @@ exports.ladderizeTree = function() {
 exports.changeExpandedNodeShape = function(shape) {
 	if (shape === 'none') {
 		expandedNode = tntTree.node_display.circle()
+		tree.update()
 		let allNodes = d3.selectAll('.tnt_tree_node')
 			.select('.tnt_node_display_elem')
 
@@ -194,10 +246,8 @@ tree.on('click', function(node) {
 	tntTooltip.table(tree, node)
 		.width(120)
 		.call(this, {
-			'header' : 'Node #' + node.id(),
-			/* "rows" : [
-				{"label": "ID", "value": node.id()}
-			] */
+			// header: 'Node #' + node.id() + ' :: ' + node.property('name')
+			header: 'Node: ' + node.property('name')
 		})
 })
 

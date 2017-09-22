@@ -57,6 +57,10 @@ function expandNavBar() {
 			.transition()
 			.duration(duration)
 			.attr('fill', '#FF6A13')
+		
+		d3.select('#backDrop').transition()
+			.duration(duration)
+			.style('opacity', '0')
 	}
 }
 
@@ -72,6 +76,12 @@ function retractNavBar() {
 			.transition()
 			.duration(duration)
 			.attr('fill', '#91DC5A')
+
+		if (document.getElementsByClassName('tnt_groupDiv').length === 0) {
+			d3.select('#backDrop').transition()
+				.duration(duration)
+				.style('opacity', '1')
+		}
 	}
 }
 
@@ -133,6 +143,44 @@ function popFormFile() {
 		fileFormLabel.innerHTML = 'Browse'
 		fileFormLabel.appendChild(fileForm)
 		document.body.appendChild(fileFormLabel)
+	}
+}
+
+function popFormPreviousState() {
+	turnOffOtherForms()
+	if (document.getElementById('filePreviousState')) {
+		document.getElementById('filePreviousState').style.display = 'block'
+	}
+	else {
+		let filePreviousState = document.createElement('label')
+		filePreviousState.classList.add('btn', 'btn-primary')
+		filePreviousState.id = 'filePreviousState'
+		filePreviousState.setAttribute('for', 'previousStateInput') //??? 'previousStateInput' perhaps?
+
+		let previousStateForm = document.createElement('input')
+		previousStateForm.id = 'previousStateInput'
+		previousStateForm.type = 'file'
+		previousStateForm.style.display = 'none'
+		previousStateForm.addEventListener('change', function() {
+			let previousStateInput = document.getElementById('previousStateInput'),
+				data = '',
+				tempNewick = 'A', // temporary newick needed to help create tree that will be modified with uplaoded data
+				file = previousStateInput.files[0]
+			let thisReader = new FileReader()
+
+			thisReader.onload = function(err) {
+				data = thisReader.result
+				filePreviousState.style.display = 'none'
+				phylogician.makeTree(tempNewick) // creates temporary tree
+				phylogician.restoreState(data)
+				previousStateInput.value = null
+				retractNavBar()
+			}
+			thisReader.readAsText(file)
+		})
+		filePreviousState.innerHTML = 'Browse'
+		filePreviousState.appendChild(previousStateForm)
+		document.body.appendChild(filePreviousState)
 	}
 }
 
@@ -262,6 +310,8 @@ function turnOffOtherForms() {
 		document.getElementById('changeNodeShapeForm').style.display = 'none'
 	if (document.getElementById('nodeSizeInput'))
 		document.getElementById('nodeSizeInput').style.display = 'none'
+	if (document.getElementById('filePreviousState'))
+		document.getElementById('filePreviousState').style.display = 'none'
 }
 
 let navBarDOM = document.getElementById('controlBar')
@@ -280,7 +330,7 @@ let inputMenu = document.createElement('button')
 inputMenu.classList.add('btn', 'dropdown-toggle')
 inputMenu.setAttribute('data-toggle', 'dropdown')
 inputMenu.type = 'button'
-inputMenu.innerHTML = 'Load Data'
+inputMenu.innerHTML = 'Load'
 inputDiv.appendChild(inputMenu)
 
 let inputOptions = document.createElement('div')
@@ -290,16 +340,23 @@ inputDiv.appendChild(inputOptions)
 // button that allows user to input a newick string
 let submitNwkString = document.createElement('a')
 submitNwkString.classList.add('dropdown-item')
-submitNwkString.innerHTML = 'Input Text'
+submitNwkString.innerHTML = 'Newick Input'
 submitNwkString.addEventListener('click', popFormString)
 inputOptions.appendChild(submitNwkString)
 
 // button that allows the user to upload a newick file
 let submitNwkFile = document.createElement('a')
 submitNwkFile.classList.add('dropdown-item')
-submitNwkFile.innerHTML = 'Upload File'
+submitNwkFile.innerHTML = 'Newick File'
 submitNwkFile.addEventListener('click', popFormFile)
 inputOptions.appendChild(submitNwkFile)
+
+// button that allows the user to upload a newick file
+let uploadPreviousState = document.createElement('a')
+uploadPreviousState.classList.add('dropdown-item')
+uploadPreviousState.innerHTML = 'Previous State'
+uploadPreviousState.addEventListener('click', popFormPreviousState)
+inputOptions.appendChild(uploadPreviousState)
 
 // change tree layout via menu bar
 let treeLayoutDiv = document.createElement('div')
@@ -310,7 +367,7 @@ let treeLayoutMenu = document.createElement('button')
 treeLayoutMenu.classList.add('btn', 'dropdown-toggle')
 treeLayoutMenu.setAttribute('data-toggle', 'dropdown')
 treeLayoutMenu.type = 'button'
-treeLayoutMenu.innerHTML = 'Tree Layout'
+treeLayoutMenu.innerHTML = 'Layout'
 treeLayoutMenu.style = 'left: 100px;'
 treeLayoutDiv.appendChild(treeLayoutMenu)
 
@@ -347,7 +404,7 @@ let operationsMenu = document.createElement('button')
 operationsMenu.classList.add('btn', 'dropdown-toggle')
 operationsMenu.setAttribute('data-toggle', 'dropdown')
 operationsMenu.type = 'button'
-operationsMenu.innerHTML = 'Tree Display'
+operationsMenu.innerHTML = 'Actions'
 operationsMenu.style = 'left: 100px;'
 operationsDiv.appendChild(operationsMenu)
 
@@ -364,6 +421,16 @@ fit2screen.addEventListener('click', (e) => {
 	retractNavBar()
 })
 operationsOptions.appendChild(fit2screen)
+
+// button that causes the tree to resize to fit the viewing window
+let toggleScale = document.createElement('a')
+toggleScale.classList.add('dropdown-item', 'scalingOption')
+toggleScale.innerHTML = 'Turn On Scaling'
+toggleScale.addEventListener('click', () => {
+	phylogician.scaleTree()
+	retractNavBar()
+})
+operationsOptions.appendChild(toggleScale)
 
 // button that toggles the node support values on and off
 let toggleSupport = document.createElement('a')
@@ -422,15 +489,49 @@ let exportOptions = document.createElement('div')
 exportOptions.classList.add('dropdown-menu')
 exportDiv.appendChild(exportOptions)
 
-// button that exports the SVG canvas in PNG format
-let exportPNG = document.createElement('a')
-exportPNG.classList.add('dropdown-item')
-exportPNG.innerHTML = 'PNG Image'
-exportPNG.addEventListener('click', (e) => {
-	phylogician.exportPNG(e)
+// button that exports the current state of the SVG
+let exportCurrentState = document.createElement('a')
+exportCurrentState.classList.add('dropdown-item')
+exportCurrentState.innerHTML = 'Current State'
+exportCurrentState.addEventListener('click', (e) => {
+	phylogician.exportCurrentState(e)
 	retractNavBar()
 })
-exportOptions.appendChild(exportPNG)
+exportOptions.appendChild(exportCurrentState)
+
+// creates 'Help' dropdown in the menu bar
+let helpDiv = document.createElement('div')
+helpDiv.classList.add('dropdown')
+buttonGroup.appendChild(helpDiv)
+
+let helpMenu = document.createElement('button')
+helpMenu.classList.add('btn', 'dropdown-toggle')
+helpMenu.setAttribute('data-toggle', 'dropdown')
+helpMenu.type = 'button'
+helpMenu.innerHTML = 'Help'
+helpMenu.style = 'left: 500px;'
+helpDiv.appendChild(helpMenu)
+
+let helpOptions = document.createElement('div')
+helpOptions.classList.add('dropdown-menu')
+helpDiv.appendChild(helpOptions)
+
+// creates 'About' dropdown in the menu bar
+let aboutDiv = document.createElement('div')
+aboutDiv.classList.add('dropdown')
+buttonGroup.appendChild(aboutDiv)
+
+let aboutMenu = document.createElement('button')
+aboutMenu.classList.add('btn', 'dropdown-toggle')
+aboutMenu.setAttribute('data-toggle', 'dropdown')
+aboutMenu.type = 'button'
+aboutMenu.innerHTML = 'About'
+aboutMenu.style = 'left: 500px;'
+aboutDiv.appendChild(aboutMenu)
+
+let aboutOptions = document.createElement('div')
+aboutOptions.classList.add('dropdown-menu')
+aboutDiv.appendChild(aboutOptions)
 
 // end section
 
