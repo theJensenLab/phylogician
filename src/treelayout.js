@@ -4,7 +4,7 @@
 let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick'),
-	currentState = 'vertical', 
+	currentState = 'vertical',
 	scaled = false
 
 exports.updateVertical = function(tree) {
