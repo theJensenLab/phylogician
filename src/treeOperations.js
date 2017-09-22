@@ -5,6 +5,8 @@ let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick')
 
+let utils = require('./utils.js')
+
 exports.toggleSupport = function() {
 	let text = d3.select('.nodes')
 		.selectAll('.inner')
@@ -17,8 +19,10 @@ exports.toggleSupport = function() {
 
 // changes each individual branch color by id starting from the node in question and taking into account numChildren
 exports.changeBranchColor = function(newColor, selectedNode) {
-	for (let x = selectedNode.id() + 1; x <= selectedNode.id() + selectedNode.get_all_nodes().length - 1; x++) {
-		let id = '#tnt_tree_link_treeBox_' + x
+	let childrenArray = selectedNode.get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		childrenArray[x].property('branchColor', '' + newColor.color)
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('style', 'stroke: ' + newColor.color)
 	}
@@ -27,8 +31,8 @@ exports.changeBranchColor = function(newColor, selectedNode) {
 // changes each individual branch color in the given subtree by accessing the node property "branchColor"
 function changeBranchColor(tree) {
 	let childrenArray = tree.root().get_all_nodes()
-	for (let x = 0; x < childrenArray.length; x++) {
-		let id = '#tnt_tree_link_treeBox_' + (x + 1)
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('style', 'stroke: ' + childrenArray[x].property('branchColor'))
 	}
@@ -36,8 +40,10 @@ function changeBranchColor(tree) {
 
 // changes each individual branch width by id starting from the node in question and taking into account length of subtree
 exports.changeBranchWidth = function(width, selectedNode) {
-	for (let x = selectedNode.id() + 1; x <= selectedNode.id() + selectedNode.get_all_nodes().length - 1; x++) {
-		let id = '#tnt_tree_link_treeBox_' + x
+	let childrenArray = selectedNode.get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		childrenArray[x].property('branchWidth', Math.abs(width))
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('stroke-width', width)
 	}
@@ -46,8 +52,8 @@ exports.changeBranchWidth = function(width, selectedNode) {
 // changes each individual branch width in the given subtree by accessing the node property "branchWidth"
 function changeBranchWidth(tree) {
 	let childrenArray = tree.root().get_all_nodes()
-	for (let x = 0; x < childrenArray.length; x++) {
-		let id = '#tnt_tree_link_treeBox_' + (x + 1)
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('stroke-width', childrenArray[x].property('branchWidth'))
 	}
@@ -55,27 +61,40 @@ function changeBranchWidth(tree) {
 
 // changes each individual branch opacity based on transparency support value by id starting from the node in question and taking into account numChildren
 let toggledCertainty = 'false'
-exports.toggleCertainty = function(nodeID, numChildren) {
+exports.toggleCertainty = function(selectedNode) {
+	let childrenArray = selectedNode.get_all_nodes()
 	if (toggledCertainty !== 'true') {
-		for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
-			let branchID = '#tnt_tree_link_treeBox_' + x
-			let nodeID = '#tnt_tree_node_treeBox_' + x
+		for (let x = 1; x < childrenArray.length; x++) {
+			let branchID = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
+			let nodeID = '#tnt_tree_node_treeBox_' + childrenArray[x].id()
 			let certainty = d3.select(nodeID)
 				.select('text')
 				.html()
 			let opacity = certainty / 100 // converts certainty into decimal since opacity must be from 0 to 1
 			let branch = d3.select(branchID)
 			branch.attr('opacity', opacity)
+			childrenArray[x].property('certaintyOnOff', opacity)
 		}
 		toggledCertainty = 'true'
 	}
 	else if (toggledCertainty === 'true') {
-		for (let x = nodeID + 1; x <= nodeID + numChildren; x++) {
-			let branchID = '#tnt_tree_link_treeBox_' + x
+		for (let x = 1; x < childrenArray.length; x++) {
+			childrenArray[x].property('certaintyOnOff', 'off')
+			let branchID = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 			let branch = d3.select(branchID)
 			branch.attr('opacity', 1)
 		}
 		toggledCertainty = 'false'
+	}
+}
+
+// changes each individual branch opacity in the given subtree by accessing the node property "certaintyOnOff"
+function toggleCertainty(tree) {
+	let childrenArray = tree.root().get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
+		let branch = d3.select(id)
+		branch.attr('opacity', childrenArray[x].property('certaintyOnOff'))
 	}
 }
 
@@ -107,15 +126,31 @@ function updateUserChanges(tree) {
 	tree.update()
 	changeBranchColor(tree)
 	changeBranchWidth(tree)
+	toggleCertainty(tree)
 }
+
+exports.updateUserChanges = function(tree) {
+	let numOfLeaves = utils.countLeaves(tree.root().data()),
+		fontSizeOfTreeLeafs = 12
+	tree
+		.label(tntTree.label
+			.text()
+			.fontsize(fontSizeOfTreeLeafs)
+			.height(window.innerHeight / (numOfLeaves + 4))
+		)
+	tree.update()
+	changeBranchColor(tree)
+	changeBranchWidth(tree)
+	toggleCertainty(tree)
+
+}
+
 
 function getTheOtherBranches(tree, node) {
 	let nodeParent = node.parent()
 	let newTree = tntTree()
 	let otherBranches = ''
-	console.log(node.data())
 	if (nodeParent) {
-		console.log('non-root')
 		newTree.data(nodeParent.data())
 		let childrenOfNodeParent = nodeParent.children()
 		childrenOfNodeParent.forEach(function(child) {
@@ -123,8 +158,6 @@ function getTheOtherBranches(tree, node) {
 				otherBranches = child.subtree(child.get_all_leaves())
 		})
 		let subtree1 = getTheOtherBranches(tree, nodeParent)
-		console.log("This subtree of node: " + nodeParent.data()._id)
-		console.log(subtree1)
 		if (subtree1 !== false) {
 			newTree.root().property('children', [subtree1.data(), otherBranches.data()])
 		}
@@ -134,7 +167,6 @@ function getTheOtherBranches(tree, node) {
 		}
 	}
 	else {
-		console.log('root')
 		newTree = false
 	}
 	return newTree
@@ -147,11 +179,7 @@ exports.reroot = function(tree, node) {
 	let subTree2 = getTheOtherBranches(tree, node)
 
 	//newTree.data(node.data())
-	console.log('Final subtree')
-	console.log(subTree1.data())
-	console.log(subTree2.data())
 	newTree.root().property('children', [subTree1.data(), subTree2.data()])
-	console.log(newTree.data())
 	tree.data(newTree.data())
 	tree.update()
 }

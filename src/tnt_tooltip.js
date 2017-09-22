@@ -179,6 +179,7 @@ tooltip.list = function () {
 tooltip.table = function(fullTree, selectedNode) {
 	// fills the selected node -- KEEP WORKING HERE
 	let id = '#tnt_tree_node_treeBox_' + selectedNode.id()
+	let collapsedText = ''
 	d3.select(id)
 		.select('.tnt_node_display_elem')
 		.attr('fill', '#FF6A13')
@@ -311,12 +312,17 @@ tooltip.table = function(fullTree, selectedNode) {
 		changeBranchWidthClickable.on('mouseover', function() {changeBranchWidthClickable.style('color', '#3287d7')})
 		changeBranchWidthClickable.on('mouseout', function() {changeBranchWidthClickable.style('color', 'black')})
 
+		if (selectedNode.is_collapsed())
+			collapsedText = 'Uncollapse Node'
+		else
+			collapsedText = 'Collapse Node'
+
 		let toggleClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
 			.attr('colspan', 2)
-			.text('Toggle Node')
+			.text(collapsedText)
 			.on('click', function() {
 				treeOperations.toggleNode(fullTree, selectedNode)
 				d3.select(id)
@@ -335,9 +341,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.attr('colspan', 2)
 			.text('Toggle Certainty')
 			.on('click', function() {
-				let nodeID = selectedNode.id()
-				let numChildren = selectedNode.get_all_nodes().length - 1
-				treeOperations.toggleCertainty(nodeID, numChildren)
+				treeOperations.toggleCertainty(selectedNode)
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
