@@ -222,3 +222,25 @@ body {
 
   opacity: 1;
 }
+
+#backDrop {
+  position: absolute;
+  left: 50%;
+  height: 400px;
+  width: 400px;
+  top: -webkit-calc(50% - 300px);
+  left: -webkit-calc(50% - 200px);
+}
+
+#startTitle {
+  font-family: sans-serif;
+  font-size: 300%;
+  z-index: 10;
+  position: relative;
+  text-align: center;
+}
+
+#links {
+  position:relative;
+  top:100%;
+}
