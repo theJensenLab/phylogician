@@ -1,4 +1,4 @@
-# Phylogician - 0.1v
+# Phylogician - 0.3v
 Our approach to visualization of phylogenetics trees using javascript and d3.js
 
 We will build a web app for tree visualization taking in consideration commentaries and criticisms of the community such as:
