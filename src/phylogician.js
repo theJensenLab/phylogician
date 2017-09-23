@@ -30,6 +30,8 @@ exports.makeTree = function(newickString) {
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
 		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
 		document.getElementById('treeBox').removeChild(existingTree)
+		let backdrop = d3.select('#backDrop')
+		backdrop.attr('display', 'none')
 	}
 
 	let treeBox = document.getElementById('treeBox')
