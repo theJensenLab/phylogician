@@ -52,9 +52,12 @@ exports.makeTree = function(newickString) {
 	tree(treeBox)
 	let childrenArray = tree.root().get_all_nodes()
 	for (let i = 0; i < childrenArray.length; i++) {
-		childrenArray[i].property('branchColor', 'black')
-		childrenArray[i].property('branchWidth', 1)
-		childrenArray[i].property('certaintyOnOff', 'off')
+		if (!(childrenArray[i].property('branchWidth')))
+			childrenArray[i].property('branchWidth', 1)
+		if (!(childrenArray[i].property('branchColor')))
+			childrenArray[i].property('branchColor', 'black')
+		if (!(childrenArray[i].property('certaintyOnOff')))
+			childrenArray[i].property('certaintyOnOff', 'off')
 	}
 
 	let svgTree = d3.select('#treeBox').select('svg'),
@@ -65,6 +68,7 @@ exports.makeTree = function(newickString) {
 			g.attr('transform', d3.event.transform)
 		})
 	)
+	treeOperations.updateUserChanges(tree)
 }
 
 // resets the zoom and transform of tree to original
@@ -131,20 +135,36 @@ exports.changeNodeSize = function(size) {
 
 // overrides the data in current tree with the passed data
 exports.restoreState = function(data) {
-	console.log('restoring')
-	tree.data(data)
+	tree.data(JSON.parse(data))
+	treeOperations.updateUserChanges(tree)
+}
+
+function simpleStringify(object) {
+	let simpleObject = {}
+	if (object.children) {
+		for (let i = 0; i < object.children.length; i++)
+			object.children[i] = simpleStringify(object.children[i])
+	}
+	for (let prop in object) {
+		if (!object.hasOwnProperty(prop))
+			continue
+		if (typeof (object[prop]) == 'object' && prop !== 'children')
+			continue
+		simpleObject[prop] = object[prop]
+	}
+	return simpleObject // returns cleaned up JSON
 }
 
 // calls the function that export the current state of the svg
 exports.exportCurrentState = function() {
-	//console.log(tree.root().get_all_nodes())
-	console.log(tree.root().data())
-	exportCurrentState('tree.phy', JSON.stringify(tree.root().data()))
-	return tree.root().data()
+	let exportState = tree.root().data()
+	exportState = simpleStringify(exportState)
+	_exportCurrentState('tree.phy', JSON.stringify(exportState))
+	return exportState
 }
 
 // function from: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
-function exportCurrentState(filename, text) {
+function _exportCurrentState(filename, text) {
 	let element = document.createElement('a')
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
 	element.setAttribute('download', filename)
@@ -226,10 +246,8 @@ tree.on('click', function(node) {
 	tntTooltip.table(tree, node)
 		.width(120)
 		.call(this, {
-			'header' : 'Node #' + node.id(),
-			/* "rows" : [
-				{"label": "ID", "value": node.id()}
-			] */
+			// header: 'Node #' + node.id() + ' :: ' + node.property('name')
+			header: 'Node: ' + node.property('name')
 		})
 })
 

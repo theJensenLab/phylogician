@@ -5,6 +5,8 @@ let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick')
 
+let utils = require('./utils.js')
+
 exports.toggleSupport = function() {
 	let text = d3.select('.nodes')
 		.selectAll('.inner')
@@ -19,7 +21,7 @@ exports.toggleSupport = function() {
 exports.changeBranchColor = function(newColor, selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
 	for (let x = 1; x < childrenArray.length; x++) {
-		childrenArray[x].property('branchColor', newColor.color)
+		childrenArray[x].property('branchColor', '' + newColor.color)
 		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('style', 'stroke: ' + newColor.color)
@@ -40,7 +42,7 @@ function changeBranchColor(tree) {
 exports.changeBranchWidth = function(width, selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
 	for (let x = 1; x < childrenArray.length; x++) {
-		childrenArray[x].property('branchWidth', width)
+		childrenArray[x].property('branchWidth', Math.abs(width))
 		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 		let branch = d3.select(id)
 		branch.attr('stroke-width', width)
@@ -126,6 +128,23 @@ function updateUserChanges(tree) {
 	changeBranchWidth(tree)
 	toggleCertainty(tree)
 }
+
+exports.updateUserChanges = function(tree) {
+	let numOfLeaves = utils.countLeaves(tree.root().data()),
+		fontSizeOfTreeLeafs = 12
+	tree
+		.label(tntTree.label
+			.text()
+			.fontsize(fontSizeOfTreeLeafs)
+			.height(window.innerHeight / (numOfLeaves + 4))
+		)
+	tree.update()
+	changeBranchColor(tree)
+	changeBranchWidth(tree)
+	toggleCertainty(tree)
+
+}
+
 
 function getTheOtherBranches(tree, node) {
 	let nodeParent = node.parent()
