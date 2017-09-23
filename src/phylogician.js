@@ -32,9 +32,11 @@ exports.makeTree = function(newickString) {
 		document.getElementById('treeBox').removeChild(existingTree)
 	}
 
-	let backdrop = d3.select('#backDrop')
-	backdrop.attr('display', 'none')
-	// necessary so that the backdrop div is gone once tree is created
+	let backDrop = d3.select('#backDrop')
+	backDrop.attr('display', 'none')
+	let startTitle = d3.select('#startTitle')
+	startTitle.attr('display', 'none')
+	// necessary so that the backdrop + startTitle div is gone once tree is created
 
 	let treeBox = document.getElementById('treeBox')
 
