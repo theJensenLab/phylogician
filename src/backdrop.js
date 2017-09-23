@@ -24,18 +24,17 @@ let req = new XMLHttpRequest()
 function reqListener() {
 	if (this.readyState === 4 && this.status === 200) {
 		let tag = JSON.parse(this.responseText)[0].name
-		console.log(tag)
 		d3.select('#backDrop').append('div')
 			.attr('id', 'startTitle')
 			.append('b')
 			.text('Phylogician v' + tag)
-			
+
 		d3.select('#startTitle').append('p')
 			.append('a')
 			.attr('href', 'https://github.com/theJensenLab/phyloTreeVizJS')
 			.append('img')
 			.attr('src', 'src/GitHub-Mark-32px.png')
-		
+
 		let initialColor = '#91DC5A'
 		animate(initialColor)
 	}
@@ -46,14 +45,11 @@ req.open('GET', url, true)
 req.send()
 
 function animate(color) {
-	let nextAnimationIn = Math.random()*animationDelayMultiFactor
-	console.log(nextAnimationIn)
-	console.log(color)
+	let nextAnimationIn = Math.random() * animationDelayMultiFactor
 	if (color === '#91DC5A')
 		color = '#FF6A13'
 	else
 		color = '#91DC5A'
-	console.log(color)
 	changeColor(nextAnimationIn, color)
 }
 
@@ -64,12 +60,8 @@ function changeColor(nextAnimationIn, color) {
 		.attr('fill', color)
 
 	if (document.getElementById('backDrop').style.opacity !== '0') {
-		console.log(document.getElementById('backDrop').style.opacity)
 		setTimeout(function() {
 			animate(color)
 		}, nextAnimationIn)
-	}
-	else {
-		console.log('done with animation')
 	}
 }
