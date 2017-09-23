@@ -1,6 +1,6 @@
 {
   "name": "phylogician",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "The Jensen Lab approach to visualization of phylogenetic trees using javascript and d3.js",
   "main": "index.js",
   "scripts": {
