@@ -27,7 +27,7 @@ function reqListener() {
 		d3.select('#backDrop').append('div')
 			.attr('id', 'startTitle')
 			.append('b')
-			.text('Phylogician v' + tag)
+			.text('Phylogician ' + tag)
 
 		d3.select('#startTitle').append('p')
 			.append('a')

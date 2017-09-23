@@ -76,6 +76,12 @@ function retractNavBar() {
 			.transition()
 			.duration(duration)
 			.attr('fill', '#91DC5A')
+
+		if (document.getElementsByClassName('tnt_groupDiv').length === 0) {
+			d3.select('#backDrop').transition()
+				.duration(duration)
+				.style('opacity', '1')
+		}
 	}
 }
 
