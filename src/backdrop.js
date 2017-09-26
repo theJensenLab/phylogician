@@ -3,7 +3,7 @@
 
 let d3 = require('d3')
 
-let url = 'https://api.github.com/repos/theJensenLab/phyloTreeVizJS/tags'
+let url = 'https://api.github.com/repos/theJensenLab/phylogician/releases'
 let animationDelayMultiFactor = 50000
 
 d3.select('body').append('div')
@@ -23,7 +23,7 @@ let req = new XMLHttpRequest()
 
 function reqListener() {
 	if (this.readyState === 4 && this.status === 200) {
-		let tag = JSON.parse(this.responseText)[0].name
+		let tag = JSON.parse(this.responseText)[0].tag_name
 		d3.select('#backDrop').append('div')
 			.attr('id', 'startTitle')
 			.append('b')
@@ -31,7 +31,7 @@ function reqListener() {
 
 		d3.select('#startTitle').append('p')
 			.append('a')
-			.attr('href', 'https://github.com/theJensenLab/phyloTreeVizJS')
+			.attr('href', 'https://github.com/theJensenLab/phylogician')
 			.append('img')
 			.attr('src', 'src/GitHub-Mark-32px.png')
 
