@@ -33,7 +33,7 @@ exports.makeTree = function(newickString) {
 	}
 
 	let backDrop = d3.select('#backDrop')
-	backDrop.attr('display', 'none')
+	backDrop.remove()
 	let startTitle = d3.select('#startTitle')
 	startTitle.attr('display', 'none')
 	// necessary so that the backdrop + startTitle div is gone once tree is created
