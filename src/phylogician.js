@@ -33,7 +33,7 @@ exports.makeTree = function(newickString) {
 	}
 
 	let backDrop = d3.select('#backDrop')
-	backDrop.remove()
+	backDrop.attr('display', 'none')
 	let startTitle = d3.select('#startTitle')
 	startTitle.attr('display', 'none')
 	// necessary so that the backdrop + startTitle div is gone once tree is created
@@ -64,6 +64,8 @@ exports.makeTree = function(newickString) {
 			childrenArray[i].property('branchColor', 'black')
 		if (!(childrenArray[i].property('certaintyOnOff')))
 			childrenArray[i].property('certaintyOnOff', 'off')
+		if (!(childrenArray[i].property('collapsedNode')))
+			childrenArray[i].property('collapsedNode', 'no')
 	}
 
 	let svgTree = d3.select('#treeBox').select('svg'),
@@ -163,10 +165,36 @@ function simpleStringify(object) {
 
 // calls the function that export the current state of the svg
 exports.exportCurrentState = function() {
+	uncollapseAllNodes(tree)
 	let exportState = tree.root().data()
 	exportState = simpleStringify(exportState)
 	_exportCurrentState('tree.phy', JSON.stringify(exportState))
+	recollapseNodes(tree)
 	return exportState
+}
+
+// helper function #1 for export -- uncollapses all nodes but retains the collapsedNode property for collapsed nodes
+function uncollapseAllNodes(inputTree) {
+	let childrenArray = inputTree.root().get_all_nodes()
+	for (let i = 0; i < childrenArray.length; i++) {
+		if (childrenArray[i].property('collapsedNode') === 'yes') {
+			console.log(childrenArray[i])
+			treeOperations.toggleNode(tree, childrenArray[i])
+			childrenArray[i].property('collapsedNode', 'yes')
+		}
+	}
+}
+
+// helper function #2 for export -- recollapsed all collapsed nodes that were uncollapsed for the purpose of exporting
+function recollapseNodes(inputTree) {
+	let childrenArray = inputTree.root().get_all_nodes()
+	for (let i = 0; i < childrenArray.length; i++) {
+		if (childrenArray[i].property('collapsedNode') === 'yes') {
+			console.log(childrenArray[i])
+			treeOperations.toggleNode(tree, childrenArray[i])
+			childrenArray[i].property('collapsedNode', 'yes')
+		}
+	}
 }
 
 // function from: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server

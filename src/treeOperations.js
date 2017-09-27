@@ -100,6 +100,22 @@ function toggleCertainty(tree) {
 
 exports.toggleNode = function(tree, node) {
 	node.toggle()
+	if (node.is_collapsed())
+		node.property('collapsedNode', 'yes')
+	else
+		node.property('collapsedNode', 'no')
+	console.log(node.property('collapsedNode'))
+	updateUserChanges(tree)
+}
+
+// same as exported function but for use within this file
+function toggleNode(tree, node) {
+	node.toggle()
+	if (node.is_collapsed())
+		node.property('collapsedNode', 'yes')
+	else
+		node.property('collapsedNode', 'no')
+	console.log(node.property('collapsedNode'))
 	updateUserChanges(tree)
 }
 
@@ -127,6 +143,11 @@ function updateUserChanges(tree) {
 	changeBranchColor(tree)
 	changeBranchWidth(tree)
 	toggleCertainty(tree)
+	let childrenArray = tree.root().get_all_nodes()
+	for (let i = 0; i < childrenArray.length; i++) {
+		if (childrenArray[i].property('collapsedNode') === 'yes')
+			toggleNode(childrenArray[i])
+	}
 }
 
 exports.updateUserChanges = function(tree) {
@@ -142,6 +163,11 @@ exports.updateUserChanges = function(tree) {
 	changeBranchColor(tree)
 	changeBranchWidth(tree)
 	toggleCertainty(tree)
+	let childrenArray = tree.root().get_all_nodes()
+	for (let i = 0; i < childrenArray.length; i++) {
+		if (childrenArray[i].property('collapsedNode') === 'yes')
+			toggleNode(tree, childrenArray[i])
+	}
 
 }
 

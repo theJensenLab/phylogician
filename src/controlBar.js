@@ -172,9 +172,9 @@ function popFormPreviousState() {
 				data = thisReader.result
 				filePreviousState.style.display = 'none'
 				phylogician.makeTree(tempNewick) // creates temporary tree
+				retractNavBar()
 				phylogician.restoreState(data)
 				previousStateInput.value = null
-				retractNavBar()
 			}
 			thisReader.readAsText(file)
 		})
