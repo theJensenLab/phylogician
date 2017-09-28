@@ -34,15 +34,15 @@ function getTheOtherBranches(tree, node) {
 }
 
 exports.newRoot = function(tree, node) {
-	console.log(JSON.stringify(tntExport.tntObject(tree)))
-	let newTree = tntTree().data(parser.parse_newick('(phylogician)'))
+	let newTree = tntTree().data(parser.parse_newick('()' + node.node_name()))
 
 	let subTree1 = node.subtree(node.get_all_leaves())
 	let subTree2 = getTheOtherBranches(tree, node)
-	console.log(subTree2)
-
 	//newTree.data(node.data())
-	newTree.root().property('children', [subTree1.data(), subTree2.data()])
-	console.log(JSON.stringify(tntExport.tntObject(tree)))
-	return newTree.data()
+	if (subTree2)
+		newTree.root().property('children', [subTree1.data(), subTree2.data()])
+	else
+		newTree = tree
+	//console.log(JSON.stringify(tntExport.tntObject(newTree)))
+	return newTree
 }

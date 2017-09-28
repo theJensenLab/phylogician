@@ -18,9 +18,28 @@ describe('Test suit for reroot.js', function() {
 			tree.data(treeObj)
 
 			let rootNode = tree.root()
+			let newTree = reroot.newRoot(tree, rootNode)
 
-			let newTree = reroot.newroot(tree, rootNode)
-			console.log(newTree)
+			expect(newTree).eql(tree)
+		})
+		it('must return rooted tree internal node is picked as new root', function() {
+			let originalTree = '(A,(B,(C,D)1)2)3;',
+				expectedTree = '((C,D)1,(A,B)2)3',
+				treeObj = parser.parse_newick(originalTree),
+				treeObjExpected = parser.parse_newick(expectedTree)
+
+			let tree = tntTree()
+			tree.data(treeObj)
+
+			//console.log(JSON.stringify(tntExport.tntObject(tree)))
+
+			let customNode = tree.root().find_node_by_name('1')
+			let newTree = reroot.newRoot(tree, customNode)
+
+			let expectedTreeTnt = tntTree().data(treeObjExpected)
+			console.log(JSON.stringify(tntExport.tntObject(expectedTreeTnt)))
+			console.log(JSON.stringify(tntExport.tntObject(newTree)))
+			expect(newTree).eql(expectedTreeTnt)
 		})
 	})
 })
