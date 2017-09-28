@@ -4,7 +4,8 @@
 let tntTree = require('tnt.tree'),
 	parser = require('tnt.newick')
 
-let utils = require('./utils.js')
+let utils = require('./utils.js'),
+	tntExport = require('./tntExport.js')
 
 function getTheOtherBranches(tree, node) {
 	let nodeParent = node.parent()
@@ -32,8 +33,8 @@ function getTheOtherBranches(tree, node) {
 	return newTree
 }
 
-exports.newroot = function(tree, node) {
-	console.log(utils.simpleStringify(tree.root().data()))
+exports.newRoot = function(tree, node) {
+	console.log(JSON.stringify(tntExport.tntObject(tree)))
 	let newTree = tntTree().data(parser.parse_newick('(phylogician)'))
 
 	let subTree1 = node.subtree(node.get_all_leaves())
@@ -42,7 +43,6 @@ exports.newroot = function(tree, node) {
 
 	//newTree.data(node.data())
 	newTree.root().property('children', [subTree1.data(), subTree2.data()])
-	tree.data(newTree.data())
-	//console.log(utils.simpleStringify(tree.root().data()))
-	tree.update()
+	console.log(JSON.stringify(tntExport.tntObject(tree)))
+	return newTree.data()
 }

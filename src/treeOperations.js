@@ -147,5 +147,7 @@ exports.updateUserChanges = function(tree) {
 }
 
 exports.reroot = function(tree, node) {
-	reroot.newroot(tree, node)
+	let newRoot = reroot.newRoot(tree, node)
+	tree.data(newRoot)
+	tree.update()
 }

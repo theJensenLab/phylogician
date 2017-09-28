@@ -5,6 +5,7 @@ let expect = require('chai').expect,
 	tntTree = require('tnt.tree')
 
 let utils = require('../src/utils.js'),
+	tntExport = require('../src/tntExport.js'),
 	reroot = require('../src/reroot.js')
 
 describe('Test suit for reroot.js', function() {
