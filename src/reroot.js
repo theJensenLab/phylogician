@@ -43,6 +43,6 @@ exports.newroot = function(tree, node) {
 	//newTree.data(node.data())
 	newTree.root().property('children', [subTree1.data(), subTree2.data()])
 	tree.data(newTree.data())
-	console.log(utils.simpleStringify(tree.root().data()))
+	//console.log(utils.simpleStringify(tree.root().data()))
 	tree.update()
 }
