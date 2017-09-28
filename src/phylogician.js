@@ -145,26 +145,10 @@ exports.restoreState = function(data) {
 	treeOperations.updateUserChanges(tree)
 }
 
-function simpleStringify(object) {
-	let simpleObject = {}
-	if (object.children) {
-		for (let i = 0; i < object.children.length; i++)
-			object.children[i] = simpleStringify(object.children[i])
-	}
-	for (let prop in object) {
-		if (!object.hasOwnProperty(prop))
-			continue
-		if (typeof (object[prop]) == 'object' && prop !== 'children')
-			continue
-		simpleObject[prop] = object[prop]
-	}
-	return simpleObject // returns cleaned up JSON
-}
-
 // calls the function that export the current state of the svg
 exports.exportCurrentState = function() {
 	let exportState = tree.root().data()
-	exportState = simpleStringify(exportState)
+	exportState = utils.simpleStringify(exportState)
 	_exportCurrentState('tree.phy', JSON.stringify(exportState))
 	return exportState
 }

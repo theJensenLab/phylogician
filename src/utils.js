@@ -18,3 +18,19 @@ exports.countLeaves = function(treeObj) {
 	}
 	return numOfLeaves
 }
+
+exports.simpleStringify = function(object) {
+	let simpleObject = {}
+	if (object.children) {
+		for (let i = 0; i < object.children.length; i++)
+			object.children[i] = exports.simpleStringify(object.children[i])
+	}
+	for (let prop in object) {
+		if (!object.hasOwnProperty(prop))
+			continue
+		if (typeof (object[prop]) == 'object' && prop !== 'children')
+			continue
+		simpleObject[prop] = object[prop]
+	}
+	return simpleObject // returns cleaned up JSON
+}
