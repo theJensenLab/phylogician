@@ -22,6 +22,22 @@ describe('Test suit for reroot.js', function() {
 
 			expect(newTree).eql(tree)
 		})
+		it('must return same number of leafs after reroot', function() {
+			let originalTree = '((C,D)1,(A,(B,X)3)2,E)R;',
+				treeObj = parser.parse_newick(originalTree)
+
+			let tree = tntTree()
+			tree.data(treeObj)
+
+			let expectedNumberOfLeaves = utils.countLeaves(tree.data())
+
+			let rootNode = tree.root().find_node_by_name('X')
+			let newTree = reroot.newRoot(tree, rootNode)
+
+			let numberOfLeaves = utils.countLeaves(newTree.data())
+
+			expect(numberOfLeaves).eq(expectedNumberOfLeaves)
+		})
 		it('must return rooted tree internal node is picked as new root', function() {
 			let originalTree = '(A,(B,(C,D)1)2)3;',
 				expectedTree = '((C,D)1,(A,B)2)3',
@@ -37,8 +53,8 @@ describe('Test suit for reroot.js', function() {
 			let newTree = reroot.newRoot(tree, customNode)
 
 			let expectedTreeTnt = tntTree().data(treeObjExpected)
-			console.log(JSON.stringify(tntExport.tntObject(expectedTreeTnt)))
-			console.log(JSON.stringify(tntExport.tntObject(newTree)))
+			//console.log(JSON.stringify(tntExport.tntObject(expectedTreeTnt)))
+			//console.log(JSON.stringify(tntExport.tntObject(newTree)))
 			expect(newTree).eql(expectedTreeTnt)
 		})
 	})
