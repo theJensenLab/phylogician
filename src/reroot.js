@@ -7,60 +7,89 @@ let tntTree = require('tnt.tree'),
 let utils = require('./utils.js'),
 	tntExport = require('./tntExport.js')
 
-function getTheOtherBranches(tree, node, subTree) {
-	let nodeParent = node.parent()
-	let newTree = tntTree()
-	let otherBranches = ''
-	if (nodeParent) {
-		console.log(nodeParent.node_name())
-		newTree.data(nodeParent.data())
-		let childrenOfNodeParent = nodeParent.children()
-		childrenOfNodeParent.forEach(function(child) {
-			if (child.data() !== node.data())
-				otherBranches = child.subtree(child.get_all_leaves())
-		})
-		let subtree1 = getTheOtherBranches(tree, nodeParent, node)
-		if (subtree1 !== false) {
-			newTree.root().property('children', [subtree1.data(), otherBranches.data()])
+function getOtherBranches(tree, nodeParent, excludedNodes) {
+	//console.log('actual node: ' + excludedNodes.node_name())
+	let xfurcation = []
+	let newNodeParent = nodeParent
+	nodeParent.children().forEach(function(child) {
+		//console.log('--children nodes: ' + child.node_name())
+		if (child.data() !== excludedNodes.data()) {
+			//console.log(child.node_name())
+			let realChild = child
+/*			while (!(realChild.is_leaf()) && realChild.children().length < 2) {
+				//console.log('fixing things')
+				//console.log(realChild.node_name())
+				realChild = realChild.children()[0]
+			}*/
+			xfurcation.push(realChild.data())
 		}
-		else {
-			newTree = tntTree()
-			newTree.data(otherBranches.data())
-		}
-	}
-	else if (subTree) {
-		let childrenOfRoot = node.children()
-		newTree = tntTree().data(parser.parse_newick("()R''"))
-		childrenOfRoot.forEach(function(child) {
-			if (child.data() !== subTree.data()) {
-				console.log(child.data())
-				otherBranches = child.subtree(child.get_all_leaves())
-			}
-		})
-		console.log(otherBranches.data())
-		console.log(node.data())
+	})
 
-		newTree.root().property('children', [node.data(), otherBranches.data()])
+	if (nodeParent.parent()) {
+		//console.log('--parent nodes: ' + nodeParent.parent().node_name())
+		let otherBranch = getOtherBranches(tree, nodeParent.parent(), nodeParent)
+		xfurcation.push(otherBranch.data())
 	}
-	else {
-		newTree = false
-	}
-	return newTree
+
+	nodeParent.property('children', xfurcation)
+
+
+	return newNodeParent
 }
 
 exports.newRoot = function(tree, node) {
 	let newTree = tntTree().data(parser.parse_newick("()R'"))
-	console.log(JSON.stringify(tntExport.tntObject(tree)))
+	////console.log(JSON.stringify(tntExport.tntObject(tree)))
+	newTree.root().property('_id', tree.root().get_all_leaves().length + tree.root().get_all_nodes().length)
 	let subTree1 = node.subtree(node.get_all_leaves())
-	console.log(utils.simpleStringify(subTree1.data()))
-
-	let subTree2 = getTheOtherBranches(tree, node)
+	////console.log(utils.simpleStringify(subTree1.data()))
+	////console.log(node.node_name())
 	//newTree.data(node.data())
-	//console.log(utils.simpleStringify(subTree2.data()))
-	if (subTree2)
+	//////console.log(utils.simpleStringify(subTree2.data()))
+	if (node.parent()) {
+		let subTree2 = getOtherBranches(tree, node.parent(), node)
 		newTree.root().property('children', [subTree1.data(), subTree2.data()])
-	else
+	}
+	else {
 		newTree = tree
-	//console.log(JSON.stringify(tntExport.tntObject(newTree)))
-	return newTree
+	}
+
+	//let trick = tntExport.tntObject(newTree)
+	//let finalTree = tntTree().data(trick)
+	//console.log(utils.countLeaves(newTree.data()))
+	//console.log(tntExport.tntObject(newTree))
+
+	let thisIsNotRoot = false
+	let changes = newTree.root().find_all(function(n) {
+		//console.log(n.node_name() + ' - ' + (n.children() ? n.children().length === 1 : false))
+		console.log(n.node_name() + ' - ' + n.property('_id') + ' - ' + (n.children() ? n.children().length === 1 : false))
+		return (n.children() ? n.children().length === 1 : false)
+		// return (n.property('_id') === 1 && n.parent())
+	})
+
+	changes.forEach(function(n) {
+		let newChildren = []
+		console.log('delete old root')
+		console.log(JSON.stringify(utils.simpleStringify(n.data())))
+		console.log('all children from parent')
+		console.log(n.parent())
+
+		if (!(n.parent()))
+			n.property('_parent', newTree.root().data())
+
+		n.parent().children().forEach(function(child) {
+			if (child.data() !== n.data())
+				newChildren.push(child.data())
+		})
+		newChildren.push(n.children()[0].data())
+		n.parent().property('children', newChildren)
+	})
+
+	//console.log(changes[0])
+
+
+	//console.log('final tree')
+
+	console.log(newTree.data())
+	return newTree //finalTree
 }

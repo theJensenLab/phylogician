@@ -1,21 +1,12 @@
 'use strict'
 
+let tntTree = require('tnt.tree')
+
 exports.countLeaves = function(treeObj) {
-	let numOfLeaves = 0
-	if (Array.isArray(treeObj)) {
-		treeObj.forEach(function(element) {
-			if (element.children)
-				numOfLeaves += exports.countLeaves(element.children)
-			else
-				numOfLeaves += 1
-		})
-	}
-	else if (treeObj.children) {
-		numOfLeaves += exports.countLeaves(treeObj.children)
-	}
-	else if (treeObj.name) {
-		numOfLeaves += 1
-	}
+	let tree = tntTree().data(treeObj),
+		numOfLeaves = 0
+	if (tree.root().get_all_nodes().length !== tree.root().get_all_leaves().length)
+		numOfLeaves = tree.root().get_all_leaves().length
 	return numOfLeaves
 }
 
