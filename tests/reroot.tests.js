@@ -51,7 +51,7 @@ describe('Test suit for reroot.js', function() {
 			for (let i = 0; i < numberOfReRoot; i++) {
 				let nodes = tree.root().get_all_nodes()
 				let node = nodes[Math.floor(Math.random() * nodes.length)]
-				console.log(node.node_name())
+				//console.log(node.node_name())
 				tree = reroot.newRoot(tree, node)
 
 				let numberOfLeaves = utils.countLeaves(tree.data())
@@ -66,7 +66,7 @@ describe('Test suit for reroot.js', function() {
 			let tree = tntTree()
 			tree.data(treeObj)
 
-			//console.log(JSON.stringify(tntExport.tntObject(tree)))
+			////console.log(JSON.stringify(tntExport.tntObject(tree)))
 
 			let customNode = tree.root().find_node_by_name('1')
 			let newTree = reroot.newRoot(tree, customNode)
@@ -84,7 +84,7 @@ describe('Test suit for reroot.js', function() {
 			let tree = tntTree()
 			tree.data(treeObj)
 
-			//console.log(JSON.stringify(tntExport.tntObject(tree)))
+			////console.log(JSON.stringify(tntExport.tntObject(tree)))
 
 			let customNode = tree.root().find_node_by_name('2')
 			let newTree = reroot.newRoot(tree, customNode)
@@ -117,7 +117,7 @@ describe('Test suit for reroot.js', function() {
 			let tree = tntTree()
 			tree.data(treeObj)
 
-			//console.log(JSON.stringify(tntExport.tntObject(tree)))
+			////console.log(JSON.stringify(tntExport.tntObject(tree)))
 
 			let customNode = tree.root().find_node_by_name('1')
 			let newTree = reroot.newRoot(tree, customNode)
@@ -136,9 +136,9 @@ describe('Test suit for reroot.js', function() {
 			let expectedNumberOfLeaves = utils.countLeaves(tree.data())
 
 			for (let i = 0; i < numberOfReRoot; i++) {
-				console.log(' --- ')
+				//console.log(' --- ')
 				let node = tree.root().find_node_by_name('2')
-				//console.log(JSON.stringify(utils.simpleStringify(node.data())))
+				////console.log(JSON.stringify(utils.simpleStringify(node.data())))
 				tree = reroot.newRoot(tree, node)
 
 				let numberOfLeaves = utils.countLeaves(tree.data())
@@ -157,7 +157,26 @@ describe('Test suit for reroot.js', function() {
 			let oldRoot = tree.root().find_node_by_name('R')
 			tree = reroot.newRoot(tree, oldRoot)
 
-			//console.log(JSON.stringify(tntExport.tntObject(tree)))
+			////console.log(JSON.stringify(tntExport.tntObject(tree)))
 		})
+		it.only('it returns the right branch lengths after reroot', function() {
+			let originalTree = '((C:0.5,D:0.5)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
+				treeObj = parser.parse_newick(originalTree)
+
+			let treeObjOriginal = JSON.parse(JSON.stringify(treeObj))
+
+			let tree = tntTree()
+			tree.data(treeObj)
+
+			let Xnode = tree.root().find_node(function(node) {
+				return (node.property('_id') === 9)
+			})
+
+			tree = reroot.newRoot(tree, Xnode)
+			let sameTree = tntExport.tntObject(tree)
+
+			console.log(JSON.stringify(sameTree, null, ' '))
+			expect(sameTree).eql(treeObjOriginal)
+		})	
 	})
 })

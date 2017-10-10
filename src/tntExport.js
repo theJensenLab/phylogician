@@ -5,7 +5,8 @@ let parser = require('tnt.newick'),
 
 let keys = [
 	'name',
-	'branch_label'
+	'branch_label',
+	'branch_length'
 ]
 
 function _processTreeData(treeObj) {
