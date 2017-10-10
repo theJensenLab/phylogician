@@ -143,6 +143,9 @@ exports.updateUserChanges = function(tree) {
 	changeBranchColor(tree)
 	changeBranchWidth(tree)
 	toggleCertainty(tree)
+	d3.selectAll('.tnt_tree_link').on('mouseover', function(link) {
+		console.log(link)
+	})
 
 }
 
