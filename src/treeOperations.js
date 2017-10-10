@@ -119,7 +119,7 @@ exports.ladderizeSubtree = function(tree, node) {
 		})
 		ladderized = 'false'
 	}
-	tree.update()
+	return tree
 }
 
 // custom update function that uses the TNT update then also updates the branch color and width based on node properties
@@ -146,7 +146,6 @@ exports.updateUserChanges = function(tree) {
 	d3.selectAll('.tnt_tree_link').on('mouseover', function(link) {
 		console.log(link)
 	})
-
 }
 
 exports.reroot = function(tree, node) {
