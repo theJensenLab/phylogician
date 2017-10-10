@@ -59,7 +59,7 @@ exports.makeTree = function(newickString) {
 	let childrenArray = tree.root().get_all_nodes()
 	for (let i = 0; i < childrenArray.length; i++) {
 		if (!(childrenArray[i].property('branchWidth')))
-			childrenArray[i].property('branchWidth', 1)
+			childrenArray[i].property('branchWidth', 4)
 		if (!(childrenArray[i].property('branchColor')))
 			childrenArray[i].property('branchColor', 'black')
 		if (!(childrenArray[i].property('certaintyOnOff')))
@@ -138,6 +138,9 @@ exports.changeNodeSize = function(size) {
 	nodes.attr('y', -1 * size / 2)
 	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
 }
+
+
+
 
 // overrides the data in current tree with the passed data
 exports.restoreState = function(data) {
@@ -223,6 +226,8 @@ exports.changeCollapsedNodeShape = function(shape) {
 	tree.node_display(nodeDisplay)
 	tree.update_nodes()
 }
+
+
 
 
 // installs a listener at each node that displays a tooltip upon click
