@@ -6,7 +6,8 @@ let expect = require('chai').expect,
 
 let utils = require('../src/utils.js'),
 	tntExport = require('../src/tntExport.js'),
-	reroot = require('../src/reroot.js')
+	reroot = require('../src/reroot.js'),
+	treeOperations = require('../src/treeOperations.js')
 
 describe('Test suit for reroot.js', function() {
 	describe('newroot', function() {
@@ -161,6 +162,7 @@ describe('Test suit for reroot.js', function() {
 		})
 		it.only('it returns the right branch lengths after reroot', function() {
 			let originalTree = '((C:0.5,D:0.5)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
+				expectedTree = '(X:0.38,(B:0.3,(A:2.0,(E:0.8,(C:0.5,D:0.5)1:1.0)R:4.0)2:3.0)3:0.02)R\';',
 				treeObj = parser.parse_newick(originalTree)
 
 			let treeObjOriginal = JSON.parse(JSON.stringify(treeObj))
@@ -168,15 +170,21 @@ describe('Test suit for reroot.js', function() {
 			let tree = tntTree()
 			tree.data(treeObj)
 
+			let treeExpected = tntTree()
+			treeExpected.data(parser.parse_newick(expectedTree))
+
+			let expected = tntExport.tntObject(treeExpected)
+
 			let Xnode = tree.root().find_node(function(node) {
 				return (node.property('_id') === 9)
 			})
 
 			tree = reroot.newRoot(tree, Xnode)
+			tree = treeOperations.ladderizeSubtree(tree, tree.root())
 			let sameTree = tntExport.tntObject(tree)
 
-			console.log(JSON.stringify(sameTree, null, ' '))
-			expect(sameTree).eql(treeObjOriginal)
-		})	
+			//console.log(JSON.stringify(sameTree, null, ' '))
+			expect(sameTree).eql(expected)
+		})
 	})
 })
