@@ -7,6 +7,13 @@ let tntTree = require('tnt.tree'),
 let utils = require('./utils.js'),
 	tntExport = require('./tntExport.js')
 
+let keyProps = [
+	'branch_label',
+	'branch_length',
+	'branchColor',
+	'branchWidth'
+]
+
 function getOtherBranches(tree, nodeParent, excludedNodes) {
 	////console.log('actual node: ' + excludedNodes.node_name())
 	let xfurcation = []
@@ -27,7 +34,14 @@ function getOtherBranches(tree, nodeParent, excludedNodes) {
 
 	if (nodeParent.parent()) {
 		////console.log('--parent nodes: ' + nodeParent.parent().node_name())
+		//nodeParent.parent().property('branch_length', nodeParent.property('branch_length'))
 		let otherBranch = getOtherBranches(tree, nodeParent.parent(), nodeParent)
+		nodeParent.property((node) => {
+			for (let prop in node) {
+				if (keyProps.indexOf(prop) !== -1)
+					otherBranch.property(prop, nodeParent.property(prop))
+			}
+		})
 		xfurcation.push(otherBranch.data())
 	}
 
@@ -38,9 +52,10 @@ function getOtherBranches(tree, nodeParent, excludedNodes) {
 }
 
 exports.newRoot = function(tree, node) {
+	let originalBranchLengthByTwo = node.property('branch_length')/2
 	let newTree = tntTree().data(parser.parse_newick("()R'"))
 	//////console.log(JSON.stringify(tntExport.tntObject(tree)))
-	newTree.root().property('_id', tree.root().get_all_nodes().length + 1)
+	newTree.root().property('_id', tree.root().get_all_nodes().length + 1000)
 	let subTree1 = node.subtree(node.get_all_leaves())
 	//////console.log(utils.simpleStringify(subTree1.data()))
 	//////console.log(node.node_name())
@@ -80,13 +95,22 @@ exports.newRoot = function(tree, node) {
 			if (child.data() !== n.data())
 				newChildren.push(child.data())
 		})
+
+		if (n.property('branch_length'))
+			n.children()[0].property('branch_length', n.children()[0].property('branch_length') + n.property('branch_length'))
 		newChildren.push(n.children()[0].data())
+
 		n.parent().property('children', newChildren)
+
 	})
 
 	////console.log(changes[0])
 
-
+	if (originalBranchLengthByTwo) {
+		newTree.root().children().forEach((child) => {
+			child.property('branch_length', originalBranchLengthByTwo)
+		})
+	}
 	////console.log('final tree')
 
 	//console.log(newTree.data())

@@ -40,9 +40,9 @@ describe('Test suit for reroot.js', function() {
 			expect(numberOfLeaves).eq(expectedNumberOfLeaves)
 		})
 		it('must return same number of leafs after 10 random reroots', function() {
-			let originalTree = '((C,D)1,(A,(B,X)3)2,E)R;',
+			let originalTree = '((C:0.1,D:0.2)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
 				treeObj = parser.parse_newick(originalTree),
-				numberOfReRoot = 10
+				numberOfReRoot = 100
 
 			let tree = tntTree()
 			tree.data(treeObj)
@@ -160,9 +160,9 @@ describe('Test suit for reroot.js', function() {
 
 			////console.log(JSON.stringify(tntExport.tntObject(tree)))
 		})
-		it.only('it returns the right branch lengths after reroot', function() {
-			let originalTree = '((C:0.5,D:0.5)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
-				expectedTree = '(X:0.38,(B:0.3,(A:2.0,(E:0.8,(C:0.5,D:0.5)1:1.0)R:4.0)2:3.0)3:0.02)R\';',
+		it('it returns the right branch lengths after reroot', function() {
+			let originalTree = '((C:0.1,D:0.2)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
+				expectedTree = '(X:0.2,(B:0.3,(A:2.0,(E:0.8,(C:0.1,D:0.2)1:1.0)R:4.0)2:3.0)3:0.2)R\';',
 				treeObj = parser.parse_newick(originalTree)
 
 			let treeObjOriginal = JSON.parse(JSON.stringify(treeObj))
@@ -175,16 +175,52 @@ describe('Test suit for reroot.js', function() {
 
 			let expected = tntExport.tntObject(treeExpected)
 
-			let Xnode = tree.root().find_node(function(node) {
-				return (node.property('_id') === 9)
-			})
+			let Xnode = tree.root().find_node_by_name('X')
 
 			tree = reroot.newRoot(tree, Xnode)
 			tree = treeOperations.ladderizeSubtree(tree, tree.root())
-			let sameTree = tntExport.tntObject(tree)
+			let finalTree = tntExport.tntObject(tree)
 
-			//console.log(JSON.stringify(sameTree, null, ' '))
-			expect(sameTree).eql(expected)
+			console.log(JSON.stringify(finalTree, null, ' '))
+			expect(finalTree).eql(expected)
+		})
+		it.skip('it should not bork after this specific reroot: X and then 2', function() {
+			let originalTree = '((C:0.1,D:0.2)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
+				treeObj = parser.parse_newick(originalTree)
+
+			let tree = tntTree()
+			tree.data(treeObj)
+
+			let Xnode = tree.root().find_node_by_name('X')
+			//let originalBranchLength = Xnode.property('branch_length')
+			tree = reroot.newRoot(tree, Xnode)
+			let Ynode = tree.root().find_node_by_name('2')
+			tree = reroot.newRoot(tree, Ynode)
+			Xnode = tree.root().find_node_by_name('X')
+			let after2rerootsBranchLength = Xnode.property('branch_length')
+
+			expect(after2rerootsBranchLength).eql(originalBranchLength)
+		})
+		it('it returns the right branch lengths after reroot', function() {
+			let originalTree = '((C:0.1,D:0.2)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
+				treeObj = parser.parse_newick(originalTree)
+
+			let tree = tntTree()
+			tree.data(treeObj)
+
+			let Xnode = tree.root().find_node_by_name('X')
+			let originalBranchLength = Xnode.property('branch_length')
+			tree = reroot.newRoot(tree, Xnode)
+			let newtree = tntTree()
+			newtree.data(tree.data())
+			
+			let Ynode = tree.root().find_node_by_name('2')
+
+			newtree = reroot.newRoot(newtree, Ynode)
+			Xnode = newtree.root().find_node_by_name('X')
+			let after2rerootsBranchLength = Xnode.property('branch_length')
+
+			expect(after2rerootsBranchLength).eql(originalBranchLength)
 		})
 	})
 })

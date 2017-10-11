@@ -144,12 +144,13 @@ exports.updateUserChanges = function(tree) {
 	changeBranchWidth(tree)
 	toggleCertainty(tree)
 	d3.selectAll('.tnt_tree_link').on('mouseover', function(link) {
-		console.log(link)
+		console.log(link.target.name + ' - ' + link.target.branch_length)
+		//console.log(link.target.property('name') + ' - ' + link.target.property('branch_length'))
 	})
 }
 
 exports.reroot = function(tree, node) {
 	let newRoot = reroot.newRoot(tree, node)
 	tree.data(newRoot.data())
-	tree.update()
+	updateUserChanges(tree)
 }
