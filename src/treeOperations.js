@@ -5,7 +5,8 @@ let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick')
 
-let utils = require('./utils.js')
+let utils = require('./utils.js'),
+	reroot = require('./reroot.js')
 
 exports.toggleSupport = function() {
 	let text = d3.select('.nodes')
@@ -118,7 +119,7 @@ exports.ladderizeSubtree = function(tree, node) {
 		})
 		ladderized = 'false'
 	}
-	tree.update()
+	return tree
 }
 
 // custom update function that uses the TNT update then also updates the branch color and width based on node properties
@@ -142,44 +143,14 @@ exports.updateUserChanges = function(tree) {
 	changeBranchColor(tree)
 	changeBranchWidth(tree)
 	toggleCertainty(tree)
-
-}
-
-
-function getTheOtherBranches(tree, node) {
-	let nodeParent = node.parent()
-	let newTree = tntTree()
-	let otherBranches = ''
-	if (nodeParent) {
-		newTree.data(nodeParent.data())
-		let childrenOfNodeParent = nodeParent.children()
-		childrenOfNodeParent.forEach(function(child) {
-			if (child.data() !== node.data())
-				otherBranches = child.subtree(child.get_all_leaves())
-		})
-		let subtree1 = getTheOtherBranches(tree, nodeParent)
-		if (subtree1 !== false) {
-			newTree.root().property('children', [subtree1.data(), otherBranches.data()])
-		}
-		else {
-			newTree = tntTree()
-			newTree.data(otherBranches.data())
-		}
-	}
-	else {
-		newTree = false
-	}
-	return newTree
+	d3.selectAll('.tnt_tree_link').on('mouseover', function(link) {
+		console.log(link.target.name + ' - ' + link.target.branch_length)
+		//console.log(link.target.property('name') + ' - ' + link.target.property('branch_length'))
+	})
 }
 
 exports.reroot = function(tree, node) {
-	let newTree = tntTree().data(parser.parse_newick('(phylogician)'))
-
-	let subTree1 = node.subtree(node.get_all_leaves())
-	let subTree2 = getTheOtherBranches(tree, node)
-
-	//newTree.data(node.data())
-	newTree.root().property('children', [subTree1.data(), subTree2.data()])
-	tree.data(newTree.data())
-	tree.update()
+	let newRoot = reroot.newRoot(tree, node)
+	tree.data(newRoot.data())
+	updateUserChanges(tree)
 }

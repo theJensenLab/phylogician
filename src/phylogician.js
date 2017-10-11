@@ -59,7 +59,7 @@ exports.makeTree = function(newickString) {
 	let childrenArray = tree.root().get_all_nodes()
 	for (let i = 0; i < childrenArray.length; i++) {
 		if (!(childrenArray[i].property('branchWidth')))
-			childrenArray[i].property('branchWidth', 1)
+			childrenArray[i].property('branchWidth', 4)
 		if (!(childrenArray[i].property('branchColor')))
 			childrenArray[i].property('branchColor', 'black')
 		if (!(childrenArray[i].property('certaintyOnOff')))
@@ -139,32 +139,19 @@ exports.changeNodeSize = function(size) {
 	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
 }
 
+
+
+
 // overrides the data in current tree with the passed data
 exports.restoreState = function(data) {
 	tree.data(JSON.parse(data))
 	treeOperations.updateUserChanges(tree)
 }
 
-function simpleStringify(object) {
-	let simpleObject = {}
-	if (object.children) {
-		for (let i = 0; i < object.children.length; i++)
-			object.children[i] = simpleStringify(object.children[i])
-	}
-	for (let prop in object) {
-		if (!object.hasOwnProperty(prop))
-			continue
-		if (typeof (object[prop]) == 'object' && prop !== 'children')
-			continue
-		simpleObject[prop] = object[prop]
-	}
-	return simpleObject // returns cleaned up JSON
-}
-
 // calls the function that export the current state of the svg
 exports.exportCurrentState = function() {
 	let exportState = tree.root().data()
-	exportState = simpleStringify(exportState)
+	exportState = utils.simpleStringify(exportState)
 	_exportCurrentState('tree.phy', JSON.stringify(exportState))
 	return exportState
 }
@@ -241,6 +228,8 @@ exports.changeCollapsedNodeShape = function(shape) {
 }
 
 
+
+
 // installs a listener at each node that displays a tooltip upon click
 tree.on('click', function(node) {
 	// resets color of all nodes to black
@@ -253,7 +242,7 @@ tree.on('click', function(node) {
 		.width(120)
 		.call(this, {
 			// header: 'Node #' + node.id() + ' :: ' + node.property('name')
-			header: 'Node: ' + node.property('name')
+			header: 'Node: ' + node.property('_id')
 		})
 })
 

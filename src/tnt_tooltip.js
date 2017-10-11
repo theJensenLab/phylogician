@@ -358,7 +358,8 @@ tooltip.table = function(fullTree, selectedNode) {
 			.attr('colspan', 2)
 			.text('Ladderize Subtree')
 			.on('click', function() {
-				treeOperations.ladderizeSubtree(fullTree, selectedNode)
+				fullTree = treeOperations.ladderizeSubtree(fullTree, selectedNode)
+				fullTree.update()
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
