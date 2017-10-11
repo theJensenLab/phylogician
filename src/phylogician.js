@@ -237,7 +237,7 @@ tree.on('click', function(node) {
 		.width(120)
 		.call(this, {
 			// header: 'Node #' + node.id() + ' :: ' + node.property('name')
-			header: 'Node: ' + node.property('name')
+			header: 'Node: ' + node.property('_id')
 		})
 })
 
