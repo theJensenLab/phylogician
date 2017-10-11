@@ -104,8 +104,8 @@ exports.toggleNode = function(tree, node) {
 		node.property('collapsedNode', 'yes')
 	else
 		node.property('collapsedNode', 'no')
-	console.log(node.property('collapsedNode'))
 	updateUserChanges(tree)
+	console.log(node.property('collapsedNode'))
 }
 
 // same as exported function but for use within this file
@@ -143,13 +143,9 @@ function updateUserChanges(tree) {
 	changeBranchColor(tree)
 	changeBranchWidth(tree)
 	toggleCertainty(tree)
-	let childrenArray = tree.root().get_all_nodes()
-	for (let i = 0; i < childrenArray.length; i++) {
-		if (childrenArray[i].property('collapsedNode') === 'yes')
-			toggleNode(childrenArray[i])
-	}
 }
 
+// helper function for restoreState in phylogician.js
 exports.updateUserChanges = function(tree) {
 	let numOfLeaves = utils.countLeaves(tree.root().data()),
 		fontSizeOfTreeLeafs = 12
@@ -164,11 +160,13 @@ exports.updateUserChanges = function(tree) {
 	changeBranchWidth(tree)
 	toggleCertainty(tree)
 	let childrenArray = tree.root().get_all_nodes()
-	for (let i = 0; i < childrenArray.length; i++) {
-		if (childrenArray[i].property('collapsedNode') === 'yes')
+	console.log(childrenArray)
+	/* for (let i = childrenArray.length - 1; i >= 0; i--) {
+		if (childrenArray[i].property('collapsedNode') === 'yes') {
 			toggleNode(tree, childrenArray[i])
-	}
-
+			console.log('that is one: ' + childrenArray[i].id())
+		}
+	} */
 }
 
 

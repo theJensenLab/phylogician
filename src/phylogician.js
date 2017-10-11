@@ -168,7 +168,7 @@ exports.exportCurrentState = function() {
 	uncollapseAllNodes(tree)
 	let exportState = tree.root().data()
 	exportState = simpleStringify(exportState)
-	_exportCurrentState('tree.phy', JSON.stringify(exportState))
+	_exportCurrentState('tree.phylo', JSON.stringify(exportState))
 	recollapseNodes(tree)
 	return exportState
 }
@@ -178,9 +178,21 @@ function uncollapseAllNodes(inputTree) {
 	let childrenArray = inputTree.root().get_all_nodes()
 	for (let i = 0; i < childrenArray.length; i++) {
 		if (childrenArray[i].property('collapsedNode') === 'yes') {
-			console.log(childrenArray[i])
 			treeOperations.toggleNode(tree, childrenArray[i])
 			childrenArray[i].property('collapsedNode', 'yes')
+			uncollapseRecursive(inputTree, childrenArray[i])
+		}
+	}
+}
+
+// helper function for uncollapseAllNodes -- uncollapses collapsed nodes under an inputted collapsed node
+function uncollapseRecursive(inputTree, node) {
+	let newChildrenArray = node.children()
+	for (let i = 0; i < newChildrenArray.length; i++) {
+		if (newChildrenArray[i].property('collapsedNode') === 'yes') {
+			treeOperations.toggleNode(tree, newChildrenArray[i])
+			newChildrenArray[i].property('collapsedNode', 'yes')
+			uncollapseRecursive(inputTree, newChildrenArray[i])
 		}
 	}
 }
@@ -188,9 +200,8 @@ function uncollapseAllNodes(inputTree) {
 // helper function #2 for export -- recollapsed all collapsed nodes that were uncollapsed for the purpose of exporting
 function recollapseNodes(inputTree) {
 	let childrenArray = inputTree.root().get_all_nodes()
-	for (let i = 0; i < childrenArray.length; i++) {
+	for (let i = childrenArray.length - 1; i >= 0; i--) {
 		if (childrenArray[i].property('collapsedNode') === 'yes') {
-			console.log(childrenArray[i])
 			treeOperations.toggleNode(tree, childrenArray[i])
 			childrenArray[i].property('collapsedNode', 'yes')
 		}
