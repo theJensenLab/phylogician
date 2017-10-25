@@ -2,7 +2,7 @@
 
 let expect = require('chai').expect,
 	parser = require('tnt.newick'),
-	tntTree = require('tnt.tree')
+	TntTree = require('tnt.tree')
 
 let utils = require('../src/utils.js'),
 	tntExport = require('../src/tntExport.js'),
@@ -15,7 +15,7 @@ describe('Test suit for reroot.js', function() {
 			let originalTree = '((C,D)1,(A,(B,X)3)2,E)R;',
 				treeObj = parser.parse_newick(originalTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			let rootNode = tree.root()
@@ -27,7 +27,7 @@ describe('Test suit for reroot.js', function() {
 			let originalTree = '((C,D)1,(A,(B,X)3)2,E)R;',
 				treeObj = parser.parse_newick(originalTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			let expectedNumberOfLeaves = utils.countLeaves(tree.data())
@@ -44,7 +44,7 @@ describe('Test suit for reroot.js', function() {
 				treeObj = parser.parse_newick(originalTree),
 				numberOfReRoot = 100
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			let expectedNumberOfLeaves = utils.countLeaves(tree.data())
@@ -64,7 +64,7 @@ describe('Test suit for reroot.js', function() {
 				minNumOfChildrenForInternalNodes = 2,
 				treeObj = parser.parse_newick(originalTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			////console.log(JSON.stringify(tntExport.tntObject(tree)))
@@ -82,7 +82,7 @@ describe('Test suit for reroot.js', function() {
 				minNumOfChildrenForInternalNodes = 2,
 				treeObj = parser.parse_newick(originalTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			////console.log(JSON.stringify(tntExport.tntObject(tree)))
@@ -95,11 +95,11 @@ describe('Test suit for reroot.js', function() {
 					expect(node.children().length).gte(minNumOfChildrenForInternalNodes)
 			})
 		})
-		it('must not break when rooted on a node adjascent to root', function() {
+		it('must not break when rooted on a node adjacent to root', function() {
 			let originalTree = '(A,(B,(C,D)1)2)3;',
 				treeObj = parser.parse_newick(originalTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			let customNode = tree.root().find_node_by_name('2')
@@ -115,7 +115,7 @@ describe('Test suit for reroot.js', function() {
 				treeObj = parser.parse_newick(originalTree),
 				treeObjExpected = parser.parse_newick(expectedTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			////console.log(JSON.stringify(tntExport.tntObject(tree)))
@@ -123,7 +123,7 @@ describe('Test suit for reroot.js', function() {
 			let customNode = tree.root().find_node_by_name('1')
 			let newTree = reroot.newRoot(tree, customNode)
 
-			let expectedTreeTnt = tntTree().data(treeObjExpected)
+			let expectedTreeTnt = new TntTree().data(treeObjExpected)
 			expect(tntExport.tntObject(newTree)).eql(tntExport.tntObject(expectedTreeTnt))
 		})
 		it('must return execute with two consecutive reroots on the same node', function() {
@@ -131,7 +131,7 @@ describe('Test suit for reroot.js', function() {
 				treeObj = parser.parse_newick(originalTree),
 				numberOfReRoot = 2
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			let expectedNumberOfLeaves = utils.countLeaves(tree.data())
@@ -150,7 +150,7 @@ describe('Test suit for reroot.js', function() {
 			let originalTree = '((C,D)1,(A,(B,X)3)2,E)R;',
 				treeObj = parser.parse_newick(originalTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			let customNode = tree.root().find_node_by_name('2')
@@ -167,10 +167,10 @@ describe('Test suit for reroot.js', function() {
 
 			let treeObjOriginal = JSON.parse(JSON.stringify(treeObj))
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
-			let treeExpected = tntTree()
+			let treeExpected = new TntTree()
 			treeExpected.data(parser.parse_newick(expectedTree))
 
 			let expected = tntExport.tntObject(treeExpected)
@@ -188,7 +188,7 @@ describe('Test suit for reroot.js', function() {
 			let originalTree = '((C:0.1,D:0.2)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
 				treeObj = parser.parse_newick(originalTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			let Xnode = tree.root().find_node_by_name('X')
@@ -205,13 +205,13 @@ describe('Test suit for reroot.js', function() {
 			let originalTree = '((C:0.1,D:0.2)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;',
 				treeObj = parser.parse_newick(originalTree)
 
-			let tree = tntTree()
+			let tree = new TntTree()
 			tree.data(treeObj)
 
 			let Xnode = tree.root().find_node_by_name('X')
 			let originalBranchLength = Xnode.property('branch_length')
 			tree = reroot.newRoot(tree, Xnode)
-			let newtree = tntTree()
+			let newtree = new TntTree()
 			newtree.data(tree.data())
 			
 			let Ynode = tree.root().find_node_by_name('2')
