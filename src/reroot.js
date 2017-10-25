@@ -8,6 +8,7 @@ let utils = require('./utils.js'),
 	tntExport = require('./tntExport.js')
 
 let keyProps = [
+	'name',
 	'branch_label',
 	'branch_length',
 	'branchColor',
