@@ -30,7 +30,31 @@ exports.popFormBranchWidth = function(selectedNode) {
 		}
 	})
 	document.body.appendChild(branchWidthForm)
+}
 
+exports.popFormSampleRep = function(selectedNode) {
+	if (document.getElementById('fileFormLabel'))
+		document.getElementById('fileFormLabel').style.display = 'none'
+	if (document.getElementById('stringInput'))
+		document.getElementById('stringInput').style.display = 'none'
+	if (document.getElementById('colorPicker'))
+		document.getElementById('colorPicker').style.display = 'none'
+	if (document.getElementById('sampleRepInput'))
+		$('#sampleRepInput').remove()
+	let sampleRepForm = document.createElement('input')
+	sampleRepForm.classList.add('form-control')
+	sampleRepForm.id = 'sampleRepInput'
+	sampleRepForm.style.display = 'block'
+	sampleRepForm.addEventListener('keydown', function(e) {
+		let enterKeyCode = 13
+		if (e.keyCode === enterKeyCode) {
+			let sampleRep = document.getElementById('sampleRepInput').value
+			sampleRepForm.style.display = 'none'
+			if (sampleRep !== '')
+				phylogician.pickSampleRep(sampleRep, selectedNode)
+		}
+	})
+	document.body.appendChild(sampleRepForm)
 }
 
 exports.popColorPicker = function(selectedNode) {

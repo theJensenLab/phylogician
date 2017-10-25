@@ -385,7 +385,32 @@ tooltip.table = function(fullTree, selectedNode) {
 			})
 		reRootClickable.on('mouseover', function() {reRootClickable.style('color', '#3287d7')})
 		reRootClickable.on('mouseout', function() {reRootClickable.style('color', 'black')})
-	
+
+		let sampleRepLeafs = obj_info_table
+			.append('tr')
+			.attr('class', 'tnt_zmenu_clickable')
+			.append('td')
+			.attr('colspan', 2)
+			.text('Sample representatives')
+			.style('text-align', 'center')
+			.on('click', function() {
+				if (document.getElementById('sampleRepInput')) {
+					if (document.getElementById('sampleRepInput').style.display === 'none')
+						popforms.popFormSampleRep(selectedNode)
+					else
+						document.getElementById('sampleRepInput').style.display = 'none'
+				}
+				else {
+					popforms.popFormSampleRep(selectedNode)
+				}
+				d3.select(id)
+					.select('.tnt_node_display_elem')
+					.attr('fill', 'black')
+				t.close()
+			})
+		sampleRepLeafs.on('mouseover', function() {sampleRepLeafs.style('color', '#3287d7')})
+		sampleRepLeafs.on('mouseout', function() {sampleRepLeafs.style('color', 'black')})
+
 		let closeClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')

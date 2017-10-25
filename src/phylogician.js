@@ -185,6 +185,36 @@ exports.ladderizeTree = function() {
 	tree.update()
 }
 
+function getRandom(arr, n) {
+	let result = new Array(n),
+		len = arr.length,
+		taken = new Array(len)
+	if (n > len)
+		throw new RangeError('getRandom: more elements taken than available')
+	while (n--) {
+		let x = Math.floor(Math.random() * len)
+		result[n] = arr[x in taken ? taken[x] : x]
+		taken[x] = --len
+	}
+	return result
+}
+
+exports.pickSampleRep = (N, node) => {
+	let allLeaves = node.get_all_leaves()
+	let selectedNodes = getRandom(allLeaves, N)
+	console.log(selectedNodes)
+	selectedNodes.forEach((n, i) => {
+		let nodeId = '#tnt_tree_node_treeBox_' + n.id()
+		console.log(nodeId + ' - ' + n.node_name())
+		d3.select(nodeId)
+			.select('.tnt_tree_label')
+			.transition()
+			.delay(100 * i)
+			.style('fill', 'red')
+	})
+}
+
+
 // changes the expanded node shape of the tree
 exports.changeExpandedNodeShape = function(shape) {
 	if (shape === 'none') {
