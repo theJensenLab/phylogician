@@ -59,7 +59,7 @@ exports.makeTree = function(newickString) {
 	let childrenArray = tree.root().get_all_nodes()
 	for (let i = 0; i < childrenArray.length; i++) {
 		if (!(childrenArray[i].property('branchWidth')))
-			childrenArray[i].property('branchWidth', 4)
+			childrenArray[i].property('branchWidth', 3)
 		if (!(childrenArray[i].property('branchColor')))
 			childrenArray[i].property('branchColor', 'black')
 		if (!(childrenArray[i].property('certaintyOnOff')))
