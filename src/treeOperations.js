@@ -8,35 +8,16 @@ let	d3 = require('d3'),
 let utils = require('./utils.js'),
 	reroot = require('./reroot.js')
 
-exports.toggleSupport = function() {
-	let text = d3.select('.nodes')
-		.selectAll('.inner')
-		.select('text')
-	if (text.attr('display') === 'none')
-		text.attr('display', 'block')
-	else
-		text.attr('display', 'none')
-}
-
-// changes each individual branch color by id starting from the node in question and taking into account numChildren
+/**
+ * Modifies the 'branchColor' property of all branches in the subtree of a given node to a given color.
+ * 
+ * @param {any} newColor - Desired color of the subtree's branches.
+ * @param {any} selectedNode - The root node of the subtree.
+ */
 function changeBranchColorProperty(newColor, selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
 	for (let x = 1; x < childrenArray.length; x++)
 		childrenArray[x].property('branchColor', '' + newColor.color)
-}
-
-/**
- * Updates the branch color of every branch in a given tree based on its 'branchColor' property.
- * 
- * @param {any} tree - A TNT treeObj
- */
-function updateBranchColor(tree) {
-	let childrenArray = tree.root().get_all_nodes()
-	for (let x = 1; x < childrenArray.length; x++) {
-		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
-		let branch = d3.select(id)
-		branch.attr('style', 'stroke: ' + childrenArray[x].property('branchColor'))
-	}
 }
 
 /**
@@ -51,23 +32,9 @@ function changeBranchWidthProperty(width, selectedNode) {
 		childrenArray[x].property('branchWidth', Math.abs(width))
 }
 
-/**
- * Updates the branch width of every branch in a given tree based on its 'branchWidth' property.
- * 
- * @param {any} tree - A TNT treeObj
- */
-function changeBranchWidth(tree) {
-	let childrenArray = tree.root().get_all_nodes()
-	for (let x = 1; x < childrenArray.length; x++) {
-		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
-		let branch = d3.select(id)
-		branch.attr('stroke-width', childrenArray[x].property('branchWidth'))
-	}
-}
-
 // changes each individual branch opacity based on transparency support value by id starting from the node in question and taking into account numChildren
 let toggledCertainty = 'false'
-exports.toggleCertainty = function(selectedNode) {
+function changeCertaintyProperty(selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
 	if (toggledCertainty !== 'true') {
 		for (let x = 1; x < childrenArray.length; x++) {
@@ -94,16 +61,6 @@ exports.toggleCertainty = function(selectedNode) {
 	}
 }
 
-// changes each individual branch opacity in the given subtree by accessing the node property 'certaintyOnOff'
-function toggleCertainty(tree) {
-	let childrenArray = tree.root().get_all_nodes()
-	for (let x = 1; x < childrenArray.length; x++) {
-		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
-		let branch = d3.select(id)
-		branch.attr('opacity', childrenArray[x].property('certaintyOnOff'))
-	}
-}
-
 /**
  * Toggles the collapsing/uncollapsing of a given node in the treeObj.
  * 
@@ -112,6 +69,21 @@ function toggleCertainty(tree) {
 function toggleNode(node) {
 	node.toggle()
 }
+
+/**
+ * Toggles on/off the support values in the tree visualization.
+ * 
+ */
+function toggleSupport() {
+	let text = d3.select('.nodes')
+		.selectAll('.inner')
+		.select('text')
+	if (text.attr('display') === 'none')
+		text.attr('display', 'block')
+	else
+		text.attr('display', 'none')
+}
+
 
 let ladderized = 'false'
 /**
@@ -135,19 +107,6 @@ function ladderizeSubtree(node) {
 }
 
 /**
- * Custom update function that first uses TNT's update, then also updates the SVG based on the following properties:
-	'branchColor,' 'branchWidth,' and 'certaintyOnOff.'
- * 
- * @param {any} tree - A TNT treeObj
- */
-function updateUserChanges(tree) {
-	tree.update()
-	updateBranchColor(tree)
-	changeBranchWidth(tree)
-	toggleCertainty(tree)
-}
-
-/**
  * Re-roots the tree by setting the passed node as the new root.
  * 
  * @param {any} tree - Tree that will be re-rooted
@@ -158,10 +117,67 @@ function rerootTree(tree, node) {
 	tree.data(newRoot.data())
 }
 
+/**
+ * Updates the branch color of every branch in a given tree based on its 'branchColor' property.
+ * 
+ * @param {any} tree - A TNT treeObj
+ */
+function updateBranchColor(tree) {
+	let childrenArray = tree.root().get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
+		let branch = d3.select(id)
+		branch.attr('style', 'stroke: ' + childrenArray[x].property('branchColor'))
+	}
+}
+
+/**
+ * Updates the branch width of every branch in a given tree based on its 'branchWidth' property.
+ * 
+ * @param {any} tree - A TNT treeObj
+ */
+function updateBranchWidth(tree) {
+	let childrenArray = tree.root().get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
+		let branch = d3.select(id)
+		branch.attr('stroke-width', childrenArray[x].property('branchWidth'))
+	}
+}
+
+/**
+ * Updates the branch opacity of every branch in a given tree based on its 'certaintyOnOff' property.
+ * 
+ * @param {any} tree - A TNT treeObj
+ */
+function updateCertainty(tree) {
+	let childrenArray = tree.root().get_all_nodes()
+	for (let x = 1; x < childrenArray.length; x++) {
+		let id = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
+		let branch = d3.select(id)
+		branch.attr('opacity', childrenArray[x].property('certaintyOnOff'))
+	}
+}
+
+/**
+ * Custom update function that first uses TNT's update, then also updates the SVG based on the following properties:
+	'branchColor,' 'branchWidth,' and 'certaintyOnOff.'
+ * 
+ * @param {any} tree - A TNT treeObj
+ */
+function updateUserChanges(tree) {
+	tree.update()
+	updateBranchColor(tree)
+	updateBranchWidth(tree)
+	updateCertainty(tree)
+}
+
 // Exporting the following functions to be accessible globally:
 exports.changeBranchColorProperty = changeBranchColorProperty
 exports.changeBranchWidthProperty = changeBranchWidthProperty
+exports.changeCertaintyProperty = changeCertaintyProperty
 exports.toggleNode = toggleNode
+exports.toggleSupport = toggleSupport
 exports.ladderizeSubtree = ladderizeSubtree
 exports.rerootTree = rerootTree
 exports.updateUserChanges = updateUserChanges

@@ -342,7 +342,8 @@ tooltip.table = function(fullTree, selectedNode) {
 			.attr('colspan', 2)
 			.text('Toggle Certainty')
 			.on('click', function() {
-				treeOperations.toggleCertainty(selectedNode)
+				treeOperations.changeCertaintyProperty(selectedNode)
+				treeOperations.updateUserChanges(fullTree)
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
