@@ -57,7 +57,7 @@ function expandNavBar() {
 			.transition()
 			.duration(duration)
 			.attr('fill', '#FF6A13')
-		
+
 		d3.select('#backDrop').transition()
 			.duration(duration)
 			.style('opacity', '0')
