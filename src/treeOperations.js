@@ -147,17 +147,17 @@ function updateUserChanges(tree) {
 	toggleCertainty(tree)
 }
 
-exports.reroot = function(tree, node) {
+function rerootTree(tree, node) {
 	let newRoot = reroot.newRoot(tree, node)
 	tree.data(newRoot.data())
-	updateUserChanges(tree)
 }
 
-
+// Exporting the following functions to be accessible globally:
 exports.changeBranchColorProperty = changeBranchColorProperty
 exports.changeBranchWidthProperty = changeBranchWidthProperty
 exports.toggleNode = toggleNode
 exports.ladderizeSubtree = ladderizeSubtree
+exports.rerootTree = rerootTree
 exports.updateUserChanges = updateUserChanges
 
 

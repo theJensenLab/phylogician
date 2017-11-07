@@ -378,7 +378,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.text('Set as Root')
 			.style('text-align', 'center')
 			.on('click', function() {
-				treeOperations.reroot(fullTree, selectedNode)
+				treeOperations.rerootTree(fullTree, selectedNode)
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
