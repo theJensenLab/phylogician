@@ -113,9 +113,13 @@ function toggleNode(node) {
 	node.toggle()
 }
 
-// ladderizes a subtree
 let ladderized = 'false'
-exports.ladderizeSubtree = function(tree, node) {
+/**
+ * Ladderizes a specified subtree. If already ladderized, then reverses the direction of ladderization.
+ * 
+ * @param {any} node - The root node of the subtree.
+ */
+function ladderizeSubtree(node) {
 	if (ladderized !== 'true') {
 		node.sort(function(node1, node2) {
 			return node1.get_all_leaves().length - node2.get_all_leaves().length
@@ -128,7 +132,6 @@ exports.ladderizeSubtree = function(tree, node) {
 		})
 		ladderized = 'false'
 	}
-	return tree
 }
 
 /**
@@ -153,6 +156,8 @@ exports.reroot = function(tree, node) {
 
 exports.changeBranchColorProperty = changeBranchColorProperty
 exports.changeBranchWidthProperty = changeBranchWidthProperty
-exports.updateUserChanges = updateUserChanges
 exports.toggleNode = toggleNode
+exports.ladderizeSubtree = ladderizeSubtree
+exports.updateUserChanges = updateUserChanges
+
 
