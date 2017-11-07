@@ -259,7 +259,7 @@ tooltip.table = function(fullTree, selectedNode) {
 					})
 			}) */
 
-		//THIS IS WHERE TOOLTIP ADDITIONS ARE MADE
+		// THIS IS WHERE TOOLTIP ADDITIONS ARE MADE
 		let changeBranchColorClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
