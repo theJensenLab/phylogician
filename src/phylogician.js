@@ -77,8 +77,16 @@ exports.makeTree = function(newickString) {
 	treeOperations.updateUserChanges(tree)
 }
 
-// resets the zoom and transform of tree to original
 exports.fitScreen = function() {
+	/* Resets the zoom and transform properties of the "treeBox" div to its original state.
+
+	Args:
+	(none)
+
+	Returns:
+	(none)
+	
+	*/
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
 
@@ -86,23 +94,56 @@ exports.fitScreen = function() {
 	g.attr('transform', {k: 1, x: 0, y: 0})
 }
 
-// calls the function to update the layout of the tree to vertical view
 exports.updateVertical = function() {
+	/* Calls the function in treeLayout.js that updates the layout of the tree to vertical view.
+
+	Args:
+	(none)
+
+	Returns:
+	(none)
+	
+	*/
 	treeLayout.updateVertical(tree)
 }
 
-// calls the function to update the layout of the tree to radial view
 exports.updateRadial = function() {
+	/* Calls the function in treeLayout.js that updates the layout of the tree to radial view.
+
+	Args:
+	(none)
+
+	Returns:
+	(none)
+	
+	*/
 	treeLayout.updateRadial(tree)
 }
 
-// calls the function to toggle support values displayed at individual nodes
 exports.toggleSupport = function() {
+	/* Calls the function in treeOperations.js that toggles the opacity of branches based on support values.
+
+	Args:
+	(none)
+
+	Returns:
+	(none)
+	
+	*/
 	treeOperations.toggleSupport()
 }
 
 // calls the function to toggle scaling of the tree
 exports.scaleTree = function() {
+	/* Calls the function in treelayout.js that toggles the scaling of the SVG.
+
+	Args:
+	(none)
+
+	Returns:
+	(none)
+	
+	*/
 	treeLayout.updateScale(tree)
 }
 
@@ -113,12 +154,13 @@ exports.checkScaled = function() {
 
 // calls the function to change the branch color of the subtree of the node #[nodeID]
 exports.changeBranchColor = function(newColor, selectedNode) {
-	treeOperations.changeBranchColor(newColor, selectedNode)
+	treeOperations.changeBranchColorProperty(newColor, selectedNode)
+	treeOperations.updateUserChanges(tree)
 }
 
 // calls the function to change the branch width of the subtree of the node #[nodeID]
 exports.changeBranchWidth = function(newWidth, selectedNode) {
-	treeOperations.changeBranchWidth(newWidth, selectedNode)
+	treeOperations.changeBranchWidthProperty(newWidth, selectedNode)
 }
 
 // changes the node size for the tree
@@ -138,9 +180,6 @@ exports.changeNodeSize = function(size) {
 	nodes.attr('y', -1 * size / 2)
 	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
 }
-
-
-
 
 // overrides the data in current tree with the passed data
 exports.restoreState = function(data) {
@@ -167,24 +206,6 @@ function _exportCurrentState(filename, text) {
 	document.body.removeChild(element)
 }
 
-// ladderizes the tree and toggles if already ladderized
-let ladderized = 'false'
-exports.ladderizeTree = function() {
-	if (ladderized !== 'true') {
-		tree.root().sort(function(node1, node2) {
-			return node1.get_all_leaves().length - node2.get_all_leaves().length
-		})
-		ladderized = 'true'
-	}
-	else if (ladderized === 'true') {
-		tree.root().sort(function(node1, node2) {
-			return node2.get_all_leaves().length - node1.get_all_leaves().length
-		})
-		ladderized = 'false'
-	}
-	tree.update()
-}
-
 // changes the expanded node shape of the tree
 exports.changeExpandedNodeShape = function(shape) {
 	if (shape === 'none') {
@@ -209,26 +230,20 @@ exports.changeExpandedNodeShape = function(shape) {
 		expandedNode = tntTree.node_display.square()
 		tree.node_display(nodeDisplay)
 		tree.update_nodes()
-	}	
+	}
 }
 
 // changes the collapsed node shape of the tree -- TO BE COMPLETED
 exports.changeCollapsedNodeShape = function(shape) {
-	if (shape === 'circle') {
+	if (shape === 'circle')
 		collapsedNode = tntTree.node_display.circle()
-	}
-	else if (shape === 'triangle') {
+	else if (shape === 'triangle')
 		collapsedNode = tntTree.node_display.triangle()
-	}
-	else if (shape === 'square') {
+	else if (shape === 'square')
 		collapsedNode = tntTree.node_display.square()
-	}
 	tree.node_display(nodeDisplay)
 	tree.update_nodes()
 }
-
-
-
 
 // installs a listener at each node that displays a tooltip upon click
 tree.on('click', function(node) {

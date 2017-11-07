@@ -404,7 +404,7 @@ let operationsMenu = document.createElement('button')
 operationsMenu.classList.add('btn', 'dropdown-toggle')
 operationsMenu.setAttribute('data-toggle', 'dropdown')
 operationsMenu.type = 'button'
-operationsMenu.innerHTML = 'Actions'
+operationsMenu.innerHTML = 'Settings'
 operationsMenu.style = 'left: 100px;'
 operationsDiv.appendChild(operationsMenu)
 
@@ -441,16 +441,6 @@ toggleSupport.addEventListener('click', () => {
 	retractNavBar()
 })
 operationsOptions.appendChild(toggleSupport)
-
-// button that ladderizes the tree
-let ladderizeTree = document.createElement('a')
-ladderizeTree.classList.add('dropdown-item')
-ladderizeTree.innerHTML = 'Ladderize Tree'
-ladderizeTree.addEventListener('click', () => {
-	phylogician.ladderizeTree()
-	retractNavBar()
-})
-operationsOptions.appendChild(ladderizeTree)
 
 // button that allows the user to change/turn off expanded and collapsed node shapes
 let changeNodeShape = document.createElement('a')
