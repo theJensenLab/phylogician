@@ -32,31 +32,30 @@ function changeBranchWidthProperty(width, selectedNode) {
 		childrenArray[x].property('branchWidth', Math.abs(width))
 }
 
-// changes each individual branch opacity based on transparency support value by id starting from the node in question and taking into account numChildren
 let toggledCertainty = 'false'
+/**
+ * Modifies the 'certaintyOnOff' property of all nodes in a subtree as follows:
+ *    - Calculates the opacity based on support values and sets that as the property if toggling on.
+ *    - Sets '1' as the property if toggling off.
+ * 
+ * @param {any} selectedNode 
+ */
 function changeCertaintyProperty(selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
 	if (toggledCertainty !== 'true') {
 		for (let x = 1; x < childrenArray.length; x++) {
-			let branchID = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
 			let nodeID = '#tnt_tree_node_treeBox_' + childrenArray[x].id()
 			let certainty = d3.select(nodeID)
 				.select('text')
 				.html()
 			let opacity = certainty / 100 // converts certainty into decimal since opacity must be from 0 to 1
-			let branch = d3.select(branchID)
-			branch.attr('opacity', opacity)
 			childrenArray[x].property('certaintyOnOff', opacity)
 		}
 		toggledCertainty = 'true'
 	}
 	else if (toggledCertainty === 'true') {
-		for (let x = 1; x < childrenArray.length; x++) {
-			childrenArray[x].property('certaintyOnOff', 'off')
-			let branchID = '#tnt_tree_link_treeBox_' + childrenArray[x].id()
-			let branch = d3.select(branchID)
-			branch.attr('opacity', 1)
-		}
+		for (let x = 1; x < childrenArray.length; x++)
+			childrenArray[x].property('certaintyOnOff', 1)
 		toggledCertainty = 'false'
 	}
 }
