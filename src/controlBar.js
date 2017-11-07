@@ -155,7 +155,7 @@ function popFormPreviousState() {
 		let filePreviousState = document.createElement('label')
 		filePreviousState.classList.add('btn', 'btn-primary')
 		filePreviousState.id = 'filePreviousState'
-		filePreviousState.setAttribute('for', 'previousStateInput') //??? 'previousStateInput' perhaps?
+		filePreviousState.setAttribute('for', 'previousStateInput')
 
 		let previousStateForm = document.createElement('input')
 		previousStateForm.id = 'previousStateInput'
