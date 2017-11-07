@@ -2,12 +2,7 @@
 'use strict'
 
 let	d3 = require('d3'),
-	tntTree = require('tnt.tree'),
-	parser = require('tnt.newick')
-
-let utils = require('./utils.js'),
 	reroot = require('./reroot.js')
-
 /**
  * Modifies the 'branchColor' property of all branches in the subtree of a given node to a given color.
  * 
