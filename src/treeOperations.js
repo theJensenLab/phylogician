@@ -147,6 +147,12 @@ function updateUserChanges(tree) {
 	toggleCertainty(tree)
 }
 
+/**
+ * Re-roots the tree by setting the passed node as the new root.
+ * 
+ * @param {any} tree - Tree that will be re-rooted
+ * @param {any} node - Node that will be the new root.
+ */
 function rerootTree(tree, node) {
 	let newRoot = reroot.newRoot(tree, node)
 	tree.data(newRoot.data())
