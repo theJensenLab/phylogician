@@ -161,6 +161,7 @@ exports.changeBranchColor = function(newColor, selectedNode) {
 // calls the function to change the branch width of the subtree of the node #[nodeID]
 exports.changeBranchWidth = function(newWidth, selectedNode) {
 	treeOperations.changeBranchWidthProperty(newWidth, selectedNode)
+	treeOperations.updateUserChanges(tree)
 }
 
 // changes the node size for the tree

@@ -28,8 +28,10 @@ function changeBranchColorProperty(newColor, selectedNode) {
  */
 function changeBranchWidthProperty(width, selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
-	for (let x = 1; x < childrenArray.length; x++)
+	for (let x = 1; x < childrenArray.length; x++) {
 		childrenArray[x].property('branchWidth', Math.abs(width))
+		console.log(width)
+    }
 }
 
 let toggledCertainty = 'false'
