@@ -6,26 +6,26 @@ let d3 = require('d3'),
 	popforms = require('./popforms.js'),
 	treeOperations = require('./treeOperations.js')
 
-let tooltip = function () {
+let tooltip = function() {
 	let drag = d3.drag()
 	let tooltip_div
 
 	let conf = {
 		container: undefined,
-		position : 'right',
-		allow_drag : true,
-		show_closer : true,
-		fill : function () { throw 'fill is not defined in the base object' },
-		width : 180,
-		id : 1
+		position: 'right',
+		allow_drag: true,
+		show_closer: true,
+		fill: function() { throw 'fill is not defined in the base object' },
+		width: 180,
+		id: 1
 	}
 
-	let t = function (data, event) {
+	let t = function(data, event) {
 		drag
 			.subject(function() {
 				return {
-					x : parseInt(d3.select(this).style('left')),
-					y : parseInt(d3.select(this).style('top'))
+					x: parseInt(d3.select(this).style('left')),
+					y: parseInt(d3.select(this).style('top'))
 				}
 			})
 			.on('drag', function() {
@@ -58,16 +58,14 @@ let tooltip = function () {
 		// prev tooltips with the same header
 		d3.select('#tnt_tooltip_' + conf.id).remove()
 
-		if ((d3.event === null) && (event)) {
+		if ((d3.event === null) && (event))
 			d3.event = event
-		}
 		let d3mouse = d3.mouse(containerElem)
 		d3.event = null
 
 		let xoffset = -10
-		if (conf.position === 'left') {
+		if (conf.position === 'left')
 			xoffset = conf.width
-		}
 
 		tooltip_div.attr('id', 'tnt_tooltip_' + conf.id)
 
@@ -81,7 +79,7 @@ let tooltip = function () {
 			tooltip_div
 				.append('div')
 				.attr('class', 'tnt_tooltip_closer')
-				.on ('click', function () {
+				.on('click', function () {
 					t.close()
 				})
 		}
@@ -94,7 +92,7 @@ let tooltip = function () {
 
 	// gets the first ancestor of elem having tagname 'type'
 	// example : let mydiv = selectAncestor(myelem, 'div')
-	function selectAncestor (elem, type) {
+	function selectAncestor(elem, type) {
 		type = type.toLowerCase()
 		if (elem.parentNode === null) {
 			console.log('No more parents')
@@ -105,18 +103,18 @@ let tooltip = function () {
 		if ((tagName !== undefined) && (tagName.toLowerCase() === type)) {
 			return elem.parentNode
 		} else {
-			return selectAncestor (elem.parentNode, type)
+			return selectAncestor(elem.parentNode, type)
 		}
 	}
 
 	let api = apijs(t)
 		.getset(conf)
 
-	api.check('position', function (val) {
+	api.check('position', function(val) {
 		return (val === 'left') || (val === 'right')
 	}, 'Only \'left\' or \'right\' values are allowed for position')
 
-	api.method('close', function () {
+	api.method('close', function() {
 		if (tooltip_div) {
 			tooltip_div.remove()
 		}
@@ -125,7 +123,7 @@ let tooltip = function () {
 	return t
 }
 
-tooltip.list = function () {
+tooltip.list = function() {
 	// list tooltip is based on general tooltips
 	let t = tooltip()
 	let width = 180
@@ -137,7 +135,7 @@ tooltip.list = function () {
 			.attr('class', 'tnt_zmenu')
 			.attr('border', 'solid')
 			.style('width', '200px')
-			//.style('width', t.width() + 'px')
+			// .style('width', t.width() + 'px')
 
 		// Tooltip header
 		if (obj.header) {
@@ -158,10 +156,10 @@ tooltip.list = function () {
 		table_rows
 			.append('td')
 			.style('text-align', 'center')
-			.html(function(d,i) {
+			.html(function(d, i) {
 				return obj.rows[i].value
 			})
-			.each(function (d) {
+			.each(function(d) {
 				if (d.link === undefined) {
 					return
 				}
@@ -388,7 +386,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			})
 		reRootClickable.on('mouseover', function() {reRootClickable.style('color', '#3287d7')})
 		reRootClickable.on('mouseout', function() {reRootClickable.style('color', 'black')})
-	
+
 		let closeClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
@@ -409,11 +407,11 @@ tooltip.table = function(fullTree, selectedNode) {
 	return t
 }
 
-tooltip.plain = function () {
+tooltip.plain = function() {
 	// plain tooltips are based on general tooltips
 	let t = tooltip()
 
-	t.fill (function (obj) {
+	t.fill(function(obj) {
 		let tooltip_div = d3.select(this)
 
 		let obj_info_table = tooltip_div
@@ -421,7 +419,7 @@ tooltip.plain = function () {
 			.attr('class', 'tnt_zmenu')
 			.attr('border', 'solid')
 			.style('width', '200px')
-			//DEFAULT BY TNT.style('width', t.width() + 'px')
+			// DEFAULT BY TNT.style('width', t.width() + 'px')
 
 		if (obj.header) {
 			obj_info_table
