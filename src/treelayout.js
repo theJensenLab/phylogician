@@ -5,7 +5,7 @@ let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick'),
 	currentState = 'vertical',
-	scaled = false
+	scaled = true
 
 exports.updateVertical = function(tree) {
 	tree.layout(tntTree.layout.vertical().width(window.innerWidth * 0.85))

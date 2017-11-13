@@ -53,7 +53,7 @@ function makeTree(newickString) {
 		)
 		.layout(tntTree.layout.vertical()
 			.width(window.innerWidth)
-			.scale(false)
+			.scale(true)
 		)
 	tree(treeBox)
 	let childrenArray = tree.root().get_all_nodes()
