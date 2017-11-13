@@ -26,7 +26,7 @@ let nodeDisplay = tree.node_display()
 	})
 
 // creates the tree and renders it to the div 'treeBox'
-exports.makeTree = function(newickString) {
+function makeTree(newickString) {
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
 		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
 		document.getElementById('treeBox').removeChild(existingTree)
@@ -77,7 +77,7 @@ exports.makeTree = function(newickString) {
 	treeOperations.updateUserChanges(tree)
 }
 
-exports.fitScreen = function() {
+function fitScreen() {
 	/* Resets the zoom and transform properties of the "treeBox" div to its original state.
 
 	Args:
@@ -94,30 +94,20 @@ exports.fitScreen = function() {
 	g.attr('transform', {k: 1, x: 0, y: 0})
 }
 
+/**
+ * Calls the function in treeLayout.js that updates the layout of the tree to vertical view.
+ * 
+ */
 function updateVertical() {
-	/* Calls the function in treeLayout.js that updates the layout of the tree to vertical view.
-
-	Args:
-	(none)
-
-	Returns:
-	(none)
-	
-	*/
 	treeLayout.updateVertical(tree)
 	treeOperations.updateUserChanges(tree)
 }
 
+/**
+ * Calls the function in treeLayout.js that updates the layout of the tree to radial view.
+ * 
+ */
 function updateRadial() {
-	/* Calls the function in treeLayout.js that updates the layout of the tree to radial view.
-
-	Args:
-	(none)
-
-	Returns:
-	(none)
-	
-	*/
 	treeLayout.updateRadial(tree)
 	treeOperations.updateUserChanges(tree)
 }
@@ -147,13 +137,12 @@ function checkScaled() {
 	return treeLayout.checkScaled()
 }
 
-// changes the node size for the tree
-exports.changeNodeSize = function(size) {
-	/* nodeSize = size
-	tree.node_display()
-		.size(nodeSize)
-	tree.update_nodes() */
-
+/**
+ * Changes the node size of the tree to the desired size using D3 and HTML IDs.
+ * 
+ * @param {any} size The desired node size.
+ */
+function changeNodeSize(size) {
 	let nodes = d3.selectAll('.tnt_tree_node')
 		.select('.tnt_node_display_elem')
 
@@ -165,22 +154,25 @@ exports.changeNodeSize = function(size) {
 	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
 }
 
-// overrides the data in current tree with the passed data
+/**
+ * Overrides the current tree data with the desired tree data, then visualizes these changes.
+ * 
+ * @param {any} data 
+ */
 function restoreState(data) {
 	tree.data(JSON.parse(data))
 	treeOperations.updateUserChanges(tree)
 }
 
-// calls the function that export the current state of the svg
 /**
+ * Returns the current state of the tree.
  * 
- * 
- * @returns 
+ * @returns The current, simpleStringified state of the tree.
  */
 function getCurrentState() {
-	let exportState = tree.root().data()
-	exportState = utils.simpleStringify(exportState)
-	return exportState
+	let currentState = tree.root().data()
+	currentState = utils.simpleStringify(currentState)
+	return currentState
 }
 
 /**
@@ -200,7 +192,11 @@ function exportFile(filename, text) {
 	document.body.removeChild(element)
 }
 
-// changes the expanded node shape of the tree
+/**
+ * Changes the expanded node shape of the tree (circle, triangle, or square).
+ * 
+ * @param {any} shape Should be 'circle', 'triangle', or 'square', as desired.
+ */
 exports.changeExpandedNodeShape = function(shape) {
 	if (shape === 'none') {
 		expandedNode = tntTree.node_display.circle()
@@ -261,16 +257,19 @@ tree.on('click', function(node) {
 
 // module.exports = 'phylogician'
 
-// Deals with tree layout:
+// Deals with tree creation and layout:
+exports.makeTree = makeTree
 exports.updateRadial = updateRadial
 exports.updateVertical = updateVertical
 
-// Deals with custom tree operations:
+// Deals with visualization functions accessed by controlBar.js:
 exports.toggleSupport = toggleSupport
 exports.scaleTree = scaleTree
 exports.changeCollapsedNodeShape = changeCollapsedNodeShape
+exports.changeNodeSize = changeNodeSize
+exports.fitScreen = fitScreen
 
-// Deals with importing/exporting states:
+// Deals with importing/exporting states as accessed by controlBar.js:
 exports.restoreState = restoreState
 exports.getCurrentState = getCurrentState
 exports.exportFile = exportFile

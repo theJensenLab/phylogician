@@ -8,14 +8,12 @@ let	d3 = require('d3'),
 	scaled = false
 
 exports.updateVertical = function(tree) {
-	tree.layout(tntTree.layout.vertical().width(window.innerWidth * 0.85)
-		.scale(false))
+	tree.layout(tntTree.layout.vertical().width(window.innerWidth * 0.85))
 	currentState = 'vertical'
 }
 
 exports.updateRadial = function(tree) {
-	tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * 0.85, window.innerHeight * 0.85))
-		.scale(false))
+	tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * 0.85, window.innerHeight * 0.85)))
 	currentState = 'radial'
 }
 
