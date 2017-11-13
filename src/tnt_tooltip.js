@@ -175,14 +175,14 @@ tooltip.list = function() {
 }
 
 tooltip.table = function(tree, selectedNode) {
-	// fills the selected node -- KEEP WORKING HERE
+	// Fills the selected node orange when clicked.
 	let id = '#tnt_tree_node_treeBox_' + selectedNode.id()
 	let collapsedText = ''
 	d3.select(id)
 		.select('.tnt_node_display_elem')
 		.attr('fill', '#FF6A13')
 
-	// table tooltips are based on general tooltips
+	// Table tooltips are based on general tooltips.
 	let t = tooltip()
 
 	let width = 180
@@ -208,7 +208,7 @@ tooltip.table = function(tree, selectedNode) {
 				.style('text-align', 'center')
 		}
 
-		// THIS IS WHERE TOOLTIP ADDITIONS ARE MADE
+		// Tooltip Additions Begin Here:
 		let changeBranchColorClickable = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
@@ -231,8 +231,12 @@ tooltip.table = function(tree, selectedNode) {
 				t.close()
 			})
 			.style('text-align', 'center')
-		changeBranchColorClickable.on('mouseover', function() {changeBranchColorClickable.style('color', '#3287d7')})
-		changeBranchColorClickable.on('mouseout', function() {changeBranchColorClickable.style('color', 'black')})
+		changeBranchColorClickable.on('mouseover', function() {
+			changeBranchColorClickable.style('color', '#3287d7')
+		})
+		changeBranchColorClickable.on('mouseout', function() {
+			changeBranchColorClickable.style('color', 'black')
+		})
 
 		let changeBranchWidthClickable = obj_info_table
 			.append('tr')
@@ -256,8 +260,12 @@ tooltip.table = function(tree, selectedNode) {
 				t.close()
 			})
 			.style('text-align', 'center')
-		changeBranchWidthClickable.on('mouseover', function() {changeBranchWidthClickable.style('color', '#3287d7')})
-		changeBranchWidthClickable.on('mouseout', function() {changeBranchWidthClickable.style('color', 'black')})
+		changeBranchWidthClickable.on('mouseover', function() {
+			changeBranchWidthClickable.style('color', '#3287d7')
+		})
+		changeBranchWidthClickable.on('mouseout', function() {
+			changeBranchWidthClickable.style('color', 'black')
+		})
 
 		if (selectedNode.is_collapsed())
 			collapsedText = 'Uncollapse Node'
@@ -279,8 +287,12 @@ tooltip.table = function(tree, selectedNode) {
 				t.close()
 			})	
 			.style('text-align', 'center')
-		toggleClickable.on('mouseover', function() {toggleClickable.style('color', '#3287d7')})
-		toggleClickable.on('mouseout', function() {toggleClickable.style('color', 'black')})
+		toggleClickable.on('mouseover', function() {
+			toggleClickable.style('color', '#3287d7')
+		})
+		toggleClickable.on('mouseout', function() {
+			toggleClickable.style('color', 'black')
+		})
 
 		let toggleCertainty = obj_info_table
 			.append('tr')
@@ -297,8 +309,12 @@ tooltip.table = function(tree, selectedNode) {
 				t.close()
 			})
 			.style('text-align', 'center')
-		toggleCertainty.on('mouseover', function() {toggleCertainty.style('color', '#3287d7')})
-		toggleCertainty.on('mouseout', function() {toggleCertainty.style('color', 'black')})
+		toggleCertainty.on('mouseover', function() {
+			toggleCertainty.style('color', '#3287d7')
+		})
+		toggleCertainty.on('mouseout', function() {
+			toggleCertainty.style('color', 'black')
+		})
 
 		let ladderizeSubtree = obj_info_table
 			.append('tr')
@@ -315,8 +331,12 @@ tooltip.table = function(tree, selectedNode) {
 				t.close()
 			})	
 			.style('text-align', 'center')
-		ladderizeSubtree.on('mouseover', function() {ladderizeSubtree.style('color', '#3287d7')})
-		ladderizeSubtree.on('mouseout', function() {ladderizeSubtree.style('color', 'black')})
+		ladderizeSubtree.on('mouseover', function() {
+			ladderizeSubtree.style('color', '#3287d7')
+		})
+		ladderizeSubtree.on('mouseout', function() {
+			ladderizeSubtree.style('color', 'black')
+		})
 
 		let reRootClickable = obj_info_table
 			.append('tr')
@@ -333,8 +353,12 @@ tooltip.table = function(tree, selectedNode) {
 					.attr('fill', 'black')
 				t.close()
 			})
-		reRootClickable.on('mouseover', function() {reRootClickable.style('color', '#3287d7')})
-		reRootClickable.on('mouseout', function() {reRootClickable.style('color', 'black')})
+		reRootClickable.on('mouseover', function() {
+			reRootClickable.style('color', '#3287d7')
+		})
+		reRootClickable.on('mouseout', function() {
+			reRootClickable.style('color', 'black')
+		})
 
 		let closeClickable = obj_info_table
 			.append('tr')
@@ -349,8 +373,12 @@ tooltip.table = function(tree, selectedNode) {
 				t.close()
 			})
 			.style('text-align', 'center')
-		closeClickable.on('mouseover', function() {closeClickable.style('color', '#3287d7')})
-		closeClickable.on('mouseout', function() {closeClickable.style('color', 'black')})
+		closeClickable.on('mouseover', function() {
+			closeClickable.style('color', '#3287d7')
+		})
+		closeClickable.on('mouseout', function() {
+			closeClickable.style('color', 'black')
+		})
 	})
 
 	return t
