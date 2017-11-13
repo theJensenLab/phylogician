@@ -8,7 +8,6 @@ let d3 = require('d3'),
 
 let tooltip = function() {
 	let drag = d3.drag()
-	let tooltip_div
 
 	let conf = {
 		container: undefined,
@@ -128,7 +127,7 @@ tooltip.list = function() {
 	let t = tooltip()
 	let width = 180
 
-	t.fill (function (obj) {
+	t.fill (function(obj) {
 		let tooltip_div = d3.select(this)
 		let obj_info_list = tooltip_div
 			.append('table')
