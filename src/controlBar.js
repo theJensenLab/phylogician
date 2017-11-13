@@ -499,7 +499,8 @@ let exportCurrentState = document.createElement('a')
 exportCurrentState.classList.add('dropdown-item')
 exportCurrentState.innerHTML = 'Current State'
 exportCurrentState.addEventListener('click', () => {
-	phylogician.getCurrentState()
+	let currentState = phylogician.getCurrentState()
+	phylogician.exportFile('tree.phylo', JSON.stringify(currentState))
 	retractNavBar()
 })
 exportOptions.appendChild(exportCurrentState)

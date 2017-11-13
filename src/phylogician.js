@@ -172,10 +172,14 @@ function restoreState(data) {
 }
 
 // calls the function that export the current state of the svg
+/**
+ * 
+ * 
+ * @returns 
+ */
 function getCurrentState() {
 	let exportState = tree.root().data()
 	exportState = utils.simpleStringify(exportState)
-	exportFile('tree.phy', JSON.stringify(exportState))
 	return exportState
 }
 
@@ -269,6 +273,7 @@ exports.changeCollapsedNodeShape = changeCollapsedNodeShape
 // Deals with importing/exporting states:
 exports.restoreState = restoreState
 exports.getCurrentState = getCurrentState
+exports.exportFile = exportFile
 
 // Miscellaneous:
 exports.checkScaled = checkScaled
