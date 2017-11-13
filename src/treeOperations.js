@@ -64,20 +64,6 @@ function toggleNodeProperty(node) {
 	node.toggle()
 }
 
-/**
- * Toggles on/off the support values in the tree visualization.
- * 
- */
-function toggleSupport() {
-	let text = d3.select('.nodes')
-		.selectAll('.inner')
-		.select('text')
-	if (text.attr('display') === 'none')
-		text.attr('display', 'block')
-	else
-		text.attr('display', 'none')
-}
-
 
 let ladderized = 'false'
 /**
@@ -173,7 +159,6 @@ exports.changeBranchColorProperty = changeBranchColorProperty
 exports.changeBranchWidthProperty = changeBranchWidthProperty
 exports.changeCertaintyProperty = changeCertaintyProperty
 exports.toggleNodeProperty = toggleNodeProperty
-exports.toggleSupport = toggleSupport
 exports.ladderizeSubtree = ladderizeSubtree
 exports.rerootTree = rerootTree
 exports.updateUserChanges = updateUserChanges

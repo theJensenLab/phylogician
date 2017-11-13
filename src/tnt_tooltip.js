@@ -208,55 +208,6 @@ tooltip.table = function(tree, selectedNode) {
 				.style('text-align', 'center')
 		}
 
-		/* let table_rows = obj_info_table.selectAll('.tnt_zmenu_row')
-			.data(obj.rows)
-			.enter()
-			.append('tr')
-			.attr('class', 'tnt_zmenu_row')
-
-		table_rows
-			.append('th')
-			.style('text-align', 'center')
-			.attr('colspan', function (d, i) {
-				if (d.value === '') {
-					return 2
-				}
-				return 1
-			})
-			.attr('class', function (d) {
-				if (d.value === '') {
-					return 'tnt_zmenu_inner_header'
-				}
-				return 'tnt_zmenu_cell'
-			})
-			.html(function(d,i) {
-				return obj.rows[i].label
-			})
-
-		table_rows
-			.append('td')
-			.style('text-align', 'center')
-			.html(function(d, i) {
-				if (typeof obj.rows[i].value === 'function')
-					obj.rows[i].value.call(this, d)
-				return obj.rows[i].value
-			})
-			.each(function (d) {
-				if (d.value === '')
-					d3.select(this).remove()
-			})
-			.each(function (d) {
-				if (d.link === undefined) {
-					return
-				}
-				d3.select(this)
-					.classed('link', 1)
-					.on('click', function (f) {
-						f.link(f.obj)
-						t.close.call(this)
-					})
-			}) */
-
 		// THIS IS WHERE TOOLTIP ADDITIONS ARE MADE
 		let changeBranchColorClickable = obj_info_table
 			.append('tr')
