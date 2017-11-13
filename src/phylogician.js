@@ -250,14 +250,14 @@ tree.on('click', function(node) {
 		})
 })
 
-// module.exports = 'phylogician'
+// Exporting the following functions for use in the specified files:
 
-// Deals with tree creation and layout:
+// Functions that deal with tree creation and layout:
 exports.makeTree = makeTree
 exports.updateRadial = updateRadial
 exports.updateVertical = updateVertical
 
-// Deals with visualization functions accessed by controlBar.js:
+// Functions that deals with visualization (will be accessed by controlBar.js):
 exports.toggleSupport = toggleSupport
 exports.scaleTree = scaleTree
 exports.changeExpandedNodeShape = changeExpandedNodeShape
@@ -265,7 +265,7 @@ exports.changeCollapsedNodeShape = changeCollapsedNodeShape
 exports.changeNodeSize = changeNodeSize
 exports.fitScreen = fitScreen
 
-// Deals with importing/exporting states as accessed by controlBar.js:
+// Functions that deals with importing/exporting states (will be accessed by controlBar.js):
 exports.restoreState = restoreState
 exports.getCurrentState = getCurrentState
 exports.exportFile = exportFile
