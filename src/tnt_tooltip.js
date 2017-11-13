@@ -320,7 +320,7 @@ tooltip.table = function(tree, selectedNode) {
 			.attr('colspan', 2)
 			.text(collapsedText)
 			.on('click', function() {
-				treeOperations.toggleNode(selectedNode) // Toggles the collapsed property in the treeObj
+				treeOperations.toggleNodeProperty(selectedNode) // Toggles the collapsed property in the treeObj
 				treeOperations.updateUserChanges(tree) // Updates the collapsing/uncollapsing in the SVG visualization.
 				d3.select(id)
 					.select('.tnt_node_display_elem')

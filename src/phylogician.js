@@ -113,11 +113,17 @@ function updateRadial() {
 }
 
 /**
- * Calls the function in treeOperations.js that toggles on/off the opacity of branches based on support values.
+ * Toggles on/off the support values in the tree visualization.
  * 
  */
 function toggleSupport() {
-	treeOperations.toggleSupport()
+	let text = d3.select('.nodes')
+		.selectAll('.inner')
+		.select('text')
+	if (text.attr('display') === 'none')
+		text.attr('display', 'block')
+	else
+		text.attr('display', 'none')
 }
 
 /**
@@ -188,7 +194,7 @@ function exportFile(filename, text) {
  * 
  * @param {any} shape Should be 'circle', 'triangle', or 'square', as desired.
  */
-exports.changeExpandedNodeShape = function(shape) {
+function changeExpandedNodeShape(shape) {
 	if (shape === 'none') {
 		expandedNode = tntTree.node_display.circle()
 		tree.update()
@@ -256,6 +262,7 @@ exports.updateVertical = updateVertical
 // Deals with visualization functions accessed by controlBar.js:
 exports.toggleSupport = toggleSupport
 exports.scaleTree = scaleTree
+exports.changeExpandedNodeShape = changeExpandedNodeShape
 exports.changeCollapsedNodeShape = changeCollapsedNodeShape
 exports.changeNodeSize = changeNodeSize
 exports.fitScreen = fitScreen

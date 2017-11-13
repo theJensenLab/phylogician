@@ -60,7 +60,7 @@ function changeCertaintyProperty(selectedNode) {
  * 
  * @param {any} node - The node to be collapsed/uncollapsed.
  */
-function toggleNode(node) {
+function toggleNodeProperty(node) {
 	node.toggle()
 }
 
@@ -172,7 +172,7 @@ function updateCertainty(tree) {
 exports.changeBranchColorProperty = changeBranchColorProperty
 exports.changeBranchWidthProperty = changeBranchWidthProperty
 exports.changeCertaintyProperty = changeCertaintyProperty
-exports.toggleNode = toggleNode
+exports.toggleNodeProperty = toggleNodeProperty
 exports.toggleSupport = toggleSupport
 exports.ladderizeSubtree = ladderizeSubtree
 exports.rerootTree = rerootTree
