@@ -25,7 +25,11 @@ let nodeDisplay = tree.node_display()
 			expandedNode.display().call(this, node)
 	})
 
-// creates the tree and renders it to the div 'treeBox'
+/**
+ * Initializes the tree visualization and renders it to the div 'treeBox'.
+ * 
+ * @param {any} newickString The desired tree in Newick format.
+ */
 function makeTree(newickString) {
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
 		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
@@ -35,8 +39,7 @@ function makeTree(newickString) {
 	let backDrop = d3.select('#backDrop')
 	backDrop.remove()
 	let startTitle = d3.select('#startTitle')
-	startTitle.attr('display', 'none')
-	// necessary so that the backdrop + startTitle div is gone once tree is created
+	startTitle.attr('display', 'none') // Necessary so that the backdrop + startTitle div is gone once tree is created.
 
 	let treeBox = document.getElementById('treeBox')
 
@@ -77,16 +80,11 @@ function makeTree(newickString) {
 	treeOperations.updateUserChanges(tree)
 }
 
+/**
+ * Resets the zoom and transform properties of the 'treeBox' div to the original (identity) state.
+ * 
+ */
 function fitScreen() {
-	/* Resets the zoom and transform properties of the "treeBox" div to its original state.
-
-	Args:
-	(none)
-
-	Returns:
-	(none)
-	
-	*/
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
 
