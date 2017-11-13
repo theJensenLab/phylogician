@@ -5,7 +5,6 @@ require('bootstrap-colorpicker')
 
 let d3 = require('d3'),
 	$ = require('jquery'),
-	phylogician = require('./phylogician.js'),
 	treeOperations = require('./treeOperations.js')
 
 exports.popFormBranchWidth = function(selectedNode, tree) {
