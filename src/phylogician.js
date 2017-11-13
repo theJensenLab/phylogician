@@ -172,15 +172,21 @@ function restoreState(data) {
 }
 
 // calls the function that export the current state of the svg
-function exportCurrentState() {
+function getCurrentState() {
 	let exportState = tree.root().data()
 	exportState = utils.simpleStringify(exportState)
-	_exportCurrentState('tree.phy', JSON.stringify(exportState))
+	exportFile('tree.phy', JSON.stringify(exportState))
 	return exportState
 }
 
-// function from: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
-function _exportCurrentState(filename, text) {
+/**
+ * Creates a file with the given filename and desired text, and exports it locally.
+ * Source: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
+ * 
+ * @param {any} filename The desired filename of the export.
+ * @param {any} text The desired contents of the file (in our case, a stringified JSON).
+ */
+function exportFile(filename, text) {
 	let element = document.createElement('a')
 	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text))
 	element.setAttribute('download', filename)
@@ -262,7 +268,7 @@ exports.changeCollapsedNodeShape = changeCollapsedNodeShape
 
 // Deals with importing/exporting states:
 exports.restoreState = restoreState
-exports.exportCurrentState = exportCurrentState
+exports.getCurrentState = getCurrentState
 
 // Miscellaneous:
 exports.checkScaled = checkScaled

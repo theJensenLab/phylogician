@@ -186,6 +186,12 @@ function popFormPreviousState() {
 }
 
 // pops the div that allows user to select node shape
+/**
+ * Activates the buttons/form that allows the user to select preferences regarding node shape.
+ * Installs a listener on each node shape button that when clicked, calls the function(s) that will
+ * make the desired modification to the tree.
+ * 
+ */
 function popFormNodeShape() {
 	turnOffOtherForms()
 	if (document.getElementById('changeNodeShapeForm')) {
@@ -272,6 +278,11 @@ function popFormNodeShape() {
 	}
 }
 
+/**
+ * Activates the form that allows user to input a node size, then calls function(s) that will make
+ * the desired modification.
+ * 
+ */
 function popFormNodeSize() {
 	turnOffOtherForms()
 	if (document.getElementById('nodeSizeInput')) {
@@ -297,7 +308,10 @@ function popFormNodeSize() {
 	}
 }
 
-// turns off all active forms so that new form can open unobstructed
+/**
+ * Helper function that sets display of all active forms to 'none'. Allows new form to open unopstructed.
+ * 
+ */
 function turnOffOtherForms() {
 	if (document.getElementById('stringInput'))
 		document.getElementById('stringInput').style.display = 'none'
@@ -484,8 +498,8 @@ exportDiv.appendChild(exportOptions)
 let exportCurrentState = document.createElement('a')
 exportCurrentState.classList.add('dropdown-item')
 exportCurrentState.innerHTML = 'Current State'
-exportCurrentState.addEventListener('click', (e) => {
-	phylogician.exportCurrentState(e)
+exportCurrentState.addEventListener('click', () => {
+	phylogician.getCurrentState()
 	retractNavBar()
 })
 exportOptions.appendChild(exportCurrentState)
