@@ -2,7 +2,6 @@
 'use strict'
 
 let	d3 = require('d3'),
-	tnt = require('tnt.utils'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick'),
 	treeLayout = require('./treeLayout.js'),
