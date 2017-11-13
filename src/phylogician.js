@@ -58,10 +58,12 @@ function makeTree(newickString) {
 			.scale(true)
 		)
 	tree(treeBox)
+
+	// Need to initialize the branchWidth, branchColor, and certaintyOnOff properties of
+	// every node in the tree.
+	treeOperations.changeBranchWidthProperty(3, tree.root())
 	let childrenArray = tree.root().get_all_nodes()
 	for (let i = 0; i < childrenArray.length; i++) {
-		if (!(childrenArray[i].property('branchWidth')))
-			childrenArray[i].property('branchWidth', 3)
 		if (!(childrenArray[i].property('branchColor')))
 			childrenArray[i].property('branchColor', 'black')
 		if (!(childrenArray[i].property('certaintyOnOff')))
