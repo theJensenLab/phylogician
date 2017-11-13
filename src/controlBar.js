@@ -6,7 +6,8 @@ require('bootstrap-colorpicker')
 let d3 = require('d3'),
 	$ = require('jquery')
 
-let phylogician = require('./phylogician.js')
+let phylogician = require('./phylogician.js'),
+	treeOperations = require('./treeOperations.js')
 
 let NavBarShow = false,
 	maxWidth = document.body.clientWidth,
@@ -379,8 +380,8 @@ treeLayoutDiv.appendChild(displayOptions)
 let makeVertical = document.createElement('a')
 makeVertical.classList.add('dropdown-item')
 makeVertical.innerHTML = 'Vertical'
-makeVertical.addEventListener('click', (e) => {
-	phylogician.updateVertical(e)
+makeVertical.addEventListener('click', () => {
+	phylogician.updateVertical()
 	retractNavBar()
 })
 displayOptions.appendChild(makeVertical)
@@ -389,8 +390,8 @@ displayOptions.appendChild(makeVertical)
 let makeRadial = document.createElement('a')
 makeRadial.classList.add('dropdown-item')
 makeRadial.innerHTML = 'Radial'
-makeRadial.addEventListener('click', (e) => {
-	phylogician.updateRadial(e)
+makeRadial.addEventListener('click', () => {
+	phylogician.updateRadial()
 	retractNavBar()
 })
 displayOptions.appendChild(makeRadial)
@@ -416,8 +417,8 @@ operationsDiv.appendChild(operationsOptions)
 let fit2screen = document.createElement('a')
 fit2screen.classList.add('dropdown-item')
 fit2screen.innerHTML = 'Fit To Screen'
-fit2screen.addEventListener('click', (e) => {
-	phylogician.fitScreen(e)
+fit2screen.addEventListener('click', () => {
+	phylogician.fitScreen()
 	retractNavBar()
 })
 operationsOptions.appendChild(fit2screen)
@@ -525,6 +526,8 @@ aboutDiv.appendChild(aboutOptions)
 
 // end section
 
+
+// custom shortcuts
 navBarDOM.appendChild(buttonGroup)
 
 function navBarShortcut(e) {
