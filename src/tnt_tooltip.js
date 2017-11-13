@@ -8,6 +8,7 @@ let d3 = require('d3'),
 
 let tooltip = function() {
 	let drag = d3.drag()
+	let tooltip_div // This is essential in order for the tooltip to be initialized.
 
 	let conf = {
 		container: undefined,
