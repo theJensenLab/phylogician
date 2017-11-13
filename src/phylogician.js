@@ -128,15 +128,6 @@ function scaleTree() {
 	treeLayout.updateScale(tree)
 }
 
-/*
- * Checks if the tree is currently scaled.
- * 
- * @returns True if tree is scaled, otherwise False
- */
-function checkScaled() {
-	return treeLayout.checkScaled()
-}
-
 /**
  * Changes the node size of the tree to the desired size using D3 and HTML IDs.
  * 
@@ -273,6 +264,3 @@ exports.fitScreen = fitScreen
 exports.restoreState = restoreState
 exports.getCurrentState = getCurrentState
 exports.exportFile = exportFile
-
-// Miscellaneous:
-exports.checkScaled = checkScaled

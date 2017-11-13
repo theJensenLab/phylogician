@@ -5,7 +5,7 @@ let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	parser = require('tnt.newick'),
 	currentState = 'vertical',
-	scaled = true
+	scaled = true // Default: Scaling is on.
 
 exports.updateVertical = function(tree) {
 	tree.layout(tntTree.layout.vertical().width(window.innerWidth * 0.85))
@@ -47,8 +47,4 @@ exports.updateScale = function(tree) {
 		scaled = false
 		textUpdate.text('Turn On Scaling')
 	}
-}
-
-exports.checkScaled = function() {
-	return scaled
 }
