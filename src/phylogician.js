@@ -147,18 +147,6 @@ function checkScaled() {
 	return treeLayout.checkScaled()
 }
 
-// calls the function to change the branch color of the subtree of the node #[nodeID]
-function changeBranchColor(newColor, selectedNode) {
-	treeOperations.changeBranchColorProperty(newColor, selectedNode)
-	treeOperations.updateUserChanges(tree)
-}
-
-// calls the function to change the branch width of the subtree of the node #[nodeID]
-exports.changeBranchWidth = function(newWidth, selectedNode) {
-	treeOperations.changeBranchWidthProperty(newWidth, selectedNode)
-	treeOperations.updateUserChanges(tree)
-}
-
 // changes the node size for the tree
 exports.changeNodeSize = function(size) {
 	/* nodeSize = size

@@ -5,9 +5,10 @@ require('bootstrap-colorpicker')
 
 let d3 = require('d3'),
 	$ = require('jquery'),
-	phylogician = require('./phylogician.js')
+	phylogician = require('./phylogician.js'),
+	treeOperations = require('./treeOperations.js')
 
-exports.popFormBranchWidth = function(selectedNode) {
+exports.popFormBranchWidth = function(selectedNode, tree) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -25,15 +26,16 @@ exports.popFormBranchWidth = function(selectedNode) {
 		if (e.keyCode === enterKeyCode) {
 			let branchWidth = document.getElementById('branchWidthInput').value
 			branchWidthForm.style.display = 'none'
-			if (branchWidth !== '')
-				phylogician.changeBranchWidth(branchWidth, selectedNode)
+			if (branchWidth !== '') {
+				treeOperations.changeBranchWidthProperty(branchWidth, selectedNode)
+				treeOperations.updateUserChanges(tree)
+			}
 		}
 	})
 	document.body.appendChild(branchWidthForm)
-
 }
 
-exports.popColorPicker = function(selectedNode) {
+exports.popColorPicker = function(selectedNode, tree) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -49,7 +51,8 @@ exports.popColorPicker = function(selectedNode) {
 	$(function() {
 		$('#colorPicker').colorpicker()
 			.on('changeColor', function(newColor) {
-				phylogician.changeBranchColor(newColor, selectedNode)
+				treeOperations.changeBranchColorProperty(newColor, selectedNode)
+				treeOperations.updateUserChanges(tree)
 			})
 			.on('hidePicker', function() {
 				document.getElementById('colorPicker').style.display = 'none'

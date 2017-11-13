@@ -174,7 +174,7 @@ tooltip.list = function() {
 	return t
 }
 
-tooltip.table = function(fullTree, selectedNode) {
+tooltip.table = function(tree, selectedNode) {
 	// fills the selected node -- KEEP WORKING HERE
 	let id = '#tnt_tree_node_treeBox_' + selectedNode.id()
 	let collapsedText = ''
@@ -269,12 +269,12 @@ tooltip.table = function(fullTree, selectedNode) {
 				let numChildren = selectedNode.get_all_nodes().length - 1
 				if (document.getElementById('colorPicker')) {
 					if (document.getElementById('colorPicker').style.display === 'none')
-						popforms.popColorPicker(selectedNode)
+						popforms.popColorPicker(selectedNode, tree)
 					else
 						document.getElementById('colorPicker').style.display = 'none'
 				}
 				else {
-					popforms.popColorPicker(selectedNode)
+					popforms.popColorPicker(selectedNode, tree)
 				}
 				d3.select(id)
 					.select('.tnt_node_display_elem')
@@ -294,12 +294,12 @@ tooltip.table = function(fullTree, selectedNode) {
 			.on('click', function() {
 				if (document.getElementById('branchWidthInput')) {
 					if (document.getElementById('branchWidthInput').style.display === 'none')
-						popforms.popFormBranchWidth(selectedNode)
+						popforms.popFormBranchWidth(selectedNode, tree)
 					else
 						document.getElementById('branchWidthInput').style.display = 'none'
 				}
 				else {
-					popforms.popFormBranchWidth(selectedNode)
+					popforms.popFormBranchWidth(selectedNode, tree)
 				}
 				d3.select(id)
 					.select('.tnt_node_display_elem')
@@ -323,7 +323,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.text(collapsedText)
 			.on('click', function() {
 				treeOperations.toggleNode(selectedNode) // Toggles the collapsed property in the treeObj
-				treeOperations.updateUserChanges(fullTree) // Updates the collapsing/uncollapsing in the SVG visualization.
+				treeOperations.updateUserChanges(tree) // Updates the collapsing/uncollapsing in the SVG visualization.
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
@@ -341,7 +341,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.text('Toggle Certainty')
 			.on('click', function() {
 				treeOperations.changeCertaintyProperty(selectedNode)
-				treeOperations.updateUserChanges(fullTree)
+				treeOperations.updateUserChanges(tree)
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
@@ -359,7 +359,7 @@ tooltip.table = function(fullTree, selectedNode) {
 			.text('Ladderize Subtree')
 			.on('click', function() {
 				treeOperations.ladderizeSubtree(selectedNode)
-				treeOperations.updateUserChanges(fullTree)
+				treeOperations.updateUserChanges(tree)
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
@@ -377,8 +377,8 @@ tooltip.table = function(fullTree, selectedNode) {
 			.text('Set as Root')
 			.style('text-align', 'center')
 			.on('click', function() {
-				treeOperations.rerootTree(fullTree, selectedNode)
-				treeOperations.updateUserChanges(fullTree)
+				treeOperations.rerootTree(tree, selectedNode)
+				treeOperations.updateUserChanges(tree)
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
