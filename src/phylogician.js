@@ -94,7 +94,7 @@ exports.fitScreen = function() {
 	g.attr('transform', {k: 1, x: 0, y: 0})
 }
 
-exports.updateVertical = function() {
+function updateVertical() {
 	/* Calls the function in treeLayout.js that updates the layout of the tree to vertical view.
 
 	Args:
@@ -105,9 +105,10 @@ exports.updateVertical = function() {
 	
 	*/
 	treeLayout.updateVertical(tree)
+	treeOperations.updateUserChanges(tree)
 }
 
-exports.updateRadial = function() {
+function updateRadial() {
 	/* Calls the function in treeLayout.js that updates the layout of the tree to radial view.
 
 	Args:
@@ -118,42 +119,36 @@ exports.updateRadial = function() {
 	
 	*/
 	treeLayout.updateRadial(tree)
+	treeOperations.updateUserChanges(tree)
 }
 
-exports.toggleSupport = function() {
-	/* Calls the function in treeOperations.js that toggles the opacity of branches based on support values.
-
-	Args:
-	(none)
-
-	Returns:
-	(none)
-	
-	*/
+/**
+ * Calls the function in treeOperations.js that toggles on/off the opacity of branches based on support values.
+ * 
+ */
+function toggleSupport() {
 	treeOperations.toggleSupport()
 }
 
-// calls the function to toggle scaling of the tree
-exports.scaleTree = function() {
-	/* Calls the function in treelayout.js that toggles the scaling of the SVG.
-
-	Args:
-	(none)
-
-	Returns:
-	(none)
-	
-	*/
+/**
+ * Calls the function in treeLayout.js that toggles on/off the scaling of the SVG tree.
+ * 
+ */
+function scaleTree() {
 	treeLayout.updateScale(tree)
 }
 
-// returns whether or not the tree is currently scaled
-exports.checkScaled = function() {
+/*
+ * Checks if the tree is currently scaled.
+ * 
+ * @returns True if tree is scaled, otherwise False
+ */
+function checkScaled() {
 	return treeLayout.checkScaled()
 }
 
 // calls the function to change the branch color of the subtree of the node #[nodeID]
-exports.changeBranchColor = function(newColor, selectedNode) {
+function changeBranchColor(newColor, selectedNode) {
 	treeOperations.changeBranchColorProperty(newColor, selectedNode)
 	treeOperations.updateUserChanges(tree)
 }
@@ -183,13 +178,13 @@ exports.changeNodeSize = function(size) {
 }
 
 // overrides the data in current tree with the passed data
-exports.restoreState = function(data) {
+function restoreState(data) {
 	tree.data(JSON.parse(data))
 	treeOperations.updateUserChanges(tree)
 }
 
 // calls the function that export the current state of the svg
-exports.exportCurrentState = function() {
+function exportCurrentState() {
 	let exportState = tree.root().data()
 	exportState = utils.simpleStringify(exportState)
 	_exportCurrentState('tree.phy', JSON.stringify(exportState))
@@ -234,8 +229,12 @@ exports.changeExpandedNodeShape = function(shape) {
 	}
 }
 
-// changes the collapsed node shape of the tree -- TO BE COMPLETED
-exports.changeCollapsedNodeShape = function(shape) {
+/**
+ * Changes the collapsed node shape of the tree (circle, triangle, or square).
+ * 
+ * @param {any} shape Should be 'circle', 'triangle', or 'square', as desired.
+ */
+function changeCollapsedNodeShape(shape) {
 	if (shape === 'circle')
 		collapsedNode = tntTree.node_display.circle()
 	else if (shape === 'triangle')
@@ -246,14 +245,14 @@ exports.changeCollapsedNodeShape = function(shape) {
 	tree.update_nodes()
 }
 
-// installs a listener at each node that displays a tooltip upon click
+// Installs a listener at each node that displays a tooltip upon click.
 tree.on('click', function(node) {
-	// resets color of all nodes to black
+	// Resets color of all nodes to black.
 	d3.selectAll('.tnt_tree_node')
 		.selectAll('.tnt_node_display_elem')
 		.attr('fill', 'black')
 
-	// generates tooltip for selected node
+	// Generates a tooltip for selected node.
 	tntTooltip.table(tree, node)
 		.width(120)
 		.call(this, {
@@ -263,3 +262,20 @@ tree.on('click', function(node) {
 })
 
 // module.exports = 'phylogician'
+
+// Deals with tree layout:
+exports.updateRadial = updateRadial
+exports.updateVertical = updateVertical
+
+// Deals with custom tree operations:
+exports.toggleSupport = toggleSupport
+exports.scaleTree = scaleTree
+exports.changeBranchColor = changeBranchColor
+exports.changeCollapsedNodeShape = changeCollapsedNodeShape
+
+// Deals with importing/exporting states:
+exports.restoreState = restoreState
+exports.exportCurrentState = exportCurrentState
+
+// Miscellaneous:
+exports.checkScaled = checkScaled
