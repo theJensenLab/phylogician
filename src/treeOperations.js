@@ -111,6 +111,21 @@ function rerootTree(tree, node) {
 	tree.data(newRoot.data())
 }
 
+// Custom update function and necessary helper functions are below:
+
+/**
+ * Custom update function that first uses TNT's update, then also updates the SVG based on the following properties:
+	'branchColor,' 'branchWidth,' and 'certaintyOnOff.'
+ * 
+ * @param {any} tree - A TNT treeObj
+ */
+function updateUserChanges(tree) {
+	tree.update()
+	updateBranchColor(tree)
+	updateBranchWidth(tree)
+	updateCertainty(tree)
+}
+
 /**
  * Updates the branch color of every branch in a given tree based on its 'branchColor' property.
  * 
@@ -151,19 +166,6 @@ function updateCertainty(tree) {
 		let branch = d3.select(id)
 		branch.attr('opacity', childrenArray[x].property('certaintyOnOff'))
 	}
-}
-
-/**
- * Custom update function that first uses TNT's update, then also updates the SVG based on the following properties:
-	'branchColor,' 'branchWidth,' and 'certaintyOnOff.'
- * 
- * @param {any} tree - A TNT treeObj
- */
-function updateUserChanges(tree) {
-	tree.update()
-	updateBranchColor(tree)
-	updateBranchWidth(tree)
-	updateCertainty(tree)
 }
 
 // Exporting the following functions to be accessible globally:

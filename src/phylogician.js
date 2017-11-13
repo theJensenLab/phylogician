@@ -258,7 +258,6 @@ exports.updateVertical = updateVertical
 // Deals with custom tree operations:
 exports.toggleSupport = toggleSupport
 exports.scaleTree = scaleTree
-exports.changeBranchColor = changeBranchColor
 exports.changeCollapsedNodeShape = changeCollapsedNodeShape
 
 // Deals with importing/exporting states:

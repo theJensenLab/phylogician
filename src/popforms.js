@@ -7,7 +7,7 @@ let d3 = require('d3'),
 	$ = require('jquery'),
 	treeOperations = require('./treeOperations.js')
 
-exports.popFormBranchWidth = function(selectedNode, tree) {
+function popFormBranchWidth(selectedNode, tree) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -34,7 +34,7 @@ exports.popFormBranchWidth = function(selectedNode, tree) {
 	document.body.appendChild(branchWidthForm)
 }
 
-exports.popColorPicker = function(selectedNode, tree) {
+function popColorPicker(selectedNode, tree) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -59,3 +59,6 @@ exports.popColorPicker = function(selectedNode, tree) {
 	})
 	document.body.appendChild(colorPicker)
 }
+
+exports.popFormBranchWidth = popFormBranchWidth
+exports.popColorPicker = popColorPicker
