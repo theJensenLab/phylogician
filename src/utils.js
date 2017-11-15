@@ -2,6 +2,12 @@
 
 let tntTree = require('tnt.tree')
 
+/*
+ * Counts the number of leaves associated with the given tree object.
+ * 
+ * @param {any} treeObj A tree object. 
+ * @returns The number of leaves in the tree.
+ */
 exports.countLeaves = function(treeObj) {
 	let tree = tntTree().data(treeObj),
 		numOfLeaves = 0
@@ -10,6 +16,13 @@ exports.countLeaves = function(treeObj) {
 	return numOfLeaves
 }
 
+/**
+ * Custom stringify function that cleans up a JSON object so that it can be stringified
+ * by JSON.stringify().
+ * 
+ * @param {any} object Object that will be operated on (should be JSON).
+ * @returns The simpleStringified object.
+ */
 exports.simpleStringify = function(object) {
 	let simpleObject = {}
 	if (object.children) {
@@ -23,5 +36,5 @@ exports.simpleStringify = function(object) {
 			continue
 		simpleObject[prop] = object[prop]
 	}
-	return simpleObject // returns cleaned up JSON
+	return simpleObject
 }

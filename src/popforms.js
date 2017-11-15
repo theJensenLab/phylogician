@@ -5,9 +5,17 @@ require('bootstrap-colorpicker')
 
 let d3 = require('d3'),
 	$ = require('jquery'),
-	phylogician = require('./phylogician.js')
+	treeOperations = require('./treeOperations.js')
 
-exports.popFormBranchWidth = function(selectedNode) {
+/**
+ * 1) Activates the form that allows the user to customize the branch width of a subtree.
+ * 2) Also sets display of all other potentially-active forms to 'none'.
+ * 3) Modifies the branch width of the tree and updates the visualization.
+ * 
+ * @param {any} selectedNode The parent node of the subtree to be operated on.
+ * @param {any} tree The full tree.
+ */
+function popFormBranchWidth(selectedNode, tree) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -25,15 +33,24 @@ exports.popFormBranchWidth = function(selectedNode) {
 		if (e.keyCode === enterKeyCode) {
 			let branchWidth = document.getElementById('branchWidthInput').value
 			branchWidthForm.style.display = 'none'
-			if (branchWidth !== '')
-				phylogician.changeBranchWidth(branchWidth, selectedNode)
+			if (branchWidth !== '') {
+				treeOperations.changeBranchWidthProperty(branchWidth, selectedNode)
+				treeOperations.updateUserChanges(tree)
+			}
 		}
 	})
 	document.body.appendChild(branchWidthForm)
-
 }
 
-exports.popColorPicker = function(selectedNode) {
+/**
+ * 1) Activates a color picker that allows the user to customize the branch color of a subtree.
+ * 2) Also sets display of all other potentially-active forms to 'none'.
+ * 3) Modifies the branch color of the tree and updates the visualization.
+ * 
+ * @param {any} selectedNode The parent node of the subtree to be operated on.
+ * @param {any} tree The full tree.
+ */
+function popColorPicker(selectedNode, tree) {
 	if (document.getElementById('fileFormLabel'))
 		document.getElementById('fileFormLabel').style.display = 'none'
 	if (document.getElementById('stringInput'))
@@ -49,7 +66,8 @@ exports.popColorPicker = function(selectedNode) {
 	$(function() {
 		$('#colorPicker').colorpicker()
 			.on('changeColor', function(newColor) {
-				phylogician.changeBranchColor(newColor, selectedNode)
+				treeOperations.changeBranchColorProperty(newColor, selectedNode)
+				treeOperations.updateUserChanges(tree)
 			})
 			.on('hidePicker', function() {
 				document.getElementById('colorPicker').style.display = 'none'
@@ -57,3 +75,6 @@ exports.popColorPicker = function(selectedNode) {
 	})
 	document.body.appendChild(colorPicker)
 }
+
+exports.popFormBranchWidth = popFormBranchWidth
+exports.popColorPicker = popColorPicker

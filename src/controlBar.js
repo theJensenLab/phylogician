@@ -6,7 +6,8 @@ require('bootstrap-colorpicker')
 let d3 = require('d3'),
 	$ = require('jquery')
 
-let phylogician = require('./phylogician.js')
+let phylogician = require('./phylogician.js'),
+	treeOperations = require('./treeOperations.js')
 
 let NavBarShow = false,
 	maxWidth = document.body.clientWidth,
@@ -57,7 +58,7 @@ function expandNavBar() {
 			.transition()
 			.duration(duration)
 			.attr('fill', '#FF6A13')
-		
+
 		d3.select('#backDrop').transition()
 			.duration(duration)
 			.style('opacity', '0')
@@ -155,7 +156,7 @@ function popFormPreviousState() {
 		let filePreviousState = document.createElement('label')
 		filePreviousState.classList.add('btn', 'btn-primary')
 		filePreviousState.id = 'filePreviousState'
-		filePreviousState.setAttribute('for', 'previousStateInput') //??? 'previousStateInput' perhaps?
+		filePreviousState.setAttribute('for', 'previousStateInput')
 
 		let previousStateForm = document.createElement('input')
 		previousStateForm.id = 'previousStateInput'
@@ -185,6 +186,12 @@ function popFormPreviousState() {
 }
 
 // pops the div that allows user to select node shape
+/**
+ * Activates the buttons/form that allows the user to select preferences regarding node shape.
+ * Installs a listener on each node shape button that when clicked, calls the function(s) that will
+ * make the desired modification to the tree.
+ * 
+ */
 function popFormNodeShape() {
 	turnOffOtherForms()
 	if (document.getElementById('changeNodeShapeForm')) {
@@ -271,6 +278,11 @@ function popFormNodeShape() {
 	}
 }
 
+/**
+ * Activates the form that allows user to input a node size, then calls function(s) that will make
+ * the desired modification.
+ * 
+ */
 function popFormNodeSize() {
 	turnOffOtherForms()
 	if (document.getElementById('nodeSizeInput')) {
@@ -296,7 +308,10 @@ function popFormNodeSize() {
 	}
 }
 
-// turns off all active forms so that new form can open unobstructed
+/**
+ * Helper function that sets display of all active forms to 'none'. Allows new form to open unopstructed.
+ * 
+ */
 function turnOffOtherForms() {
 	if (document.getElementById('stringInput'))
 		document.getElementById('stringInput').style.display = 'none'
@@ -379,8 +394,8 @@ treeLayoutDiv.appendChild(displayOptions)
 let makeVertical = document.createElement('a')
 makeVertical.classList.add('dropdown-item')
 makeVertical.innerHTML = 'Vertical'
-makeVertical.addEventListener('click', (e) => {
-	phylogician.updateVertical(e)
+makeVertical.addEventListener('click', () => {
+	phylogician.updateVertical()
 	retractNavBar()
 })
 displayOptions.appendChild(makeVertical)
@@ -389,8 +404,8 @@ displayOptions.appendChild(makeVertical)
 let makeRadial = document.createElement('a')
 makeRadial.classList.add('dropdown-item')
 makeRadial.innerHTML = 'Radial'
-makeRadial.addEventListener('click', (e) => {
-	phylogician.updateRadial(e)
+makeRadial.addEventListener('click', () => {
+	phylogician.updateRadial()
 	retractNavBar()
 })
 displayOptions.appendChild(makeRadial)
@@ -404,7 +419,7 @@ let operationsMenu = document.createElement('button')
 operationsMenu.classList.add('btn', 'dropdown-toggle')
 operationsMenu.setAttribute('data-toggle', 'dropdown')
 operationsMenu.type = 'button'
-operationsMenu.innerHTML = 'Actions'
+operationsMenu.innerHTML = 'Settings'
 operationsMenu.style = 'left: 100px;'
 operationsDiv.appendChild(operationsMenu)
 
@@ -416,8 +431,8 @@ operationsDiv.appendChild(operationsOptions)
 let fit2screen = document.createElement('a')
 fit2screen.classList.add('dropdown-item')
 fit2screen.innerHTML = 'Fit To Screen'
-fit2screen.addEventListener('click', (e) => {
-	phylogician.fitScreen(e)
+fit2screen.addEventListener('click', () => {
+	phylogician.fitScreen()
 	retractNavBar()
 })
 operationsOptions.appendChild(fit2screen)
@@ -425,7 +440,7 @@ operationsOptions.appendChild(fit2screen)
 // button that causes the tree to resize to fit the viewing window
 let toggleScale = document.createElement('a')
 toggleScale.classList.add('dropdown-item', 'scalingOption')
-toggleScale.innerHTML = 'Turn On Scaling'
+toggleScale.innerHTML = 'Turn Off Scaling'
 toggleScale.addEventListener('click', () => {
 	phylogician.scaleTree()
 	retractNavBar()
@@ -441,16 +456,6 @@ toggleSupport.addEventListener('click', () => {
 	retractNavBar()
 })
 operationsOptions.appendChild(toggleSupport)
-
-// button that ladderizes the tree
-let ladderizeTree = document.createElement('a')
-ladderizeTree.classList.add('dropdown-item')
-ladderizeTree.innerHTML = 'Ladderize Tree'
-ladderizeTree.addEventListener('click', () => {
-	phylogician.ladderizeTree()
-	retractNavBar()
-})
-operationsOptions.appendChild(ladderizeTree)
 
 // button that allows the user to change/turn off expanded and collapsed node shapes
 let changeNodeShape = document.createElement('a')
@@ -493,8 +498,9 @@ exportDiv.appendChild(exportOptions)
 let exportCurrentState = document.createElement('a')
 exportCurrentState.classList.add('dropdown-item')
 exportCurrentState.innerHTML = 'Current State'
-exportCurrentState.addEventListener('click', (e) => {
-	phylogician.exportCurrentState(e)
+exportCurrentState.addEventListener('click', () => {
+	let currentState = phylogician.getCurrentState()
+	phylogician.exportFile('tree.phylo', JSON.stringify(currentState))
 	retractNavBar()
 })
 exportOptions.appendChild(exportCurrentState)
@@ -535,6 +541,8 @@ aboutDiv.appendChild(aboutOptions)
 
 // end section
 
+
+// custom shortcuts
 navBarDOM.appendChild(buttonGroup)
 
 function navBarShortcut(e) {
