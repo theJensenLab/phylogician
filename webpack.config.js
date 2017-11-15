@@ -46,7 +46,7 @@ module.exports = {
 			Tether: 'tether'
 		}),
 		new webpack.ProvidePlugin({
-			$: "jquery",
+			$: 'jquery',
 			jQuery: 'jquery',
 			Popper: 'popper.js'
 		})
