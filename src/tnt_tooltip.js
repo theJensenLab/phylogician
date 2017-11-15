@@ -61,7 +61,7 @@ let tooltip = function() {
 		if ((d3.event === null) && (event))
 			d3.event = event
 		let d3mouse = d3.mouse(containerElem)
-		d3.event = null
+		// d3.event = null
 
 		let xoffset = -10
 		if (conf.position === 'left')

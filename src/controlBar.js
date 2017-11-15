@@ -336,6 +336,27 @@ buttonGroup.classList.add('btn-group')
 buttonGroup.setAttribute('data-toggle', 'buttons')
 buttonGroup.style = 'margin-left: 60px;'
 
+
+/**
+ * Creates a new 
+ * 
+ * @param {any} innerHTML 
+ * @param {any} clickEvent 
+ * @param {any} classes 
+ * @param {any} parent 
+ * @returns 
+ */
+/* const makeNewMenuChild = (innerHTML, clickEvent, classes, parent) => {
+	const newMenuChild = document.createElement('a')
+	newMenuChild.classList.add(classes) // this is wrong, but you get the idea.
+	if (innerHTML)
+		newMenuChild.innerHTML = innerHTML
+	if (clickEvent)
+		newMenuChild.addEventListener('click', clickEvent) // this might give you problems, but there is a way to do it.
+	parent.appendChild(newMenuChild)
+	return newMenuChild
+} */
+
 // input string or file via menu bar
 let inputDiv = document.createElement('div')
 inputDiv.classList.add('dropdown')
@@ -358,6 +379,8 @@ submitNwkString.classList.add('dropdown-item')
 submitNwkString.innerHTML = 'Newick Input'
 submitNwkString.addEventListener('click', popFormString)
 inputOptions.appendChild(submitNwkString)
+
+// makeNewMenuChild('Newick Input', popFormString, 'dropdown-item', inputOptions)
 
 // button that allows the user to upload a newick file
 let submitNwkFile = document.createElement('a')
