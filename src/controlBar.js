@@ -6,8 +6,7 @@ require('bootstrap-colorpicker')
 let d3 = require('d3'),
 	$ = require('jquery')
 
-let phylogician = require('./phylogician.js'),
-	treeOperations = require('./treeOperations.js')
+let phylogician = require('./phylogician.js')
 
 let NavBarShow = false,
 	maxWidth = document.body.clientWidth,
@@ -338,13 +337,13 @@ buttonGroup.style = 'margin-left: 60px;'
 
 
 /**
- * Creates a new 
+ * Creates and appends a new menu dropdown to the desired parent with the provided specifications.
  * 
- * @param {any} innerHTML 
- * @param {any} clickEvent 
- * @param {any} classes 
- * @param {any} parent 
- * @returns 
+ * @param {any} innerHTML The text on the button.
+ * @param {any} clickEvent The event that will occur when the button is clicked.
+ * @param {any} classes The class(es) that the button should be attributed to.
+ * @param {any} parent The parent to which this button will become a 'child'.
+ * @returns The dropdown button.
  */
 const makeNewMenuChild = (innerHTML, clickEvent, classes, parent) => {
 	const newMenuChild = document.createElement('a')
