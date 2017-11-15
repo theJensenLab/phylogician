@@ -379,7 +379,7 @@ makeNewMenuChild('Newick File', popFormFile, 'dropdown-item', inputOptions)
 // Dropdown item that allows the user to upload an exported Phylogician project.
 makeNewMenuChild('Previous State', popFormPreviousState, 'dropdown-item', inputOptions)
 
-// change tree layout via menu bar
+// Change tree layout via menu bar
 let treeLayoutDiv = document.createElement('div')
 treeLayoutDiv.classList.add('dropdown')
 buttonGroup.appendChild(treeLayoutDiv)
