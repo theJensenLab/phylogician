@@ -374,8 +374,10 @@ inputDiv.appendChild(inputOptions)
 
 // Dropdown item that allows user to input a Newick string.
 makeNewMenuChild('Newick Input', popFormString, 'dropdown-item', inputOptions)
+
 // Dropdown item that allows the user to upload a Newick file.
 makeNewMenuChild('Newick File', popFormFile, 'dropdown-item', inputOptions)
+
 // Dropdown item that allows the user to upload an exported Phylogician project.
 makeNewMenuChild('Previous State', popFormPreviousState, 'dropdown-item', inputOptions)
 
@@ -396,25 +398,17 @@ let displayOptions = document.createElement('div')
 displayOptions.classList.add('dropdown-menu')
 treeLayoutDiv.appendChild(displayOptions)
 
-// dropdown option to change the layout to Vertical
-let makeVertical = document.createElement('a')
-makeVertical.classList.add('dropdown-item')
-makeVertical.innerHTML = 'Vertical'
-makeVertical.addEventListener('click', () => {
+// Dropdown item that changes the tree layout to Rertical.
+makeNewMenuChild('Vertical', () => {
 	phylogician.updateVertical()
 	retractNavBar()
-})
-displayOptions.appendChild(makeVertical)
+}, 'dropdown-item', displayOptions)
 
-// dropdown option to change the layout to Radial
-let makeRadial = document.createElement('a')
-makeRadial.classList.add('dropdown-item')
-makeRadial.innerHTML = 'Radial'
-makeRadial.addEventListener('click', () => {
+// Dropdown item that changes the tree layout to Radial
+makeNewMenuChild('Radial', () => {
 	phylogician.updateRadial()
 	retractNavBar()
-})
-displayOptions.appendChild(makeRadial)
+}, 'dropdown-item', displayOptions)
 
 // conduct tree operations via menu bar
 let operationsDiv = document.createElement('div')
