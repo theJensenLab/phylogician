@@ -346,7 +346,7 @@ buttonGroup.style = 'margin-left: 60px;'
  * @param {any} parent 
  * @returns 
  */
-/* const makeNewMenuChild = (innerHTML, clickEvent, classes, parent) => {
+const makeNewMenuChild = (innerHTML, clickEvent, classes, parent) => {
 	const newMenuChild = document.createElement('a')
 	newMenuChild.classList.add(classes) // this is wrong, but you get the idea.
 	if (innerHTML)
@@ -355,7 +355,7 @@ buttonGroup.style = 'margin-left: 60px;'
 		newMenuChild.addEventListener('click', clickEvent) // this might give you problems, but there is a way to do it.
 	parent.appendChild(newMenuChild)
 	return newMenuChild
-} */
+}
 
 // input string or file via menu bar
 let inputDiv = document.createElement('div')
@@ -373,28 +373,12 @@ let inputOptions = document.createElement('div')
 inputOptions.classList.add('dropdown-menu')
 inputDiv.appendChild(inputOptions)
 
-// button that allows user to input a newick string
-let submitNwkString = document.createElement('a')
-submitNwkString.classList.add('dropdown-item')
-submitNwkString.innerHTML = 'Newick Input'
-submitNwkString.addEventListener('click', popFormString)
-inputOptions.appendChild(submitNwkString)
-
-// makeNewMenuChild('Newick Input', popFormString, 'dropdown-item', inputOptions)
-
-// button that allows the user to upload a newick file
-let submitNwkFile = document.createElement('a')
-submitNwkFile.classList.add('dropdown-item')
-submitNwkFile.innerHTML = 'Newick File'
-submitNwkFile.addEventListener('click', popFormFile)
-inputOptions.appendChild(submitNwkFile)
-
-// button that allows the user to upload a newick file
-let uploadPreviousState = document.createElement('a')
-uploadPreviousState.classList.add('dropdown-item')
-uploadPreviousState.innerHTML = 'Previous State'
-uploadPreviousState.addEventListener('click', popFormPreviousState)
-inputOptions.appendChild(uploadPreviousState)
+// Dropdown item that allows user to input a Newick string.
+makeNewMenuChild('Newick Input', popFormString, 'dropdown-item', inputOptions)
+// Dropdown item that allows the user to upload a Newick file.
+makeNewMenuChild('Newick File', popFormFile, 'dropdown-item', inputOptions)
+// Dropdown item that allows the user to upload an exported Phylogician project.
+makeNewMenuChild('Previous State', popFormPreviousState, 'dropdown-item', inputOptions)
 
 // change tree layout via menu bar
 let treeLayoutDiv = document.createElement('div')
