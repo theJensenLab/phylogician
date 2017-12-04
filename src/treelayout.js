@@ -9,7 +9,7 @@ let	d3 = require('d3'),
 
 /**
  * Updates the back-end layout property of the tree to vertical display.
- * 
+ *
  * @param {any} tree The tree to be modified.
  */
 function updateVertical(tree) {
@@ -19,7 +19,7 @@ function updateVertical(tree) {
 
 /**
  * Updates the back-end layout property of the tree to radial display.
- * 
+ *
  * @param {any} tree The tree to be modified.
  */
 function updateRadial(tree) {
@@ -30,7 +30,7 @@ function updateRadial(tree) {
 /**
  * Toggles on/off the scaling of the tree and changes the text in the controlBar to
  * correspond with this change. Also updates all related local variables.
- * 
+ *
  * @param {any} tree The tree to be modified.
  */
 function updateScale(tree) {
