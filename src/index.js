@@ -23,3 +23,4 @@ let newick = '(XX10XX:0.48063821898239145192,((XX23XX:0.14747939753829347742,(XX
 // let newick = '((C:0.5,D:0.5)1:1,(A:2,(B:0.3,X:0.4)3:3)2:4,E:0.8)R;'
 let phylogician = require('./phylogician.js')
 phylogician.makeTree(newick)
+//
