@@ -21,13 +21,13 @@ function getOtherBranches(tree, nodeParent, excludedNodes) {
 	let xfurcation = []
 	let newNodeParent = nodeParent
 	nodeParent.children().forEach(function(child) {
-		////console.log('--children nodes: ' + child.node_name())
+		// console.log('--children nodes: ' + child.node_name())
 		if (child.data() !== excludedNodes.data()) {
-			////console.log(child.node_name())
+			// console.log(child.node_name())
 			let realChild = child
 /*			while (!(realChild.is_leaf()) && realChild.children().length < 2) {
-				////console.log('fixing things')
-				////console.log(realChild.node_name())
+				// console.log('fixing things')
+				// console.log(realChild.node_name())
 				realChild = realChild.children()[0]
 			}*/
 			xfurcation.push(realChild.data())
@@ -35,8 +35,8 @@ function getOtherBranches(tree, nodeParent, excludedNodes) {
 	})
 
 	if (nodeParent.parent()) {
-		////console.log('--parent nodes: ' + nodeParent.parent().node_name())
-		//nodeParent.parent().property('branch_length', nodeParent.property('branch_length'))
+		// console.log('--parent nodes: ' + nodeParent.parent().node_name())
+		// nodeParent.parent().property('branch_length', nodeParent.property('branch_length'))
 		let otherBranch = getOtherBranches(tree, nodeParent.parent(), nodeParent)
 		nodeParent.property((node) => {
 			for (let prop in node) {
@@ -56,13 +56,13 @@ function getOtherBranches(tree, nodeParent, excludedNodes) {
 exports.newRoot = function(tree, node) {
 	let originalBranchLengthByTwo = node.property('branch_length')/numberTwo
 	let newTree = tntTree().data(parser.parse_newick("()R'"))
-	//////console.log(JSON.stringify(tntExport.tntObject(tree)))
+	// console.log(JSON.stringify(tntExport.tntObject(tree)))
 	newTree.root().property('_id', tree.root().get_all_nodes().length + lengthExtension)
 	let subTree1 = node.subtree(node.get_all_leaves())
-	//////console.log(utils.simpleStringify(subTree1.data()))
-	//////console.log(node.node_name())
-	//newTree.data(node.data())
-	////////console.log(utils.simpleStringify(subTree2.data()))
+	// console.log(utils.simpleStringify(subTree1.data()))
+	// console.log(node.node_name())
+	// newTree.data(node.data())
+	// console.log(utils.simpleStringify(subTree2.data()))
 	if (node.parent()) {
 		let subTree2 = getOtherBranches(tree, node.parent(), node)
 		newTree.root().property('children', [subTree1.data(), subTree2.data()])
@@ -71,24 +71,24 @@ exports.newRoot = function(tree, node) {
 		newTree = tree
 	}
 
-	//let trick = tntExport.tntObject(newTree)
-	//let finalTree = tntTree().data(trick)
-	////console.log(utils.countLeaves(newTree.data()))
-	////console.log(tntExport.tntObject(newTree))
+	// let trick = tntExport.tntObject(newTree)
+	// let finalTree = tntTree().data(trick)
+	// console.log(utils.countLeaves(newTree.data()))
+	// console.log(tntExport.tntObject(newTree))
 
 	let nodesWithOneChild = newTree.root().find_all(function(n) {
-		////console.log(n.node_name() + ' - ' + (n.children() ? n.children().length === 1 : false))
-		//console.log(n.node_name() + ' - ' + n.property('_id') + ' - ' + (n.children() ? n.children().length === 1 : false))
+		// console.log(n.node_name() + ' - ' + (n.children() ? n.children().length === 1 : false))
+		// console.log(n.node_name() + ' - ' + n.property('_id') + ' - ' + (n.children() ? n.children().length === 1 : false))
 		return (n.children() ? n.children().length === 1 : false)
 		// return (n.property('_id') === 1 && n.parent())
 	})
 
 	nodesWithOneChild.forEach(function(n) {
 		let newChildren = []
-		//console.log('delete old root')
-		//console.log(JSON.stringify(utils.simpleStringify(n.data())))
-		//console.log('all children from parent')
-		//console.log(n.parent())
+		// console.log('delete old root')
+		// console.log(JSON.stringify(utils.simpleStringify(n.data())))
+		// console.log('all children from parent')
+		// console.log(n.parent())
 
 		if (!(n.parent()))
 			n.property('_parent', newTree.root().data())
@@ -106,15 +106,15 @@ exports.newRoot = function(tree, node) {
 
 	})
 
-	////console.log(changes[0])
+	// console.log(changes[0])
 
 	if (originalBranchLengthByTwo) {
 		newTree.root().children().forEach((child) => {
 			child.property('branch_length', originalBranchLengthByTwo)
 		})
 	}
-	////console.log('final tree')
+	// console.log('final tree')
 
-	//console.log(newTree.data())
-	return newTree //finalTree
+	// console.log(newTree.data())
+	return newTree // finalTree
 }
