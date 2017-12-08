@@ -17,7 +17,7 @@ let keyProps = [
 ]
 
 function getOtherBranches(tree, nodeParent, excludedNodes) {
-	////console.log('actual node: ' + excludedNodes.node_name())
+	// console.log('actual node: ' + excludedNodes.node_name())
 	let xfurcation = []
 	let newNodeParent = nodeParent
 	nodeParent.children().forEach(function(child) {
