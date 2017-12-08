@@ -11,7 +11,7 @@ let d3 = require('d3'),
  * 1) Activates the form that allows the user to customize the branch width of a subtree.
  * 2) Also sets display of all other potentially-active forms to 'none'.
  * 3) Modifies the branch width of the tree and updates the visualization.
- * 
+ *
  * @param {any} selectedNode The parent node of the subtree to be operated on.
  * @param {any} tree The full tree.
  */
@@ -46,7 +46,7 @@ function popFormBranchWidth(selectedNode, tree) {
  * 1) Activates a color picker that allows the user to customize the branch color of a subtree.
  * 2) Also sets display of all other potentially-active forms to 'none'.
  * 3) Modifies the branch color of the tree and updates the visualization.
- * 
+ *
  * @param {any} selectedNode The parent node of the subtree to be operated on.
  * @param {any} tree The full tree.
  */

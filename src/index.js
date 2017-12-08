@@ -1,6 +1,8 @@
 /* eslint-env browser */
 'use strict'
 
+require('popper.js/dist/umd/popper')
+
 require('./style.css')
 require('../node_modules/bootstrap-colorpicker/dist/css/bootstrap-colorpicker.min.css')
 require('../node_modules/bootstrap/dist/js/bootstrap.min.js')

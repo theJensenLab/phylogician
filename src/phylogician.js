@@ -26,7 +26,7 @@ let nodeDisplay = tree.node_display()
 
 /**
  * Initializes the tree visualization and renders it to the div 'treeBox'.
- * 
+ *
  * @param {any} newickString The desired tree in Newick format.
  */
 function makeTree(newickString) {
@@ -83,7 +83,7 @@ function makeTree(newickString) {
 
 /**
  * Resets the zoom and transform properties of the 'treeBox' div to the original (identity) state.
- * 
+ *
  */
 function fitScreen() {
 	let svgTree = d3.select('#treeBox').select('svg'),
@@ -95,7 +95,7 @@ function fitScreen() {
 
 /**
  * Calls the function in treeLayout.js that updates the layout of the tree to vertical view.
- * 
+ *
  */
 function updateVertical() {
 	treeLayout.updateVertical(tree)
@@ -104,7 +104,7 @@ function updateVertical() {
 
 /**
  * Calls the function in treeLayout.js that updates the layout of the tree to radial view.
- * 
+ *
  */
 function updateRadial() {
 	treeLayout.updateRadial(tree)
@@ -113,7 +113,7 @@ function updateRadial() {
 
 /**
  * Toggles on/off the support values in the tree visualization.
- * 
+ *
  */
 function toggleSupport() {
 	let text = d3.select('.nodes')
@@ -127,7 +127,7 @@ function toggleSupport() {
 
 /**
  * Calls the function in treeLayout.js that toggles on/off the scaling of the SVG tree.
- * 
+ *
  */
 function scaleTree() {
 	treeLayout.updateScale(tree)
@@ -135,7 +135,7 @@ function scaleTree() {
 
 /**
  * Changes the node size of the tree to the desired size using D3 and HTML IDs.
- * 
+ *
  * @param {any} size The desired node size.
  */
 function changeNodeSize(size) {
@@ -152,8 +152,8 @@ function changeNodeSize(size) {
 
 /**
  * Overrides the current tree data with the desired tree data, then visualizes these changes.
- * 
- * @param {any} data 
+ *
+ * @param {any} data
  */
 function restoreState(data) {
 	tree.data(JSON.parse(data))
@@ -162,7 +162,7 @@ function restoreState(data) {
 
 /**
  * Returns the current state of the tree.
- * 
+ *
  * @returns The current, simpleStringified state of the tree.
  */
 function getCurrentState() {
@@ -174,7 +174,7 @@ function getCurrentState() {
 /**
  * Creates a file with the given filename and desired text, and exports it locally.
  * Source: https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
- * 
+ *
  * @param {any} filename The desired filename of the export.
  * @param {any} text The desired contents of the file (in our case, a stringified JSON).
  */
@@ -190,7 +190,7 @@ function exportFile(filename, text) {
 
 /**
  * Changes the expanded node shape of the tree (circle, triangle, or square).
- * 
+ *
  * @param {any} shape Should be 'circle', 'triangle', or 'square', as desired.
  */
 function changeExpandedNodeShape(shape) {
@@ -221,7 +221,7 @@ function changeExpandedNodeShape(shape) {
 
 /**
  * Changes the collapsed node shape of the tree (circle, triangle, or square).
- * 
+ *
  * @param {any} shape Should be 'circle', 'triangle', or 'square', as desired.
  */
 function changeCollapsedNodeShape(shape) {

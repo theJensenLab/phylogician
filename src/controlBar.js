@@ -6,8 +6,7 @@ require('bootstrap-colorpicker')
 let d3 = require('d3'),
 	$ = require('jquery')
 
-let phylogician = require('./phylogician.js'),
-	treeOperations = require('./treeOperations.js')
+let phylogician = require('./phylogician.js')
 
 let NavBarShow = false,
 	maxWidth = document.body.clientWidth,
@@ -336,6 +335,27 @@ buttonGroup.classList.add('btn-group')
 buttonGroup.setAttribute('data-toggle', 'buttons')
 buttonGroup.style = 'margin-left: 60px;'
 
+
+/**
+ * Creates and appends a new menu dropdown to the desired parent with the provided specifications.
+ * 
+ * @param {any} innerHTML The text on the button.
+ * @param {any} clickEvent The event that will occur when the button is clicked.
+ * @param {any} classes The class(es) that the button should be attributed to.
+ * @param {any} parent The parent to which this button will become a 'child'.
+ * @returns The dropdown button.
+ */
+const makeNewMenuChild = (innerHTML, clickEvent, classes, parent) => {
+	const newMenuChild = document.createElement('a')
+	newMenuChild.classList.add(classes) // this is wrong, but you get the idea.
+	if (innerHTML)
+		newMenuChild.innerHTML = innerHTML
+	if (clickEvent)
+		newMenuChild.addEventListener('click', clickEvent) // this might give you problems, but there is a way to do it.
+	parent.appendChild(newMenuChild)
+	return newMenuChild
+}
+
 // input string or file via menu bar
 let inputDiv = document.createElement('div')
 inputDiv.classList.add('dropdown')
@@ -352,28 +372,16 @@ let inputOptions = document.createElement('div')
 inputOptions.classList.add('dropdown-menu')
 inputDiv.appendChild(inputOptions)
 
-// button that allows user to input a newick string
-let submitNwkString = document.createElement('a')
-submitNwkString.classList.add('dropdown-item')
-submitNwkString.innerHTML = 'Newick Input'
-submitNwkString.addEventListener('click', popFormString)
-inputOptions.appendChild(submitNwkString)
+// Dropdown item that allows user to input a Newick string.
+makeNewMenuChild('Newick Input', popFormString, 'dropdown-item', inputOptions)
 
-// button that allows the user to upload a newick file
-let submitNwkFile = document.createElement('a')
-submitNwkFile.classList.add('dropdown-item')
-submitNwkFile.innerHTML = 'Newick File'
-submitNwkFile.addEventListener('click', popFormFile)
-inputOptions.appendChild(submitNwkFile)
+// Dropdown item that allows the user to upload a Newick file.
+makeNewMenuChild('Newick File', popFormFile, 'dropdown-item', inputOptions)
 
-// button that allows the user to upload a newick file
-let uploadPreviousState = document.createElement('a')
-uploadPreviousState.classList.add('dropdown-item')
-uploadPreviousState.innerHTML = 'Previous State'
-uploadPreviousState.addEventListener('click', popFormPreviousState)
-inputOptions.appendChild(uploadPreviousState)
+// Dropdown item that allows the user to upload an exported Phylogician project.
+makeNewMenuChild('Previous State', popFormPreviousState, 'dropdown-item', inputOptions)
 
-// change tree layout via menu bar
+// Change tree layout via menu bar
 let treeLayoutDiv = document.createElement('div')
 treeLayoutDiv.classList.add('dropdown')
 buttonGroup.appendChild(treeLayoutDiv)
@@ -390,25 +398,17 @@ let displayOptions = document.createElement('div')
 displayOptions.classList.add('dropdown-menu')
 treeLayoutDiv.appendChild(displayOptions)
 
-// dropdown option to change the layout to Vertical
-let makeVertical = document.createElement('a')
-makeVertical.classList.add('dropdown-item')
-makeVertical.innerHTML = 'Vertical'
-makeVertical.addEventListener('click', () => {
+// Dropdown item that changes the tree layout to Rertical.
+makeNewMenuChild('Vertical', () => {
 	phylogician.updateVertical()
 	retractNavBar()
-})
-displayOptions.appendChild(makeVertical)
+}, 'dropdown-item', displayOptions)
 
-// dropdown option to change the layout to Radial
-let makeRadial = document.createElement('a')
-makeRadial.classList.add('dropdown-item')
-makeRadial.innerHTML = 'Radial'
-makeRadial.addEventListener('click', () => {
+// Dropdown item that changes the tree layout to Radial
+makeNewMenuChild('Radial', () => {
 	phylogician.updateRadial()
 	retractNavBar()
-})
-displayOptions.appendChild(makeRadial)
+}, 'dropdown-item', displayOptions)
 
 // conduct tree operations via menu bar
 let operationsDiv = document.createElement('div')

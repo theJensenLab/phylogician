@@ -1,4 +1,4 @@
-'use-strict'
+'use strict'
 
 let parser = require('tnt.newick'),
 	tntTree = require('tnt.tree')
@@ -19,9 +19,8 @@ function _processTreeData(treeObj) {
 				simpleTree.children.push(_processTreeData(node))
 			})
 		}
-		if (keys.indexOf(prop) !== -1) {
+		if (keys.indexOf(prop) !== -1)
 			simpleTree[prop] = treeObj[prop]
-		}
 	}
 	return simpleTree
 }

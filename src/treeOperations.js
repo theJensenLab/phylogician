@@ -5,19 +5,19 @@ let	d3 = require('d3'),
 	reroot = require('./reroot.js')
 /**
  * Modifies the 'branchColor' property of all branches in the subtree of a given node to a given color.
- * 
+ *
  * @param {any} newColor - Desired color of the subtree's branches.
  * @param {any} selectedNode - The root node of the subtree.
  */
 function changeBranchColorProperty(newColor, selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
 	for (let x = 1; x < childrenArray.length; x++)
-		childrenArray[x].property('branchColor', '' + newColor.color)
+		childrenArray[x].property('branchColor', String(newColor.color))
 }
 
 /**
  * Modifies the 'branchWidth' property of all nodes in the subtree of a given node to a given width.
- * 
+ *
  * @param {any} width - Desired branch width of subtree.
  * @param {any} selectedNode - The root node of the subtree.
  */
@@ -32,8 +32,8 @@ let toggledCertainty = 'false'
  * Modifies the 'certaintyOnOff' property of all nodes in a subtree as follows:
  *    - Calculates the opacity based on support values and sets that as the property if toggling on.
  *    - Sets '1' as the property if toggling off.
- * 
- * @param {any} selectedNode 
+ *
+ * @param {any} selectedNode
  */
 function changeCertaintyProperty(selectedNode) {
 	let childrenArray = selectedNode.get_all_nodes()
@@ -57,7 +57,7 @@ function changeCertaintyProperty(selectedNode) {
 
 /**
  * Toggles the collapsing/uncollapsing of a given node in the treeObj.
- * 
+ *
  * @param {any} node - The node to be collapsed/uncollapsed.
  */
 function toggleNodeProperty(node) {
@@ -68,7 +68,7 @@ function toggleNodeProperty(node) {
 let ladderized = 'false'
 /**
  * Ladderizes a specified subtree. If already ladderized, then reverses the direction of ladderization.
- * 
+ *
  * @param {any} node - The root node of the subtree.
  */
 function ladderizeSubtree(node) {
@@ -88,7 +88,7 @@ function ladderizeSubtree(node) {
 
 /**
  * Re-roots the tree by setting the passed node as the new root.
- * 
+ *
  * @param {any} tree - Tree that will be re-rooted
  * @param {any} node - Node that will be the new root.
  */
@@ -102,7 +102,7 @@ function rerootTree(tree, node) {
 /**
  * Custom update function that first uses TNT's update, then also updates the SVG based on the following properties:
 	'branchColor,' 'branchWidth,' and 'certaintyOnOff.'
- * 
+ *
  * @param {any} tree - A TNT treeObj
  */
 function updateUserChanges(tree) {
@@ -114,7 +114,7 @@ function updateUserChanges(tree) {
 
 /**
  * Updates the branch color of every branch in a given tree based on its 'branchColor' property.
- * 
+ *
  * @param {any} tree - A TNT treeObj
  */
 function updateBranchColor(tree) {
@@ -128,7 +128,7 @@ function updateBranchColor(tree) {
 
 /**
  * Updates the branch width of every branch in a given tree based on its 'branchWidth' property.
- * 
+ *
  * @param {any} tree - A TNT treeObj
  */
 function updateBranchWidth(tree) {
@@ -142,7 +142,7 @@ function updateBranchWidth(tree) {
 
 /**
  * Updates the branch opacity of every branch in a given tree based on its 'certaintyOnOff' property.
- * 
+ *
  * @param {any} tree - A TNT treeObj
  */
 function updateCertainty(tree) {
