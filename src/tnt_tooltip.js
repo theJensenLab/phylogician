@@ -177,7 +177,8 @@ tooltip.list = function() {
 tooltip.table = function(tree, selectedNode) {
 	// Fills the selected node orange when clicked.
 	let id = '#tnt_tree_node_treeBox_' + selectedNode.id()
-	let collapsedText = ''
+	let collapsedText = '',
+		colSpan = 2
 	d3.select(id)
 		.select('.tnt_node_display_elem')
 		.attr('fill', '#FF6A13')
@@ -203,7 +204,7 @@ tooltip.table = function(tree, selectedNode) {
 				.append('tr')
 				.attr('class', 'tnt_zmenu_header')
 				.append('th')
-				.attr('colspan', 2)
+				.attr('colspan', colSpan)
 				.text(obj.header)
 				.style('text-align', 'center')
 		}
@@ -213,7 +214,7 @@ tooltip.table = function(tree, selectedNode) {
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
-			.attr('colspan', 2)
+			.attr('colspan', colSpan)
 			.text('Change Branch Color')
 			.on('click', function() {
 				if (document.getElementById('colorPicker')) {
@@ -242,7 +243,7 @@ tooltip.table = function(tree, selectedNode) {
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
-			.attr('colspan', 2)
+			.attr('colspan', colSpan)
 			.text('Change Branch Width')
 			.on('click', function() {
 				if (document.getElementById('branchWidthInput')) {
@@ -276,7 +277,7 @@ tooltip.table = function(tree, selectedNode) {
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
-			.attr('colspan', 2)
+			.attr('colspan', colSpan)
 			.text(collapsedText)
 			.on('click', function() {
 				treeOperations.toggleNodeProperty(selectedNode) // Toggles the collapsed property in the treeObj
@@ -298,7 +299,7 @@ tooltip.table = function(tree, selectedNode) {
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
-			.attr('colspan', 2)
+			.attr('colspan', colSpan)
 			.text('Toggle Certainty')
 			.on('click', function() {
 				treeOperations.changeCertaintyProperty(selectedNode)
@@ -320,7 +321,7 @@ tooltip.table = function(tree, selectedNode) {
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
-			.attr('colspan', 2)
+			.attr('colspan', colSpan)
 			.text('Ladderize Subtree')
 			.on('click', function() {
 				treeOperations.ladderizeSubtree(selectedNode)
@@ -329,7 +330,7 @@ tooltip.table = function(tree, selectedNode) {
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
 				t.close()
-			})	
+			})
 			.style('text-align', 'center')
 		ladderizeSubtree.on('mouseover', function() {
 			ladderizeSubtree.style('color', '#3287d7')
@@ -342,7 +343,7 @@ tooltip.table = function(tree, selectedNode) {
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
-			.attr('colspan', 2)
+			.attr('colspan', colSpan)
 			.text('Set as Root')
 			.style('text-align', 'center')
 			.on('click', function() {
@@ -364,7 +365,7 @@ tooltip.table = function(tree, selectedNode) {
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
 			.append('td')
-			.attr('colspan', 2)
+			.attr('colspan', colSpan)
 			.text('Close')
 			.on('click', function() {
 				d3.select(id)

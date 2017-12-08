@@ -6,7 +6,8 @@ let	d3 = require('d3'),
 	parser = require('tnt.newick')
 
 let currentState = 'vertical',
-	scaled = true // Default: Scaling is on.
+	scaled = true, // Default: Scaling is on.
+	scaleFactor = 0.85
 
 /**
  * Updates the back-end layout property of the tree to vertical display.
@@ -14,7 +15,7 @@ let currentState = 'vertical',
  * @param {any} tree The tree to be modified.
  */
 function updateVertical(tree) {
-	tree.layout(tntTree.layout.vertical().width(window.innerWidth * 0.85))
+	tree.layout(tntTree.layout.vertical().width(window.innerWidth * scaleFactor))
 	currentState = 'vertical'
 }
 
@@ -24,7 +25,7 @@ function updateVertical(tree) {
  * @param {any} tree The tree to be modified.
  */
 function updateRadial(tree) {
-	tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * 0.85, window.innerHeight * 0.85)))
+	tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * scaleFactor, window.innerHeight * scaleFactor)))
 	currentState = 'radial'
 }
 
@@ -37,28 +38,28 @@ function updateRadial(tree) {
 function updateScale(tree) {
 	let textUpdate = d3.select('.scalingOption')
 	if (currentState === 'vertical' && scaled === false) {
-		tree.layout(tntTree.layout.vertical().width(window.innerWidth * 0.85)
+		tree.layout(tntTree.layout.vertical().width(window.innerWidth * scaleFactor)
 			.scale(true))
 		tree.update()
 		scaled = true
 		textUpdate.text('Turn Off Scaling')
 	}
 	else if (currentState === 'radial' && scaled === false) {
-		tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * 0.85, window.innerHeight * 0.85))
+		tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * scaleFactor, window.innerHeight * scaleFactor))
 			.scale(true))
 		tree.update()
 		scaled = true
 		textUpdate.text('Turn Off Scaling')
 	}
 	else if (currentState === 'vertical' && scaled === true) {
-		tree.layout(tntTree.layout.vertical().width(window.innerWidth * 0.85)
+		tree.layout(tntTree.layout.vertical().width(window.innerWidth * scaleFactor)
 			.scale(false))
 		tree.update()
 		scaled = false
 		textUpdate.text('Turn On Scaling')
 	}
 	else {
-		tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * 0.85, window.innerHeight * 0.85))
+		tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * scaleFactor, window.innerHeight * scaleFactor))
 			.scale(false))
 		tree.update()
 		scaled = false
