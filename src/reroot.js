@@ -2,10 +2,12 @@
 'use strict'
 
 let tntTree = require('tnt.tree'),
-	parser = require('tnt.newick')
-
-let utils = require('./utils.js'),
+	parser = require('tnt.newick'),
+	utils = require('./utils.js'),
 	tntExport = require('./tntExport.js')
+
+let numberTwo = 2,
+	lengthExtension = 1000
 
 let keyProps = [
 	'branch_label',
@@ -52,10 +54,10 @@ function getOtherBranches(tree, nodeParent, excludedNodes) {
 }
 
 exports.newRoot = function(tree, node) {
-	let originalBranchLengthByTwo = node.property('branch_length')/2
+	let originalBranchLengthByTwo = node.property('branch_length')/numberTwo
 	let newTree = tntTree().data(parser.parse_newick("()R'"))
 	//////console.log(JSON.stringify(tntExport.tntObject(tree)))
-	newTree.root().property('_id', tree.root().get_all_nodes().length + 1000)
+	newTree.root().property('_id', tree.root().get_all_nodes().length + lengthExtension)
 	let subTree1 = node.subtree(node.get_all_leaves())
 	//////console.log(utils.simpleStringify(subTree1.data()))
 	//////console.log(node.node_name())
