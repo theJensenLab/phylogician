@@ -2,8 +2,7 @@
 'use strict'
 
 let	d3 = require('d3'),
-	tntTree = require('tnt.tree'),
-	parser = require('tnt.newick')
+	tntTree = require('tnt.tree')
 
 let currentState = 'vertical',
 	scaled = true, // Default: Scaling is on.
