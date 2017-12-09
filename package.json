@@ -49,6 +49,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
-    "bootstrap-colorpicker": "^2.5.2"
+    "bootstrap-colorpicker": "^2.5.2",
+    "popper.js": "^1.12.9"
   }
 }
