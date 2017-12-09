@@ -3,8 +3,9 @@
 
 let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
-	parser = require('tnt.newick'),
-	currentState = 'vertical',
+	parser = require('tnt.newick')
+
+let currentState = 'vertical',
 	scaled = true // Default: Scaling is on.
 
 /**
