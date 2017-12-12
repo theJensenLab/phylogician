@@ -74,6 +74,12 @@ body {
 } */
 
 .tnt_groupDiv {
+  position: fixed; /* fixed also works */
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  bottom: 0;
+  background: lime; /* to help with tinkering */
   margin: auto;
 }
 
