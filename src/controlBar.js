@@ -13,10 +13,7 @@ let navBarShow = false,
 	barWidthOffset = 50,
 	barWidth = maxWidth - barWidthOffset
 
-let wrap = d3.select('body').append('div')
-	.attr('id', 'controlBarWrapper') // Not sure if the wrap is necessary
-
-let navBar = d3.select('#controlBarWrapper').append('div')
+let navBar = d3.select('body').append('div')
 	.attr('id', 'controlBar')
 	.attr('class', 'navbar')
 	.attr('width', barWidth + 'px')
@@ -207,7 +204,7 @@ function popFormPreviousState() {
  * Activates the buttons/form that allows the user to select preferences regarding node shape.
  * Installs a listener on each node shape button that when clicked, calls the function(s) that will
  * make the desired modification to the tree.
- * 
+ *
  */
 function popFormNodeShape() {
 	turnOffOtherForms()
@@ -298,7 +295,7 @@ function popFormNodeShape() {
 /**
  * Activates the form that allows user to input a node size, then calls function(s) that will make
  * the desired modification.
- * 
+ *
  */
 function popFormNodeSize() {
 	turnOffOtherForms()
@@ -327,7 +324,7 @@ function popFormNodeSize() {
 
 /**
  * Helper function that sets display of all active forms to 'none'. Allows new form to open unopstructed.
- * 
+ *
  */
 function turnOffOtherForms() {
 	if (document.getElementById('stringInput'))
@@ -356,7 +353,7 @@ buttonGroup.style = 'margin-left: 60px;'
 
 /**
  * Creates and appends a new menu dropdown to the desired parent with the provided specifications.
- * 
+ *
  * @param {any} innerHTML The text on the button.
  * @param {any} clickEvent The event that will occur when the button is clicked.
  * @param {any} classes The class(es) that the button should be attributed to.
@@ -539,6 +536,8 @@ helpDiv.appendChild(helpMenu)
 let helpOptions = document.createElement('div')
 helpOptions.classList.add('dropdown-menu')
 helpDiv.appendChild(helpOptions)
+
+makeNewMenuChild('Report a Bug', null, 'dropdown-item', helpOptions) // 2nd arg should be onClick
 
 // creates 'About' dropdown in the menu bar
 let aboutDiv = document.createElement('div')
