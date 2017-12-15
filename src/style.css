@@ -29,11 +29,16 @@ body {
   color: white;
 }
 
+#controlBarWrapper {
+  top: 10vh;
+  height: 50px;
+}
+
 .navbar {
   top: 10vh;
   background-color: #33373d;
   height: 50px;
-  position: absolute;
+  position: relative;
   z-index: 100;
 }
 

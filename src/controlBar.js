@@ -8,19 +8,22 @@ let d3 = require('d3'),
 
 let phylogician = require('./phylogician.js')
 
-let NavBarShow = false,
+let navBarShow = false,
 	maxWidth = document.body.clientWidth,
 	barWidthOffset = 50,
 	barWidth = maxWidth - barWidthOffset
 
-let navBar = d3.select('body').append('div')
+let wrap = d3.select('body').append('div')
+	.attr('id', 'controlBarWrapper') // Not sure if the wrap is necessary
+
+let navBar = d3.select('#controlBarWrapper').append('div')
 	.attr('id', 'controlBar')
 	.attr('class', 'navbar')
 	.attr('width', barWidth + 'px')
 
 navBar.style('right', function() {
 	let navBarPosition = barWidth + 'px'
-	if (NavBarShow)
+	if (navBarShow)
 		navBarPosition = barWidthOffset + 'px'
 	return navBarPosition
 })
@@ -62,6 +65,7 @@ function expandNavBar() {
 			.duration(duration)
 			.style('opacity', '0')
 	}
+	navBarShow = true
 }
 
 function retractNavBar() {
@@ -83,7 +87,21 @@ function retractNavBar() {
 				.style('opacity', '1')
 		}
 	}
+	navBarShow = false
 }
+
+// Reacts accordingly when window is resized
+$(window).resize(function() {
+	maxWidth = document.body.clientWidth
+	barWidth = maxWidth - barWidthOffset
+	let navBarPosition = 0
+	if (navBarShow)
+		navBarPosition = barWidthOffset + 'px'
+	else
+		navBarPosition = barWidth + 'px'
+	navBar.transition()
+		.style('right', navBarPosition)
+})
 
 function popFormString() {
 	turnOffOtherForms()
