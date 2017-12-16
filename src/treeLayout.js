@@ -16,6 +16,12 @@ let currentState = 'vertical',
 function updateVertical(tree) {
 	tree.layout(tntTree.layout.vertical().width(window.innerWidth * scaleFactor))
 	currentState = 'vertical'
+	d3.select('.tnt_groupDiv')
+		.attr('style', 'width:' + document.body.clientWidth + 'px')
+	d3.select('.tnt_groupDiv')
+		.select('svg')
+		.attr('width', document.body.clientWidth + 'px')
+		.attr('height', document.body.clientHeight + 'px')
 }
 
 /**
@@ -26,6 +32,12 @@ function updateVertical(tree) {
 function updateRadial(tree) {
 	tree.layout(tntTree.layout.radial().width(Math.min(window.innerWidth * scaleFactor, window.innerHeight * scaleFactor)))
 	currentState = 'radial'
+	d3.select('.tnt_groupDiv')
+		.attr('style', 'width:' + document.body.clientWidth + 'px')
+	d3.select('.tnt_groupDiv')
+		.select('svg')
+		.attr('width', document.body.clientWidth + 'px')
+		.attr('height', document.body.clientHeight + 'px')
 }
 
 /**

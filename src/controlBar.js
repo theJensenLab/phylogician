@@ -6,7 +6,8 @@ require('bootstrap-colorpicker')
 let d3 = require('d3'),
 	$ = require('jquery')
 
-let phylogician = require('./phylogician.js')
+let phylogician = require('./phylogician.js'),
+	frontEndOperations = require('./frontEndOperations.js')
 
 let navBarShow = false,
 	maxWidth = document.body.clientWidth,
@@ -98,6 +99,8 @@ $(window).resize(function() {
 		navBarPosition = barWidth + 'px'
 	navBar.transition()
 		.style('right', navBarPosition)
+
+	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 })
 
 function popFormString() {

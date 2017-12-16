@@ -7,7 +7,8 @@ let	d3 = require('d3'),
 	treeLayout = require('./treeLayout.js'),
 	utils = require('./utils.js'),
 	treeOperations = require('./treeOperations.js'),
-	tntTooltip = require('./tnt_tooltip.js')
+	tntTooltip = require('./tnt_tooltip.js'),
+	frontEndOperations = require('./frontEndOperations.js')
 
 let tree = tntTree(),
 	expandedNode = tntTree.node_display.circle(),
@@ -84,6 +85,10 @@ function makeTree(newickString) {
 		})
 	)
 	treeOperations.updateUserChanges(tree)
+	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	d3.select('.tnt_groupDiv')
+		.select('svg')
+		.attr('z-index', '10')
 }
 
 /**
@@ -105,6 +110,8 @@ function fitScreen() {
 function updateVertical() {
 	treeLayout.updateVertical(tree)
 	treeOperations.updateUserChanges(tree)
+	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	// Need some call to set transform to identity
 }
 
 /**
@@ -114,6 +121,8 @@ function updateVertical() {
 function updateRadial() {
 	treeLayout.updateRadial(tree)
 	treeOperations.updateUserChanges(tree)
+	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	// Need some call to set transform to identity
 }
 
 /**
