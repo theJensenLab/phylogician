@@ -120,6 +120,7 @@ function popFormString() {
 				myStringForm.style.display = 'none'
 				if (newick !== '') {
 					phylogician.makeTree(newick)
+					frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 					retractNavBar()
 				}
 			}
@@ -155,6 +156,7 @@ function popFormFile() {
 				phylogician.makeTree(newick)
 				fileInput.value = null
 				retractNavBar()
+				frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 			}
 			reader.readAsText(file)
 		})
@@ -192,6 +194,7 @@ function popFormPreviousState() {
 				phylogician.makeTree(tempNewick) // creates temporary tree
 				phylogician.restoreState(data)
 				previousStateInput.value = null
+				frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 				retractNavBar()
 			}
 			thisReader.readAsText(file)

@@ -85,10 +85,6 @@ function makeTree(newickString) {
 		})
 	)
 	treeOperations.updateUserChanges(tree)
-	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
-	d3.select('.tnt_groupDiv')
-		.select('svg')
-		.attr('z-index', '10')
 }
 
 /**
