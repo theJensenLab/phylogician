@@ -3,6 +3,9 @@
 
 let	d3 = require('d3'),
 	reroot = require('./reroot.js')
+
+let oneHundred = 100
+
 /**
  * Modifies the 'branchColor' property of all branches in the subtree of a given node to a given color.
  *
@@ -43,7 +46,7 @@ function changeCertaintyProperty(selectedNode) {
 			let certainty = d3.select(nodeID)
 				.select('text')
 				.html()
-			let opacity = certainty / 100 // converts certainty into decimal since opacity must be from 0 to 1
+			let opacity = certainty / oneHundred // converts certainty into decimal since opacity must be from 0 to 1
 			childrenArray[x].property('certaintyOnOff', opacity)
 		}
 		toggledCertainty = 'true'

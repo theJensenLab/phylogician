@@ -6,9 +6,10 @@ require('bootstrap-colorpicker')
 let d3 = require('d3'),
 	$ = require('jquery')
 
-let phylogician = require('./phylogician.js')
+let phylogician = require('./phylogician.js'),
+	frontEndOperations = require('./frontEndOperations.js')
 
-let NavBarShow = false,
+let navBarShow = false,
 	maxWidth = document.body.clientWidth,
 	barWidthOffset = 50,
 	barWidth = maxWidth - barWidthOffset
@@ -20,7 +21,7 @@ let navBar = d3.select('body').append('div')
 
 navBar.style('right', function() {
 	let navBarPosition = barWidth + 'px'
-	if (NavBarShow)
+	if (navBarShow)
 		navBarPosition = barWidthOffset + 'px'
 	return navBarPosition
 })
@@ -62,6 +63,7 @@ function expandNavBar() {
 			.duration(duration)
 			.style('opacity', '0')
 	}
+	navBarShow = true
 }
 
 function retractNavBar() {
@@ -83,7 +85,23 @@ function retractNavBar() {
 				.style('opacity', '1')
 		}
 	}
+	navBarShow = false
 }
+
+// Reacts accordingly when window is resized
+$(window).resize(function() {
+	maxWidth = document.body.clientWidth
+	barWidth = maxWidth - barWidthOffset
+	let navBarPosition = 0
+	if (navBarShow)
+		navBarPosition = barWidthOffset + 'px'
+	else
+		navBarPosition = barWidth + 'px'
+	navBar.transition()
+		.style('right', navBarPosition)
+
+	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+})
 
 function popFormString() {
 	turnOffOtherForms()
@@ -102,6 +120,7 @@ function popFormString() {
 				myStringForm.style.display = 'none'
 				if (newick !== '') {
 					phylogician.makeTree(newick)
+					frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 					retractNavBar()
 				}
 			}
@@ -137,6 +156,7 @@ function popFormFile() {
 				phylogician.makeTree(newick)
 				fileInput.value = null
 				retractNavBar()
+				frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 			}
 			reader.readAsText(file)
 		})
@@ -174,6 +194,7 @@ function popFormPreviousState() {
 				phylogician.makeTree(tempNewick) // creates temporary tree
 				phylogician.restoreState(data)
 				previousStateInput.value = null
+				frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 				retractNavBar()
 			}
 			thisReader.readAsText(file)
@@ -189,7 +210,7 @@ function popFormPreviousState() {
  * Activates the buttons/form that allows the user to select preferences regarding node shape.
  * Installs a listener on each node shape button that when clicked, calls the function(s) that will
  * make the desired modification to the tree.
- * 
+ *
  */
 function popFormNodeShape() {
 	turnOffOtherForms()
@@ -280,7 +301,7 @@ function popFormNodeShape() {
 /**
  * Activates the form that allows user to input a node size, then calls function(s) that will make
  * the desired modification.
- * 
+ *
  */
 function popFormNodeSize() {
 	turnOffOtherForms()
@@ -309,7 +330,7 @@ function popFormNodeSize() {
 
 /**
  * Helper function that sets display of all active forms to 'none'. Allows new form to open unopstructed.
- * 
+ *
  */
 function turnOffOtherForms() {
 	if (document.getElementById('stringInput'))
@@ -338,7 +359,7 @@ buttonGroup.style = 'margin-left: 60px;'
 
 /**
  * Creates and appends a new menu dropdown to the desired parent with the provided specifications.
- * 
+ *
  * @param {any} innerHTML The text on the button.
  * @param {any} clickEvent The event that will occur when the button is clicked.
  * @param {any} classes The class(es) that the button should be attributed to.
@@ -521,6 +542,8 @@ helpDiv.appendChild(helpMenu)
 let helpOptions = document.createElement('div')
 helpOptions.classList.add('dropdown-menu')
 helpDiv.appendChild(helpOptions)
+
+makeNewMenuChild('Report a Bug', null, 'dropdown-item', helpOptions) // 2nd arg should be onClick
 
 // creates 'About' dropdown in the menu bar
 let aboutDiv = document.createElement('div')

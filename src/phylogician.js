@@ -7,13 +7,19 @@ let	d3 = require('d3'),
 	treeLayout = require('./treeLayout.js'),
 	utils = require('./utils.js'),
 	treeOperations = require('./treeOperations.js'),
-	tntTooltip = require('./tnt_tooltip.js')
+	tntTooltip = require('./tnt_tooltip.js'),
+	frontEndOperations = require('./frontEndOperations.js')
 
-let tree = tntTree()
-let expandedNode = tntTree.node_display.circle()
-let collapsedNode = tntTree.node_display.triangle()
-let fontSizeOfTreeLeafs = 12
-let nodeSize = 3
+let tree = tntTree(),
+	expandedNode = tntTree.node_display.circle(),
+	collapsedNode = tntTree.node_display.triangle(),
+	fontSizeOfTreeLeafs = 12,
+	nodeSize = 3,
+	defaultBranchWidth = 3,
+	diameterToRadiusFactor = 2,
+	tooltipWidth = 120,
+	intToImproveScaling = 4
+
 let nodeDisplay = tree.node_display()
 	.size(nodeSize)
 	.fill('black')
@@ -51,7 +57,7 @@ function makeTree(newickString) {
 		.label(tntTree.label
 			.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight / (numOfLeaves + 4))
+			.height(window.innerHeight / (numOfLeaves + intToImproveScaling))
 		)
 		.layout(tntTree.layout.vertical()
 			.width(window.innerWidth)
@@ -61,7 +67,7 @@ function makeTree(newickString) {
 
 	// Need to initialize the branchWidth, branchColor, and certaintyOnOff properties of
 	// every node in the tree.
-	treeOperations.changeBranchWidthProperty(3, tree.root())
+	treeOperations.changeBranchWidthProperty(defaultBranchWidth, tree.root())
 	let childrenArray = tree.root().get_all_nodes()
 	for (let i = 0; i < childrenArray.length; i++) {
 		if (!(childrenArray[i].property('branchColor')))
@@ -100,6 +106,8 @@ function fitScreen() {
 function updateVertical() {
 	treeLayout.updateVertical(tree)
 	treeOperations.updateUserChanges(tree)
+	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	// Need some call to set transform to identity
 }
 
 /**
@@ -109,6 +117,8 @@ function updateVertical() {
 function updateRadial() {
 	treeLayout.updateRadial(tree)
 	treeOperations.updateUserChanges(tree)
+	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	// Need some call to set transform to identity
 }
 
 /**
@@ -145,8 +155,8 @@ function changeNodeSize(size) {
 	nodes.attr('r', size)
 	nodes.attr('width', size)
 	nodes.attr('height', size)
-	nodes.attr('x', -1 * size / 2)
-	nodes.attr('y', -1 * size / 2)
+	nodes.attr('x', -1 * size / diameterToRadiusFactor)
+	nodes.attr('y', -1 * size / diameterToRadiusFactor)
 	nodes.attr('points', '-' + size + ',0 ' + size + ',-' + size + ' ' + size + ',' + size)
 }
 
@@ -244,7 +254,7 @@ tree.on('click', function(node) {
 
 	// Generates a tooltip for selected node.
 	tntTooltip.table(tree, node)
-		.width(120)
+		.width(tooltipWidth)
 		.call(this, {
 			// header: 'Node #' + node.id() + ' :: ' + node.property('name')
 			header: 'Node: ' + node.property('_id')
