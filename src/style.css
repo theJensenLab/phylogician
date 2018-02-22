@@ -33,7 +33,7 @@ body {
   top: 10vh;
   background-color: #33373d;
   height: 50px;
-  position: absolute;
+  position: fixed;
   z-index: 100;
 }
 
@@ -74,7 +74,11 @@ body {
 } */
 
 .tnt_groupDiv {
-  margin: auto;
+  position: absolute; /* fixed also works */
+  top: 0;
+  bottom: 0;
+  /* background: lime; to help with tinkering */
+  margin: none;
 }
 
 #tnt_tooltip_1 {

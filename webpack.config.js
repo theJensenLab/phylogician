@@ -44,6 +44,11 @@ module.exports = {
 			jQuery: 'jquery',
 			'window.jQuery': 'jquery',
 			Tether: 'tether'
+		}),
+		new webpack.ProvidePlugin({
+			$: 'jquery',
+			jQuery: 'jquery',
+			Popper: 'popper.js'
 		})
 	],
 	devtool: 'inline-source-map'

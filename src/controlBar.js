@@ -6,9 +6,10 @@ require('bootstrap-colorpicker')
 let d3 = require('d3'),
 	$ = require('jquery')
 
-let phylogician = require('./phylogician.js')
+let phylogician = require('./phylogician.js'),
+	frontEndOperations = require('./frontEndOperations.js')
 
-let NavBarShow = false,
+let navBarShow = false,
 	maxWidth = document.body.clientWidth,
 	barWidthOffset = 50,
 	barWidth = maxWidth - barWidthOffset
@@ -20,7 +21,7 @@ let navBar = d3.select('body').append('div')
 
 navBar.style('right', function() {
 	let navBarPosition = barWidth + 'px'
-	if (NavBarShow)
+	if (navBarShow)
 		navBarPosition = barWidthOffset + 'px'
 	return navBarPosition
 })
@@ -57,11 +58,12 @@ function expandNavBar() {
 			.transition()
 			.duration(duration)
 			.attr('fill', '#FF6A13')
-		
+
 		d3.select('#backDrop').transition()
 			.duration(duration)
 			.style('opacity', '0')
 	}
+	navBarShow = true
 }
 
 function retractNavBar() {
@@ -83,7 +85,23 @@ function retractNavBar() {
 				.style('opacity', '1')
 		}
 	}
+	navBarShow = false
 }
+
+// Reacts accordingly when window is resized
+$(window).resize(function() {
+	maxWidth = document.body.clientWidth
+	barWidth = maxWidth - barWidthOffset
+	let navBarPosition = 0
+	if (navBarShow)
+		navBarPosition = barWidthOffset + 'px'
+	else
+		navBarPosition = barWidth + 'px'
+	navBar.transition()
+		.style('right', navBarPosition)
+
+	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+})
 
 function popFormString() {
 	turnOffOtherForms()
@@ -102,6 +120,7 @@ function popFormString() {
 				myStringForm.style.display = 'none'
 				if (newick !== '') {
 					phylogician.makeTree(newick)
+					frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 					retractNavBar()
 				}
 			}
@@ -137,6 +156,7 @@ function popFormFile() {
 				phylogician.makeTree(newick)
 				fileInput.value = null
 				retractNavBar()
+				frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 			}
 			reader.readAsText(file)
 		})
@@ -155,7 +175,7 @@ function popFormPreviousState() {
 		let filePreviousState = document.createElement('label')
 		filePreviousState.classList.add('btn', 'btn-primary')
 		filePreviousState.id = 'filePreviousState'
-		filePreviousState.setAttribute('for', 'previousStateInput') //??? 'previousStateInput' perhaps?
+		filePreviousState.setAttribute('for', 'previousStateInput')
 
 		let previousStateForm = document.createElement('input')
 		previousStateForm.id = 'previousStateInput'
@@ -174,6 +194,7 @@ function popFormPreviousState() {
 				phylogician.makeTree(tempNewick) // creates temporary tree
 				phylogician.restoreState(data)
 				previousStateInput.value = null
+				frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 				retractNavBar()
 			}
 			thisReader.readAsText(file)
@@ -185,6 +206,12 @@ function popFormPreviousState() {
 }
 
 // pops the div that allows user to select node shape
+/**
+ * Activates the buttons/form that allows the user to select preferences regarding node shape.
+ * Installs a listener on each node shape button that when clicked, calls the function(s) that will
+ * make the desired modification to the tree.
+ *
+ */
 function popFormNodeShape() {
 	turnOffOtherForms()
 	if (document.getElementById('changeNodeShapeForm')) {
@@ -271,6 +298,11 @@ function popFormNodeShape() {
 	}
 }
 
+/**
+ * Activates the form that allows user to input a node size, then calls function(s) that will make
+ * the desired modification.
+ *
+ */
 function popFormNodeSize() {
 	turnOffOtherForms()
 	if (document.getElementById('nodeSizeInput')) {
@@ -296,7 +328,10 @@ function popFormNodeSize() {
 	}
 }
 
-// turns off all active forms so that new form can open unobstructed
+/**
+ * Helper function that sets display of all active forms to 'none'. Allows new form to open unopstructed.
+ *
+ */
 function turnOffOtherForms() {
 	if (document.getElementById('stringInput'))
 		document.getElementById('stringInput').style.display = 'none'
@@ -321,6 +356,27 @@ buttonGroup.classList.add('btn-group')
 buttonGroup.setAttribute('data-toggle', 'buttons')
 buttonGroup.style = 'margin-left: 60px;'
 
+
+/**
+ * Creates and appends a new menu dropdown to the desired parent with the provided specifications.
+ *
+ * @param {any} innerHTML The text on the button.
+ * @param {any} clickEvent The event that will occur when the button is clicked.
+ * @param {any} classes The class(es) that the button should be attributed to.
+ * @param {any} parent The parent to which this button will become a 'child'.
+ * @returns The dropdown button.
+ */
+const makeNewMenuChild = (innerHTML, clickEvent, classes, parent) => {
+	const newMenuChild = document.createElement('a')
+	newMenuChild.classList.add(classes) // this is wrong, but you get the idea.
+	if (innerHTML)
+		newMenuChild.innerHTML = innerHTML
+	if (clickEvent)
+		newMenuChild.addEventListener('click', clickEvent) // this might give you problems, but there is a way to do it.
+	parent.appendChild(newMenuChild)
+	return newMenuChild
+}
+
 // input string or file via menu bar
 let inputDiv = document.createElement('div')
 inputDiv.classList.add('dropdown')
@@ -337,28 +393,16 @@ let inputOptions = document.createElement('div')
 inputOptions.classList.add('dropdown-menu')
 inputDiv.appendChild(inputOptions)
 
-// button that allows user to input a newick string
-let submitNwkString = document.createElement('a')
-submitNwkString.classList.add('dropdown-item')
-submitNwkString.innerHTML = 'Newick Input'
-submitNwkString.addEventListener('click', popFormString)
-inputOptions.appendChild(submitNwkString)
+// Dropdown item that allows user to input a Newick string.
+makeNewMenuChild('Newick Input', popFormString, 'dropdown-item', inputOptions)
 
-// button that allows the user to upload a newick file
-let submitNwkFile = document.createElement('a')
-submitNwkFile.classList.add('dropdown-item')
-submitNwkFile.innerHTML = 'Newick File'
-submitNwkFile.addEventListener('click', popFormFile)
-inputOptions.appendChild(submitNwkFile)
+// Dropdown item that allows the user to upload a Newick file.
+makeNewMenuChild('Newick File', popFormFile, 'dropdown-item', inputOptions)
 
-// button that allows the user to upload a newick file
-let uploadPreviousState = document.createElement('a')
-uploadPreviousState.classList.add('dropdown-item')
-uploadPreviousState.innerHTML = 'Previous State'
-uploadPreviousState.addEventListener('click', popFormPreviousState)
-inputOptions.appendChild(uploadPreviousState)
+// Dropdown item that allows the user to upload an exported Phylogician project.
+makeNewMenuChild('Previous State', popFormPreviousState, 'dropdown-item', inputOptions)
 
-// change tree layout via menu bar
+// Change tree layout via menu bar
 let treeLayoutDiv = document.createElement('div')
 treeLayoutDiv.classList.add('dropdown')
 buttonGroup.appendChild(treeLayoutDiv)
@@ -375,25 +419,17 @@ let displayOptions = document.createElement('div')
 displayOptions.classList.add('dropdown-menu')
 treeLayoutDiv.appendChild(displayOptions)
 
-// dropdown option to change the layout to Vertical
-let makeVertical = document.createElement('a')
-makeVertical.classList.add('dropdown-item')
-makeVertical.innerHTML = 'Vertical'
-makeVertical.addEventListener('click', (e) => {
-	phylogician.updateVertical(e)
+// Dropdown item that changes the tree layout to Rertical.
+makeNewMenuChild('Vertical', () => {
+	phylogician.updateVertical()
 	retractNavBar()
-})
-displayOptions.appendChild(makeVertical)
+}, 'dropdown-item', displayOptions)
 
-// dropdown option to change the layout to Radial
-let makeRadial = document.createElement('a')
-makeRadial.classList.add('dropdown-item')
-makeRadial.innerHTML = 'Radial'
-makeRadial.addEventListener('click', (e) => {
-	phylogician.updateRadial(e)
+// Dropdown item that changes the tree layout to Radial
+makeNewMenuChild('Radial', () => {
+	phylogician.updateRadial()
 	retractNavBar()
-})
-displayOptions.appendChild(makeRadial)
+}, 'dropdown-item', displayOptions)
 
 // conduct tree operations via menu bar
 let operationsDiv = document.createElement('div')
@@ -404,7 +440,7 @@ let operationsMenu = document.createElement('button')
 operationsMenu.classList.add('btn', 'dropdown-toggle')
 operationsMenu.setAttribute('data-toggle', 'dropdown')
 operationsMenu.type = 'button'
-operationsMenu.innerHTML = 'Actions'
+operationsMenu.innerHTML = 'Settings'
 operationsMenu.style = 'left: 100px;'
 operationsDiv.appendChild(operationsMenu)
 
@@ -416,8 +452,8 @@ operationsDiv.appendChild(operationsOptions)
 let fit2screen = document.createElement('a')
 fit2screen.classList.add('dropdown-item')
 fit2screen.innerHTML = 'Fit To Screen'
-fit2screen.addEventListener('click', (e) => {
-	phylogician.fitScreen(e)
+fit2screen.addEventListener('click', () => {
+	phylogician.fitScreen()
 	retractNavBar()
 })
 operationsOptions.appendChild(fit2screen)
@@ -425,7 +461,7 @@ operationsOptions.appendChild(fit2screen)
 // button that causes the tree to resize to fit the viewing window
 let toggleScale = document.createElement('a')
 toggleScale.classList.add('dropdown-item', 'scalingOption')
-toggleScale.innerHTML = 'Turn On Scaling'
+toggleScale.innerHTML = 'Turn Off Scaling'
 toggleScale.addEventListener('click', () => {
 	phylogician.scaleTree()
 	retractNavBar()
@@ -441,16 +477,6 @@ toggleSupport.addEventListener('click', () => {
 	retractNavBar()
 })
 operationsOptions.appendChild(toggleSupport)
-
-// button that ladderizes the tree
-let ladderizeTree = document.createElement('a')
-ladderizeTree.classList.add('dropdown-item')
-ladderizeTree.innerHTML = 'Ladderize Tree'
-ladderizeTree.addEventListener('click', () => {
-	phylogician.ladderizeTree()
-	retractNavBar()
-})
-operationsOptions.appendChild(ladderizeTree)
 
 // button that allows the user to change/turn off expanded and collapsed node shapes
 let changeNodeShape = document.createElement('a')
@@ -493,8 +519,9 @@ exportDiv.appendChild(exportOptions)
 let exportCurrentState = document.createElement('a')
 exportCurrentState.classList.add('dropdown-item')
 exportCurrentState.innerHTML = 'Current State'
-exportCurrentState.addEventListener('click', (e) => {
-	phylogician.exportCurrentState(e)
+exportCurrentState.addEventListener('click', () => {
+	let currentState = phylogician.getCurrentState()
+	phylogician.exportFile('tree.phylo', JSON.stringify(currentState))
 	retractNavBar()
 })
 exportOptions.appendChild(exportCurrentState)
@@ -516,6 +543,8 @@ let helpOptions = document.createElement('div')
 helpOptions.classList.add('dropdown-menu')
 helpDiv.appendChild(helpOptions)
 
+makeNewMenuChild('Report a Bug', null, 'dropdown-item', helpOptions) // 2nd arg should be onClick
+
 // creates 'About' dropdown in the menu bar
 let aboutDiv = document.createElement('div')
 aboutDiv.classList.add('dropdown')
@@ -535,6 +564,8 @@ aboutDiv.appendChild(aboutOptions)
 
 // end section
 
+
+// custom shortcuts
 navBarDOM.appendChild(buttonGroup)
 
 function navBarShortcut(e) {

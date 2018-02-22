@@ -29,26 +29,27 @@
   },
   "homepage": "https://github.com/theJensenLab/phyloTreeVizJS#readme",
   "devDependencies": {
-    "bootstrap": "^4.0.0-alpha.6",
+    "bootstrap": "^4.0.0-beta.2",
     "chai": "^3.5.0",
-    "coveralls": "^2.13.0",
-    "css-loader": "^0.28.4",
-    "d3": "^4.9.1",
-    "eslint": "^4.1.1",
+    "coveralls": "^2.13.3",
+    "css-loader": "^0.28.7",
+    "d3": "^4.11.0",
+    "eslint": "^4.11.0",
     "file-loader": "^0.11.2",
-    "html-webpack-plugin": "^2.29.0",
+    "html-webpack-plugin": "^2.30.1",
     "istanbul": "^0.4.5",
     "jquery": "^3.2.1",
-    "mocha": "^3.4.2",
+    "mocha": "^3.5.3",
     "style-loader": "^0.18.2",
     "tnt.newick": "github:daviortega/tnt.newick#f-read-raxml-IC",
     "tnt.tooltip": "github:tkukavica1/tnt.tooltip#d3v4",
     "tnt.tree": "github:daviortega/tnt.tree#d3v4",
     "tnt.utils": "github:tntvis/tnt.utils#d3v4",
-    "webpack": "^3.0.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
-    "bootstrap-colorpicker": "^2.5.1"
+    "bootstrap-colorpicker": "^2.5.2",
+    "popper.js": "^1.12.9"
   }
 }
