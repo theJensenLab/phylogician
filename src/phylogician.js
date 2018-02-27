@@ -18,7 +18,8 @@ let tree = tntTree(),
 	defaultBranchWidth = 3,
 	diameterToRadiusFactor = 2,
 	tooltipWidth = 120,
-	intToImproveScaling = 4
+	intToImproveScaling = 4,
+	timeoutVar1 = 2000
 
 let nodeDisplay = tree.node_display()
 	.size(nodeSize)
@@ -63,7 +64,9 @@ function makeTree(newickString) {
 			.width(window.innerWidth)
 			.scale(true)
 		)
-	tree(treeBox)
+	tree(treeBox, () => {
+		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	})
 
 	// Need to initialize the branchWidth, branchColor, and certaintyOnOff properties of
 	// every node in the tree.
@@ -85,6 +88,9 @@ function makeTree(newickString) {
 		})
 	)
 	treeOperations.updateUserChanges(tree)
+	setTimeout(() => {
+		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	}, timeoutVar1)
 }
 
 /**
@@ -106,7 +112,6 @@ function fitScreen() {
 function updateVertical() {
 	treeLayout.updateVertical(tree)
 	treeOperations.updateUserChanges(tree)
-	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	// Need some call to set transform to identity
 }
 
@@ -117,7 +122,6 @@ function updateVertical() {
 function updateRadial() {
 	treeLayout.updateRadial(tree)
 	treeOperations.updateUserChanges(tree)
-	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	// Need some call to set transform to identity
 }
 

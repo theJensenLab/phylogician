@@ -2,9 +2,11 @@
 'use strict'
 
 let	d3 = require('d3'),
-	reroot = require('./reroot.js')
+	reroot = require('./reroot.js'),
+	frontEndOperations = require('./frontEndOperations.js')
 
-let oneHundred = 100
+let oneHundred = 100,
+	timeoutVar1 = 2000
 
 /**
  * Modifies the 'branchColor' property of all branches in the subtree of a given node to a given color.
@@ -113,6 +115,9 @@ function updateUserChanges(tree) {
 	updateBranchColor(tree)
 	updateBranchWidth(tree)
 	updateCertainty(tree)
+	setTimeout(() => {
+		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	}, timeoutVar1)
 }
 
 /**
