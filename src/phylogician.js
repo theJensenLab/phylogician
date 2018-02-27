@@ -63,7 +63,9 @@ function makeTree(newickString) {
 			.width(window.innerWidth)
 			.scale(true)
 		)
-	tree(treeBox)
+	tree(treeBox, () => {
+		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	})
 
 	// Need to initialize the branchWidth, branchColor, and certaintyOnOff properties of
 	// every node in the tree.
@@ -85,6 +87,9 @@ function makeTree(newickString) {
 		})
 	)
 	treeOperations.updateUserChanges(tree)
+	setTimeout(() => {
+		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	}, 1500)
 }
 
 /**
@@ -106,7 +111,6 @@ function fitScreen() {
 function updateVertical() {
 	treeLayout.updateVertical(tree)
 	treeOperations.updateUserChanges(tree)
-	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	// Need some call to set transform to identity
 }
 
@@ -117,7 +121,6 @@ function updateVertical() {
 function updateRadial() {
 	treeLayout.updateRadial(tree)
 	treeOperations.updateUserChanges(tree)
-	frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	// Need some call to set transform to identity
 }
 

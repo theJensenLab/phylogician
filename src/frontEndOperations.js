@@ -12,7 +12,7 @@ function makeDivFullScreen(divClass) {
 	d3.select(divClass)
 		.attr('style', 'width:' + document.body.clientWidth + 'px, height:' + document.body.clientHeight + 'px')
 
-	d3.select(divClass)
+	d3.selectAll(divClass)
 		.select('svg')
 		.attr('width', document.body.clientWidth + 'px')
 		.attr('height', document.body.clientHeight + 'px')

@@ -2,7 +2,8 @@
 'use strict'
 
 let	d3 = require('d3'),
-	reroot = require('./reroot.js')
+	reroot = require('./reroot.js'),
+	frontEndOperations = require('./frontEndOperations.js')
 
 let oneHundred = 100
 
@@ -113,6 +114,9 @@ function updateUserChanges(tree) {
 	updateBranchColor(tree)
 	updateBranchWidth(tree)
 	updateCertainty(tree)
+	setTimeout(() => {
+		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+	}, 2000)
 }
 
 /**
