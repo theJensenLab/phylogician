@@ -18,7 +18,8 @@ let tree = tntTree(),
 	defaultBranchWidth = 3,
 	diameterToRadiusFactor = 2,
 	tooltipWidth = 120,
-	intToImproveScaling = 4
+	intToImproveScaling = 4,
+	timeoutVar1 = 2000
 
 let nodeDisplay = tree.node_display()
 	.size(nodeSize)
@@ -89,7 +90,7 @@ function makeTree(newickString) {
 	treeOperations.updateUserChanges(tree)
 	setTimeout(() => {
 		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
-	}, 1500)
+	}, timeoutVar1)
 }
 
 /**
