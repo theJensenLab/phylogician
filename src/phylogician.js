@@ -100,7 +100,6 @@ function makeTree(newickString) {
 function fitScreen() {
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
-
 	svgTree.call(d3.zoom().transform, d3.zoomIdentity)
 	g.attr('transform', {k: 1, x: 0, y: 0})
 }
@@ -110,9 +109,15 @@ function fitScreen() {
  *
  */
 function updateVertical() {
+	let g = d3.select('#treeBox').select('svg')
+		.select('g')
+	let currentTransform = g.attr('transform')
+	console.log(currentTransform)
 	treeLayout.updateVertical(tree)
+	setTimeout(() => {
+		g.attr('transform', currentTransform)
+	}, 1000) // Not ideal to use a timeout, but lower values seem to fail
 	treeOperations.updateUserChanges(tree)
-	// Need some call to set transform to identity
 }
 
 /**
@@ -120,9 +125,14 @@ function updateVertical() {
  *
  */
 function updateRadial() {
+	let g = d3.select('#treeBox').select('svg')
+		.select('g')
+	let currentTransform = g.attr('transform')
 	treeLayout.updateRadial(tree)
+	setTimeout(() => {
+		g.attr('transform', currentTransform)
+	}, 1000) // Not ideal to use a timeout, but lower values seem to fail
 	treeOperations.updateUserChanges(tree)
-	// Need some call to set transform to identity
 }
 
 /**
