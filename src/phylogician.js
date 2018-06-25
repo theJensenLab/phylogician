@@ -175,6 +175,17 @@ function changeNodeSize(size) {
 }
 
 /**
+ * Changes the text size of the tree to the desired size using D3 and HTML IDs.
+ *
+ * @param {any} size The desired text size.
+ */
+function changeTextSize(size) {
+	let text = d3.selectAll('.tnt_tree_node')
+		.select('.tnt_tree_label')
+	text.style('font-size', size + 'px')
+}
+
+/**
  * Overrides the current tree data with the desired tree data, then visualizes these changes.
  *
  * @param {any} data
@@ -288,6 +299,7 @@ exports.scaleTree = scaleTree
 exports.changeExpandedNodeShape = changeExpandedNodeShape
 exports.changeCollapsedNodeShape = changeCollapsedNodeShape
 exports.changeNodeSize = changeNodeSize
+exports.changeTextSize = changeTextSize
 exports.fitScreen = fitScreen
 
 // Functions that deals with importing/exporting states (will be accessed by controlBar.js):

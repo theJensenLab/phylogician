@@ -326,6 +326,35 @@ function popFormNodeSize() {
 }
 
 /**
+ * Activates the form that allows user to change the text size in the SVG.
+ *
+ */
+function popFormTextSize() {
+	turnOffOtherForms()
+	if (document.getElementById('textSizeInput')) {
+		document.getElementById('textSizeInput').style.display = 'block'
+	}
+	else {
+		let myTextSizeForm = document.createElement('input')
+		myTextSizeForm.classList.add('form-control')
+		myTextSizeForm.id = 'textSizeInput'
+		myTextSizeForm.style.display = 'block'
+		myTextSizeForm.addEventListener('keydown', function(e) {
+			let enterKeyCode = 13
+			if (e.keyCode === enterKeyCode) {
+				let newTextSize = document.getElementById('textSizeInput').value
+				myTextSizeForm.style.display = 'none'
+				if (newTextSize !== '') {
+					phylogician.changeTextSize(newTextSize)
+					retractNavBar()
+				}
+			}
+		})
+		document.body.appendChild(myTextSizeForm)
+	}
+}
+
+/**
  * Helper function that sets display of all active forms to 'none'. Allows new form to open unopstructed.
  *
  */
@@ -342,6 +371,8 @@ function turnOffOtherForms() {
 		document.getElementById('changeNodeShapeForm').style.display = 'none'
 	if (document.getElementById('nodeSizeInput'))
 		document.getElementById('nodeSizeInput').style.display = 'none'
+	if (document.getElementById('textSizeInput'))
+		document.getElementById('textSizeInput').style.display = 'none'
 	if (document.getElementById('filePreviousState'))
 		document.getElementById('filePreviousState').style.display = 'none'
 }
@@ -445,15 +476,11 @@ let operationsOptions = document.createElement('div')
 operationsOptions.classList.add('dropdown-menu')
 operationsDiv.appendChild(operationsOptions)
 
-// button that causes the tree to resize to fit the viewing window
-let fit2screen = document.createElement('a')
-fit2screen.classList.add('dropdown-item')
-fit2screen.innerHTML = 'Fit To Screen'
-fit2screen.addEventListener('click', () => {
+// Dropdown item that causes the tree to resize to fit the viewing window.
+makeNewMenuChild('Fit to Screen', () => {
 	phylogician.fitScreen()
 	retractNavBar()
-})
-operationsOptions.appendChild(fit2screen)
+}, 'dropdown-item', operationsOptions)
 
 // button that causes the tree to resize to fit the viewing window
 let toggleScale = document.createElement('a')
@@ -465,35 +492,29 @@ toggleScale.addEventListener('click', () => {
 })
 operationsOptions.appendChild(toggleScale)
 
-// button that toggles the node support values on and off
-let toggleSupport = document.createElement('a')
-toggleSupport.classList.add('dropdown-item')
-toggleSupport.innerHTML = 'Toggle Support Values'
-toggleSupport.addEventListener('click', () => {
+// Dropdown item that toggles the node support values on and off (Default: On).
+makeNewMenuChild('Toggle Support Values', () => {
 	phylogician.toggleSupport()
 	retractNavBar()
-})
-operationsOptions.appendChild(toggleSupport)
+}, 'dropdown-item', operationsOptions)
 
-// button that allows the user to change/turn off expanded and collapsed node shapes
-let changeNodeShape = document.createElement('a')
-changeNodeShape.classList.add('dropdown-item')
-changeNodeShape.innerHTML = 'Change Node Shape'
-changeNodeShape.addEventListener('click', () => {
+// Dropdown item that allows the user to customize expanded and collapsed node shapes.
+makeNewMenuChild('Change Node Shape', () => {
 	popFormNodeShape()
 	retractNavBar()
-})
-operationsOptions.appendChild(changeNodeShape)
+}, 'dropdown-item', operationsOptions)
 
-// button that allows the user to change/turn off expanded and collapsed node shapes
-let changeNodeSize = document.createElement('a')
-changeNodeSize.classList.add('dropdown-item')
-changeNodeSize.innerHTML = 'Change Node Size'
-changeNodeSize.addEventListener('click', () => {
+// Dropdown item that allows the user to change the node size.
+makeNewMenuChild('Change Node Size', () => {
 	popFormNodeSize()
 	retractNavBar()
-})
-operationsOptions.appendChild(changeNodeSize)
+}, 'dropdown-item', operationsOptions)
+
+// Dropdown item that allows the user to change the text size (Default: 12pt).
+makeNewMenuChild('Change Text Size', () => {
+	popFormTextSize()
+	retractNavBar()
+}, 'dropdown-item', operationsOptions)
 
 // export tree in various formats via menu bar
 let exportDiv = document.createElement('div')
@@ -512,16 +533,12 @@ let exportOptions = document.createElement('div')
 exportOptions.classList.add('dropdown-menu')
 exportDiv.appendChild(exportOptions)
 
-// button that exports the current state of the SVG
-let exportCurrentState = document.createElement('a')
-exportCurrentState.classList.add('dropdown-item')
-exportCurrentState.innerHTML = 'Current State'
-exportCurrentState.addEventListener('click', () => {
+// Dropdown item that exports the current state of the SVG.
+makeNewMenuChild('Current State', () => {
 	let currentState = phylogician.getCurrentState()
 	phylogician.exportFile('tree.phylo', JSON.stringify(currentState))
 	retractNavBar()
-})
-exportOptions.appendChild(exportCurrentState)
+}, 'dropdown-item', exportOptions)
 
 // creates 'Help' dropdown in the menu bar
 let helpDiv = document.createElement('div')
@@ -558,6 +575,8 @@ aboutDiv.appendChild(aboutMenu)
 let aboutOptions = document.createElement('div')
 aboutOptions.classList.add('dropdown-menu')
 aboutDiv.appendChild(aboutOptions)
+
+makeNewMenuChild('Learn More', null, 'dropdown-item', aboutOptions) // 2nd arg should be onClick
 
 // end section
 
