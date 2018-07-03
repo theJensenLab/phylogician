@@ -19,7 +19,7 @@ let tree = tntTree(),
 	diameterToRadiusFactor = 2,
 	tooltipWidth = 120,
 	intToImproveScaling = 4,
-	timeoutVar1 = 2000
+	timeoutVar1 = 1000
 
 let nodeDisplay = tree.node_display()
 	.size(nodeSize)
@@ -116,7 +116,7 @@ function updateVertical() {
 	treeLayout.updateVertical(tree)
 	setTimeout(() => {
 		g.attr('transform', currentTransform)
-	}, 1000) // Not ideal to use a timeout, but lower values seem to fail
+	}, timeoutVar1) // Not ideal to use a timeout, but lower values seem to fail
 	treeOperations.updateUserChanges(tree)
 }
 
@@ -131,7 +131,7 @@ function updateRadial() {
 	treeLayout.updateRadial(tree)
 	setTimeout(() => {
 		g.attr('transform', currentTransform)
-	}, 1000) // Not ideal to use a timeout, but lower values seem to fail
+	}, timeoutVar1) // Not ideal to use a timeout, but lower values seem to fail
 	treeOperations.updateUserChanges(tree)
 }
 
