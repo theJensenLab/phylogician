@@ -37,6 +37,7 @@ let nodeDisplay = tree.node_display()
  * @param {any} newickString The desired tree in Newick format.
  */
 function makeTree(newickString) {
+	testConnection()
 	if (document.getElementsByClassName('tnt_groupDiv').length !== 0) {
 		let existingTree = document.getElementsByClassName('tnt_groupDiv')[0]
 		document.getElementById('treeBox').removeChild(existingTree)
@@ -91,6 +92,10 @@ function makeTree(newickString) {
 	setTimeout(() => {
 		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	}, timeoutVar1)
+}
+
+function testConnection() {
+	console.log('Phylogician is connected.')
 }
 
 /**
