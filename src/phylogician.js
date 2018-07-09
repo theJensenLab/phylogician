@@ -67,7 +67,7 @@ function makeTree(newickString) {
 			.scale(false)
 		)
 	tree(treeBox, () => {
-		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
+		// frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	})
 
 	// Need to initialize the branchWidth, branchColor, and certaintyOnOff properties of
@@ -84,15 +84,16 @@ function makeTree(newickString) {
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
 
-	svgTree.call(d3.zoom()
+	treeOperations.updateUserChanges(tree)
+
+	/* svgTree.call(d3.zoom()
 		.on('zoom', () => {
 			g.attr('transform', d3.event.transform)
 		})
 	)
-	treeOperations.updateUserChanges(tree)
 	setTimeout(() => {
 		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
-	}, timeoutVar1)
+	}, timeoutVar1) */
 }
 
 function testConnection() {
