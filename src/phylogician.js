@@ -59,7 +59,8 @@ function makeTree(newickString) {
 		.label(tntTree.label
 			.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(window.innerHeight / (numOfLeaves + intToImproveScaling))
+			.height(53.5)
+			// .height(window.innerHeight / (numOfLeaves + intToImproveScaling))
 		)
 		.layout(tntTree.layout.vertical()
 			.width(window.innerWidth * 0.25)
