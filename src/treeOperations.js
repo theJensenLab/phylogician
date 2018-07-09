@@ -115,9 +115,9 @@ function updateUserChanges(tree) {
 	updateBranchColor(tree)
 	updateBranchWidth(tree)
 	updateCertainty(tree)
-	setTimeout(() => {
+	/* setTimeout(() => {
 		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
-	}, timeoutVar1)
+	}, timeoutVar1) */
 }
 
 /**
