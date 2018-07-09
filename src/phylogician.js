@@ -18,7 +18,7 @@ let tree = tntTree(),
 	defaultBranchWidth = 3,
 	diameterToRadiusFactor = 2,
 	tooltipWidth = 120,
-	intToImproveScaling = 4,
+	intToImproveScaling = 0,
 	timeoutVar1 = 1000
 
 let nodeDisplay = tree.node_display()
@@ -62,7 +62,7 @@ function makeTree(newickString) {
 			.height(window.innerHeight / (numOfLeaves + intToImproveScaling))
 		)
 		.layout(tntTree.layout.vertical()
-			.width(window.innerWidth * 0.3)
+			.width(window.innerWidth * 0.25)
 			.scale(false)
 		)
 	tree(treeBox, () => {
