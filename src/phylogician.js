@@ -62,8 +62,8 @@ function makeTree(newickString) {
 			.height(window.innerHeight / (numOfLeaves + intToImproveScaling))
 		)
 		.layout(tntTree.layout.vertical()
-			.width(window.innerWidth)
-			.scale(true)
+			.width(window.innerWidth * 0.3)
+			.scale(false)
 		)
 	tree(treeBox, () => {
 		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
