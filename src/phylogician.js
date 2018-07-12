@@ -19,7 +19,8 @@ let tree = tntTree(),
 	diameterToRadiusFactor = 2,
 	tooltipWidth = 120,
 	intToImproveScaling = 0,
-	timeoutVar1 = 1000
+	timeoutVar1 = 1000,
+	nodeYSpacing = 53.9
 
 let nodeDisplay = tree.node_display()
 	.size(nodeSize)
@@ -59,7 +60,7 @@ function makeTree(newickString) {
 		.label(tntTree.label
 			.text()
 			.fontsize(fontSizeOfTreeLeafs)
-			.height(53.9)
+			.height(nodeYSpacing)
 			// .height(window.innerHeight / (numOfLeaves + intToImproveScaling))
 		)
 		.layout(tntTree.layout.vertical()
@@ -94,6 +95,18 @@ function makeTree(newickString) {
 	setTimeout(() => {
 		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	}, timeoutVar1) */
+}
+
+/**
+ * Initializes the tree visualization and renders it to the div 'treeBox'.
+ * Difference with makeTree is that it allows user to specify spacing between nodes.
+ *
+ * @param {any} newickString The desired tree in Newick format.
+ * @param {any} desiredYSpacing Desired distance between leaf nodes.
+ */
+function makeCustomTree(newickString, desiredYSpacing) {
+	nodeYSpacing = desiredYSpacing
+	makeTree(newickString)
 }
 
 function testConnection() {
@@ -297,6 +310,7 @@ tree.on('click', function(node) {
 
 // Functions that deal with tree creation and layout:
 exports.makeTree = makeTree
+exports.makeCustomTree = makeCustomTree
 exports.updateRadial = updateRadial
 exports.updateVertical = updateVertical
 
