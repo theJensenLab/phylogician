@@ -2,11 +2,13 @@
 'use strict'
 
 let	d3 = require('d3'),
+	tntTree = require('tnt.tree'),
 	reroot = require('./reroot.js'),
 	frontEndOperations = require('./frontEndOperations.js')
 
 let oneHundred = 100,
-	timeoutVar1 = 2000
+	timeoutVar1 = 2000,
+	tree = tntTree()
 
 /**
  * Modifies the 'branchColor' property of all branches in the subtree of a given node to a given color.
@@ -88,6 +90,33 @@ function ladderizeSubtree(node) {
 			return node2.get_all_leaves().length - node1.get_all_leaves().length
 		})
 		ladderized = 'false'
+	}
+	let passedComma = false
+	for (let i = 0; i < node.get_all_leaves().length; i++) {
+		let geneCluster = d3.select('#GN' + i)
+		let geneClusterTransform = geneCluster.attr('transform')
+		let corrNodeTransform = d3.select('#' + geneCluster.attr('correspondingNodeID')).attr('transform')
+		let corrNodeY = ''
+		let geneClusterY = ''
+		for (let j = 0; j < corrNodeTransform.length; j++) {
+			if (passedComma) {
+				if (corrNodeTransform[j] === ')')
+					break
+				corrNodeY += corrNodeTransform[j]
+			}
+			console.log(corrNodeY)
+			if (corrNodeTransform[j] === ',')
+				passedComma = true
+		}
+		let commaIndex = 0
+		for (let j = 0; j < geneClusterTransform.length; j++) {
+			if (geneClusterTransform[j] === ',') {
+				commaIndex = j
+				console.log(commaIndex)
+				break
+			}
+		}
+		geneClusterTransform = geneClusterTransform.substr(0, commaIndex + 1) + (parseFloat(corrNodeY) - 22.5) + ')'
 	}
 }
 
