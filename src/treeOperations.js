@@ -91,6 +91,7 @@ function ladderizeSubtree(node) {
 		})
 		ladderized = 'false'
 	}
+	// Testing zone for gene clusters to follow corresponding nodes upon ladderizing
 	let passedComma = false
 	for (let i = 0; i < node.get_all_leaves().length; i++) {
 		let geneCluster = d3.select('#GN' + i)
