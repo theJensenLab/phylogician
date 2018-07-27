@@ -96,6 +96,7 @@ function ladderizeSubtree(node) {
 		let geneCluster = d3.select('#GN' + i)
 		let geneClusterTransform = geneCluster.attr('transform')
 		let corrNodeTransform = d3.select('#' + geneCluster.attr('correspondingNodeID')).attr('transform')
+		console.log(corrNodeTransform)
 		let corrNodeY = ''
 		let geneClusterY = ''
 		for (let j = 0; j < corrNodeTransform.length; j++) {
