@@ -295,28 +295,6 @@ tooltip.table = function(tree, selectedNode) {
 			toggleClickable.style('color', 'black')
 		})
 
-		let toggleCertainty = obj_info_table
-			.append('tr')
-			.attr('class', 'tnt_zmenu_clickable')
-			.append('td')
-			.attr('colspan', colSpan)
-			.text('Toggle Certainty')
-			.on('click', function() {
-				treeOperations.changeCertaintyProperty(selectedNode)
-				treeOperations.updateUserChanges(tree)
-				d3.select(id)
-					.select('.tnt_node_display_elem')
-					.attr('fill', 'black')
-				t.close()
-			})
-			.style('text-align', 'center')
-		toggleCertainty.on('mouseover', function() {
-			toggleCertainty.style('color', '#3287d7')
-		})
-		toggleCertainty.on('mouseout', function() {
-			toggleCertainty.style('color', 'black')
-		})
-
 		let ladderizeSubtree = obj_info_table
 			.append('tr')
 			.attr('class', 'tnt_zmenu_clickable')
