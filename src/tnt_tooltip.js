@@ -49,7 +49,7 @@ let tooltip = function() {
 			}
 		}
 
-		tooltip_div = d3.select(containerElem)
+		tooltip_div = d3.select('#GN')
 			.append('div')
 			.attr('class', 'tnt_tooltip')
 			.classed('tnt_tooltip_active', true)  // TODO: Is this needed/used???
