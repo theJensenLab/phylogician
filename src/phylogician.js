@@ -64,7 +64,7 @@ function makeTree(newickString) {
 			// .height(window.innerHeight / (numOfLeaves + intToImproveScaling))
 		)
 		.layout(tntTree.layout.vertical()
-			.width(window.innerWidth * 0.25)
+			.width(window.innerWidth * 0.3)
 			.scale(false)
 		)
 	tree(treeBox, () => {
