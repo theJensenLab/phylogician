@@ -4,7 +4,8 @@
 let	d3 = require('d3'),
 	tntTree = require('tnt.tree'),
 	reroot = require('./reroot.js'),
-	frontEndOperations = require('./frontEndOperations.js')
+	frontEndOperations = require('./frontEndOperations.js'),
+	phylogician = require('./phylogician.js')
 
 let oneHundred = 100,
 	timeoutVar1 = 2000,
@@ -79,6 +80,7 @@ let ladderized = 'false'
  * @param {any} node - The root node of the subtree.
  */
 function ladderizeSubtree(node) {
+	console.log(phylogician.getCurrentState())
 	if (ladderized !== 'true') {
 		node.sort(function(node1, node2) {
 			return node1.get_all_leaves().length - node2.get_all_leaves().length
@@ -92,8 +94,7 @@ function ladderizeSubtree(node) {
 		ladderized = 'false'
 	}
 	let testArr = node.get_all_leaves()
-	for (let i = 0; i < node.get_all_leaves().length; i++)
-		console.log(testArr[i].property('id'))
+	console.log(phylogician.getCurrentState())
 	/* // Testing zone for gene clusters to follow corresponding nodes upon ladderizing
 	let passedComma = false
 	for (let i = 0; i < node.get_all_leaves().length; i++) {
