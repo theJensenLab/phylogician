@@ -91,7 +91,9 @@ function ladderizeSubtree(node) {
 		})
 		ladderized = 'false'
 	}
-	console.log(node.get_all_leaves())
+	let testArr = node.get_all_leaves()
+	for (let i = 0; i < node.get_all_leaves().length; i++)
+		console.log(testArr[i].property('id'))
 	/* // Testing zone for gene clusters to follow corresponding nodes upon ladderizing
 	let passedComma = false
 	for (let i = 0; i < node.get_all_leaves().length; i++) {
