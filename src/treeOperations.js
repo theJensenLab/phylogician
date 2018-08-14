@@ -81,6 +81,7 @@ let ladderized = 'false'
  */
 function ladderizeSubtree(node) {
 	console.log(phylogician.getCurrentState())
+	console.log(node.get_all_leaves())
 	if (ladderized !== 'true') {
 		node.sort(function(node1, node2) {
 			return node1.get_all_leaves().length - node2.get_all_leaves().length
@@ -93,7 +94,7 @@ function ladderizeSubtree(node) {
 		})
 		ladderized = 'false'
 	}
-	let testArr = node.get_all_leaves()
+	console.log(node.get_all_leaves())
 	console.log(phylogician.getCurrentState())
 	/* // Testing zone for gene clusters to follow corresponding nodes upon ladderizing
 	let passedComma = false
