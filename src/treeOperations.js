@@ -7,7 +7,7 @@ let	d3 = require('d3'),
 	frontEndOperations = require('./frontEndOperations.js'),
 	utils = require('./utils.js')
 
-let oneHundred = 100,
+let oneHundred = 100
 
 /**
  * Modifies the 'branchColor' property of all branches in the subtree of a given node to a given color.
