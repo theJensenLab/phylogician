@@ -108,6 +108,11 @@ function matchNodesAndClusters(node, leavesArr) {
 	}
 	console.log('Reached end of first loop, minIndex is ' + minIndex)
 
+	minIndex = Number(minIndex)
+	console.log(minIndex)
+	console.log(minIndex + 1)
+	console.log(minIndex + 2)
+
 	for (let i = 0; i < leavesArr.length; i++) {
 		let currentNodeID = '#tnt_tree_node_treeBox_' + leavesArr[i].property('_id')
 		d3.select(currentNodeID).attr('leafIndex', minIndex + i)
