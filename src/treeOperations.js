@@ -104,7 +104,7 @@ function matchNodesAndClusters(node) {
 	let leavesArr = node.get_all_leaves()
 
 	for (let i = 0; i < leavesArr.length; i++) {
-		console.log(leavesArr[i])
+		console.log(leavesArr[i].data())
 	}
 }
 
