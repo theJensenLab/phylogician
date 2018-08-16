@@ -124,7 +124,7 @@ function matchNodesAndClusters(node, leavesArr) {
 		let newTranslateY = newIndex * 55 + 5
 		d3.select(currentNodeID).attr('leafIndex', newIndex)
 		let currentClusterID = d3.select(currentNodeID).attr('correspondingClusterID')
-		d3.select(currentClusterID).transition(750).attr('transform', 'translate(0, ' + newTranslateY + ')')
+		d3.select(currentClusterID).transition(1000).attr('transform', 'translate(0, ' + newTranslateY + ')')
 	}
 }
 
