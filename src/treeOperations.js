@@ -93,38 +93,19 @@ function ladderizeSubtree(node) {
 		})
 		ladderized = 'false'
 	}
-	currentState = node.data()
+	matchNodesAndClusters(node)
+}
+
+function matchNodesAndClusters(node) {
+	let currentState = node.data()
 	currentState = utils.simpleStringify(currentState)
 	console.log(currentState)
-	/* // Testing zone for gene clusters to follow corresponding nodes upon ladderizing
-	let passedComma = false
-	for (let i = 0; i < node.get_all_leaves().length; i++) {
-		let geneCluster = d3.select('#GN' + i)
-		let geneClusterTransform = geneCluster.attr('transform')
-		let corrNodeTransform = d3.select('#' + geneCluster.attr('correspondingNodeID')).attr('transform')
-		console.log(corrNodeTransform)
-		let corrNodeY = ''
-		let geneClusterY = ''
-		for (let j = 0; j < corrNodeTransform.length; j++) {
-			if (passedComma) {
-				if (corrNodeTransform[j] === ')')
-					break
-				corrNodeY += corrNodeTransform[j]
-			}
-			console.log(corrNodeY)
-			if (corrNodeTransform[j] === ',')
-				passedComma = true
-		}
-		let commaIndex = 0
-		for (let j = 0; j < geneClusterTransform.length; j++) {
-			if (geneClusterTransform[j] === ',') {
-				commaIndex = j
-				console.log(commaIndex)
-				break
-			}
-		}
-		geneClusterTransform = geneClusterTransform.substr(0, commaIndex + 1) + (parseFloat(corrNodeY) - 22.5) + ')'
-	} */
+
+	let leavesArr = node.get_all_leaves()
+
+	for (let i = 0; i < leavesArr.length; i++) {
+		console.log(leavesArr[i])
+	}
 }
 
 /**
