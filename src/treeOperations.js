@@ -78,9 +78,7 @@ let ladderized = 'false'
  * @param {any} node - The root node of the subtree.
  */
 function ladderizeSubtree(node) {
-	let currentState = node.data()
-	currentState = utils.simpleStringify(currentState)
-	console.log(currentState)
+	let leavesArr = node.get_all_leaves()
 	if (ladderized !== 'true') {
 		node.sort(function(node1, node2) {
 			return node1.get_all_leaves().length - node2.get_all_leaves().length
@@ -93,16 +91,14 @@ function ladderizeSubtree(node) {
 		})
 		ladderized = 'false'
 	}
-	matchNodesAndClusters(node)
+	matchNodesAndClusters(node, leavesArr)
 }
 
-function matchNodesAndClusters(node) {
+function matchNodesAndClusters(node, leavesArr) {
 	let currentState = node.data()
 	let minIndex = 1000000
 	currentState = utils.simpleStringify(currentState)
 	console.log(currentState)
-
-	let leavesArr = node.get_all_leaves()
 
 	// Find lowest leafIndex
 	for (let i = 0; i < leavesArr.length; i++) {
@@ -110,7 +106,7 @@ function matchNodesAndClusters(node) {
 		if (d3.select(currentNodeID).attr('leafIndex') < minIndex)
 			minIndex = d3.select(currentNodeID).attr('leafIndex')
 	}
-	console.log('Reached end of first loop')
+	console.log('Reached end of first loop, minIndex is ' + minIndex)
 
 	for (let i = 0; i < leavesArr.length; i++) {
 		let currentNodeID = '#tnt_tree_node_treeBox_' + leavesArr[i].property('_id')
