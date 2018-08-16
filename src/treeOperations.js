@@ -94,6 +94,13 @@ function ladderizeSubtree(node) {
 	matchNodesAndClusters(node, leavesArr)
 }
 
+/**
+ * Rearranges clusters based on current node position. Intended as helper function
+ * to be used after re-ordering of nodes due to (e.g.) laderrizing.
+ * 
+ * @param {any} node The root node of the subtree that had leaves re-ordered
+ * @param {any} leavesArr The array of leaf order BEFORE leaf reordering (leavesArr = node.get_all_leaves())
+ */
 function matchNodesAndClusters(node, leavesArr) {
 	let currentState = node.data()
 	let minIndex = 1000000
@@ -106,7 +113,6 @@ function matchNodesAndClusters(node, leavesArr) {
 		if (d3.select(currentNodeID).attr('leafIndex') < minIndex)
 			minIndex = d3.select(currentNodeID).attr('leafIndex')
 	}
-	console.log('Reached end of first loop, minIndex is ' + minIndex)
 
 	minIndex = Number(minIndex)
 
@@ -114,9 +120,12 @@ function matchNodesAndClusters(node, leavesArr) {
 
 	for (let i = 0; i < leavesArr.length; i++) {
 		let currentNodeID = '#tnt_tree_node_treeBox_' + leavesArr[i].property('_id')
-		d3.select(currentNodeID).attr('leafIndex', minIndex + i)
+		let newIndex = minIndex + i
+		let newTranslateY = newIndex * 55 + 5
+		d3.select(currentNodeID).attr('leafIndex', newIndex)
+		let currentClusterID = d3.select(currentNodeID).attr('correspondingClusterID')
+		d3.select(currentClusterID).attr('transform', 'translate(0, ' + newTranslateY + ')')
 	}
-	console.log('Reached end of second loop')
 }
 
 /**
