@@ -98,14 +98,25 @@ function ladderizeSubtree(node) {
 
 function matchNodesAndClusters(node) {
 	let currentState = node.data()
+	let minIndex = 1000000
 	currentState = utils.simpleStringify(currentState)
 	console.log(currentState)
 
 	let leavesArr = node.get_all_leaves()
 
+	// Find lowest leafIndex
 	for (let i = 0; i < leavesArr.length; i++) {
-		console.log(leavesArr[i].data())
+		let currentNodeID = '#tnt_tree_node_treeBox_' + leavesArr[i].property('_id')
+		if (d3.select(currentNodeID).attr('leafIndex') < minIndex)
+			minIndex = d3.select(currentNodeID).attr('leafIndex')
 	}
+	console.log('Reached end of first loop')
+
+	for (let i = 0; i < leavesArr.length; i++) {
+		let currentNodeID = '#tnt_tree_node_treeBox_' + leavesArr[i].property('_id')
+		d3.select(currentNodeID).attr('leafIndex', minIndex + i)
+	}
+	console.log('Reached end of second loop')
 }
 
 /**
