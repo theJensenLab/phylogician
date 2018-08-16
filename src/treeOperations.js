@@ -97,15 +97,12 @@ function ladderizeSubtree(node) {
 /**
  * Rearranges clusters based on current node position. Intended as helper function
  * to be used after re-ordering of nodes due to (e.g.) laderrizing.
- * 
+ *
  * @param {any} node The root node of the subtree that had leaves re-ordered
  * @param {any} leavesArr The array of leaf order BEFORE leaf reordering (leavesArr = node.get_all_leaves())
  */
 function matchNodesAndClusters(node, leavesArr) {
-	let currentState = node.data()
 	let minIndex = 1000000000
-	currentState = utils.simpleStringify(currentState)
-	console.log(currentState)
 
 	// Find lowest leafIndex
 	for (let i = 0; i < leavesArr.length; i++) {
