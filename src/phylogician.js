@@ -36,6 +36,8 @@ let nodeDisplay = tree.node_display()
  * Initializes the tree visualization and renders it to the div 'treeBox'.
  *
  * @param {any} newickString The desired tree in Newick format.
+ * 
+ * @returns Root node of the tree
  */
 function makeTree(newickString) {
 	testConnection()
@@ -95,6 +97,7 @@ function makeTree(newickString) {
 	setTimeout(() => {
 		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	}, timeoutVar1) */
+	return tree.root()
 }
 
 /**
@@ -108,8 +111,8 @@ function makeTree(newickString) {
  */
 function makeCustomTree(newickString, desiredYSpacing) {
 	nodeYSpacing = desiredYSpacing
-	makeTree(newickString)
-	return tree.root()
+	let root = makeTree(newickString)
+	return root
 }
 
 
