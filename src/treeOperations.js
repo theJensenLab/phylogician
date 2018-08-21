@@ -204,6 +204,7 @@ exports.changeBranchWidthProperty = changeBranchWidthProperty
 exports.changeCertaintyProperty = changeCertaintyProperty
 exports.toggleNodeProperty = toggleNodeProperty
 exports.ladderizeSubtree = ladderizeSubtree
+exports.matchNodesAndClusters = matchNodesAndClusters
 exports.rerootTree = rerootTree
 exports.updateUserChanges = updateUserChanges
 

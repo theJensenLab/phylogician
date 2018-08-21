@@ -103,10 +103,24 @@ function makeTree(newickString) {
  *
  * @param {any} newickString The desired tree in Newick format.
  * @param {any} desiredYSpacing Desired distance between leaf nodes.
+ * 
+ * @return The root node of the tree.
  */
 function makeCustomTree(newickString, desiredYSpacing) {
 	nodeYSpacing = desiredYSpacing
 	makeTree(newickString)
+	return tree.root()
+}
+
+
+/**
+ * Helper function to access treeOperations function.
+ * 
+ * @param {any} node Root node of subtree
+ * @param {any} leavesArr Leaves of subtree
+ */
+function matchNodesAndClusters(node, leavesArr) {
+	treeOperations.matchNodesAndClusters(node, leavesArr)
 }
 
 function testConnection() {
@@ -327,3 +341,6 @@ exports.fitScreen = fitScreen
 exports.restoreState = restoreState
 exports.getCurrentState = getCurrentState
 exports.exportFile = exportFile
+
+// Helper functions
+exports.matchNodesAndClusters = matchNodesAndClusters
