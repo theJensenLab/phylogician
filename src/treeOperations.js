@@ -136,7 +136,7 @@ function matchNodesAndClusters(node, leavesArr) {
 function rerootTree(tree, node) {
 	let newRoot = reroot.newRoot(tree, node)
 	tree.data(newRoot.data())
-	matchNodesAndClusters(newRoot, newRoot.get_all_leaves())
+	matchNodesAndClusters(tree.root(), tree.root().get_all_leaves())
 }
 
 // Custom update function and necessary helper functions are below:
