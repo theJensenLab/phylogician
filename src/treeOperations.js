@@ -72,6 +72,10 @@ function changeCertaintyProperty(selectedNode) {
  */
 function toggleNodeProperty(node) {
 	node.toggle()
+	d3.select('#tnt_tree_node_treeBox_' + node.property('_id'))
+		.select('.tnt_tree_node_proxy', '.tnt_node_display_elem')
+		.attr('x', 0)
+		.attr('y', 0)
 	updateNodeOpacity()
 }
 
