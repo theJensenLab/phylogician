@@ -214,20 +214,20 @@ function updateNodeOpacity(tree) {
 		.attr('width', 10)
 		.attr('height', 10)
 		.on('mouseover', (e) => {
-			d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+			d3.select('#tnt_tree_node_treeBox_' + e._id).select('.tnt_node_display_elem')
 				.attr('opacity', fullOpacity)
 		})
 		.on('mouseout', (e) => {
 			if (!nodeClicked || e._id !== prevNodeID) {
-				d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+				d3.select('#tnt_tree_node_treeBox_' + e._id).select('.tnt_node_display_elem')
 					.attr('opacity', defaultOpacity)
 			}
 		})
 		.on('click', (e) => {
 			if (!nodeClicked || e._id !== prevNodeID) {
-				d3.select('#tnt_tree_node_treeBox_' + prevNodeID).select('circle')
+				d3.select('#tnt_tree_node_treeBox_' + prevNodeID).select('.tnt_node_display_elem')
 					.attr('opacity', defaultOpacity)
-				d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+				d3.select('#tnt_tree_node_treeBox_' + e._id).select('.tnt_node_display_elem')
 					.attr('opacity', fullOpacity)
 				prevNodeID = e._id
 				nodeClicked = true
