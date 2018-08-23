@@ -72,6 +72,8 @@ function changeCertaintyProperty(selectedNode) {
  */
 function toggleNodeProperty(node) {
 	node.toggle()
+	let nodeID = d3.select('#tnt_tree_node_treeBox_' + node.property('._id'))
+	console.log(nodeID)
 }
 
 
@@ -207,9 +209,11 @@ function updateCertainty(tree) {
  * @param {any} tree - A TNT treeObj
  */
 function updateNodeOpacity(tree) {
-	d3.selectAll('.tnt_tree_node').selectAll('circle')
+	d3.selectAll('.tnt_tree_node').selectAll('.tnt_node_display_elem')
 		.attr('opacity', defaultOpacity) // Makes nodes transparent until mouseover or click.
 		.attr('r', 10) // Makes radius of nodes larger.
+		.attr('width', 10)
+		.attr('height', 10)
 		.on('mouseover', (e) => {
 			d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
 				.attr('opacity', fullOpacity)
@@ -265,6 +269,6 @@ exports.matchNodesAndClusters = matchNodesAndClusters
 exports.rerootTree = rerootTree
 exports.updateUserChanges = updateUserChanges
 exports.setNodeClicked = setNodeClicked
-exports.setPrevNodeID = prevNodeID
+exports.setPrevNodeID = setPrevNodeID
 
 

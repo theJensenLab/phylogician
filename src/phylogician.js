@@ -87,6 +87,7 @@ function makeTree(newickString) {
 	let svgTree = d3.select('#treeBox').select('svg'),
 		g = svgTree.select('g')
 
+	changeCollapsedNodeShape('square')
 	treeOperations.updateUserChanges(tree)
 
 	/* svgTree.call(d3.zoom()
