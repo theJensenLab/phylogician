@@ -9,7 +9,7 @@ let	d3 = require('d3'),
 
 let oneHundred = 100,
 	defaultOpacity = 0,
-	fullOpacity = 1,
+	fullOpacity = 0.7,
 	nodeClicked = false,
 	prevNodeID = 0
 
@@ -72,10 +72,6 @@ function changeCertaintyProperty(selectedNode) {
  */
 function toggleNodeProperty(node) {
 	node.toggle()
-	d3.select('#tnt_tree_node_treeBox_' + node.property('_id'))
-		.select('.tnt_tree_node_proxy', '.tnt_node_display_elem')
-		.attr('x', 0)
-		.attr('y', 0)
 	updateNodeOpacity()
 }
 
@@ -215,8 +211,8 @@ function updateNodeOpacity(tree) {
 	d3.selectAll('.tnt_tree_node').selectAll('.tnt_node_display_elem')
 		.attr('opacity', defaultOpacity) // Makes nodes transparent until mouseover or click.
 		.attr('r', 10) // Makes radius of nodes larger.
-		.attr('width', 20)
-		.attr('height', 20)
+		.attr('width', 18)
+		.attr('height', 18)
 		.on('mouseover', (e) => {
 			d3.select('#tnt_tree_node_treeBox_' + e._id).select('.tnt_node_display_elem')
 				.attr('opacity', fullOpacity)

@@ -289,6 +289,8 @@ tooltip.table = function(tree, selectedNode) {
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
+					.attr('x', -10)
+					.attr('y', -9)
 				t.close()
 			})	
 			.style('text-align', 'center')
