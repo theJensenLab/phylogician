@@ -152,9 +152,19 @@ function updateUserChanges(tree) {
 	updateBranchColor(tree)
 	updateBranchWidth(tree)
 	updateCertainty(tree)
-	/* setTimeout(() => {
-		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
-	}, timeoutVar1) */
+	d3.selectAll('.tnt_tree_node').selectAll('circle')
+		.attr('opacity', 0) // Makes nodes transparent until mouseover.
+		.attr('r', 10) // Makes radius of nodes larger.
+		.on('mouseover', (e) => {
+			console.log(e._id)
+			d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+				.attr('opacity', 1)
+		})
+		.on('mouseout', (e) => {
+			console.log(e._id)
+			d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+				.attr('opacity', 0)
+		})
 }
 
 /**
