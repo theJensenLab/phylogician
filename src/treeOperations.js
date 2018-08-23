@@ -211,8 +211,8 @@ function updateNodeOpacity(tree) {
 	d3.selectAll('.tnt_tree_node').selectAll('.tnt_node_display_elem')
 		.attr('opacity', defaultOpacity) // Makes nodes transparent until mouseover or click.
 		.attr('r', 10) // Makes radius of nodes larger.
-		.attr('width', 10)
-		.attr('height', 10)
+		.attr('width', 20)
+		.attr('height', 20)
 		.on('mouseover', (e) => {
 			d3.select('#tnt_tree_node_treeBox_' + e._id).select('.tnt_node_display_elem')
 				.attr('opacity', fullOpacity)
