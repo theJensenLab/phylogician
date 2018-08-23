@@ -215,13 +215,15 @@ function updateNodeOpacity(tree) {
 				.attr('opacity', fullOpacity)
 		})
 		.on('mouseout', (e) => {
-			if (!nodeClicked || e._id != prevNodeID) {
+			if (!nodeClicked || e._id !== prevNodeID) {
 				d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
 					.attr('opacity', defaultOpacity)
 			}
 		})
 		.on('click', (e) => {
-			if (!nodeClicked || e._id != prevNodeID) {
+			if (!nodeClicked || e._id !== prevNodeID) {
+				d3.select('#tnt_tree_node_treeBox_' + prevNodeID).select('circle')
+					.attr('opacity', defaultOpacity)
 				d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
 					.attr('opacity', fullOpacity)
 				prevNodeID = e._id
@@ -235,6 +237,24 @@ function updateNodeOpacity(tree) {
 		})
 }
 
+/**
+ * Helper function that updates the nodeClicked variable to a given boolean value.
+ *
+ * @param {any} e Boolean value to set nodeClicked to.
+ */
+function setNodeClicked(e) {
+	nodeClicked = e
+}
+
+/**
+ * Helper function that updates the prevNodeID variable to a given integer value.
+ *
+ * @param {any} num Integer value to set prevNodeID to.
+ */
+function setPrevNodeID(num) {
+	prevNodeID = num
+}
+
 // Exporting the following functions to be accessible globally:
 exports.changeBranchColorProperty = changeBranchColorProperty
 exports.changeBranchWidthProperty = changeBranchWidthProperty
@@ -244,5 +264,7 @@ exports.ladderizeSubtree = ladderizeSubtree
 exports.matchNodesAndClusters = matchNodesAndClusters
 exports.rerootTree = rerootTree
 exports.updateUserChanges = updateUserChanges
+exports.setNodeClicked = setNodeClicked
+exports.setPrevNodeID = prevNodeID
 
 

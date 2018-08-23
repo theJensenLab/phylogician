@@ -119,7 +119,8 @@ let tooltip = function() {
 			tooltip_div.remove()
 			d3.selectAll('.tnt_tree_node').selectAll('circle')
 				.attr('opacity', 0)
-				.attr('r', 10)
+			treeOperations.setNodeClicked(false)
+			treeOperations.setPrevNodeID(0)
 		}
 	})
 
