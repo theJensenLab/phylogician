@@ -117,6 +117,9 @@ let tooltip = function() {
 	api.method('close', function() {
 		if (tooltip_div) {
 			tooltip_div.remove()
+			d3.selectAll('.tnt_tree_node').selectAll('circle')
+				.attr('opacity', 0)
+				.attr('r', 10)
 		}
 	})
 

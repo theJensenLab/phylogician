@@ -7,7 +7,11 @@ let	d3 = require('d3'),
 	frontEndOperations = require('./frontEndOperations.js'),
 	utils = require('./utils.js')
 
-let oneHundred = 100
+let oneHundred = 100,
+	defaultOpacity = 0,
+	fullOpacity = 1,
+	nodeClicked = false,
+	prevNodeID = 0
 
 /**
  * Modifies the 'branchColor' property of all branches in the subtree of a given node to a given color.
@@ -152,19 +156,7 @@ function updateUserChanges(tree) {
 	updateBranchColor(tree)
 	updateBranchWidth(tree)
 	updateCertainty(tree)
-	d3.selectAll('.tnt_tree_node').selectAll('circle')
-		.attr('opacity', 0) // Makes nodes transparent until mouseover.
-		.attr('r', 10) // Makes radius of nodes larger.
-		.on('mouseover', (e) => {
-			console.log(e._id)
-			d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
-				.attr('opacity', 1)
-		})
-		.on('mouseout', (e) => {
-			console.log(e._id)
-			d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
-				.attr('opacity', 0)
-		})
+	updateNodeOpacity(tree)
 }
 
 /**
@@ -207,6 +199,40 @@ function updateCertainty(tree) {
 		let branch = d3.select(id)
 		branch.attr('opacity', childrenArray[x].property('certaintyOnOff'))
 	}
+}
+
+/**
+ * Updates the node opacity of every node in a given tree to invisible except on mouseover.
+ *
+ * @param {any} tree - A TNT treeObj
+ */
+function updateNodeOpacity(tree) {
+	d3.selectAll('.tnt_tree_node').selectAll('circle')
+		.attr('opacity', defaultOpacity) // Makes nodes transparent until mouseover or click.
+		.attr('r', 10) // Makes radius of nodes larger.
+		.on('mouseover', (e) => {
+			d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+				.attr('opacity', fullOpacity)
+		})
+		.on('mouseout', (e) => {
+			if (!nodeClicked || e._id != prevNodeID) {
+				d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+					.attr('opacity', defaultOpacity)
+			}
+		})
+		.on('click', (e) => {
+			if (!nodeClicked || e._id != prevNodeID) {
+				d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+					.attr('opacity', fullOpacity)
+				prevNodeID = e._id
+				nodeClicked = true
+			}
+			else {
+				d3.select('#tnt_tree_node_treeBox_' + e._id).select('circle')
+					.attr('opacity', defaultOpacity)
+				nodeClicked = false
+			}
+		})
 }
 
 // Exporting the following functions to be accessible globally:
