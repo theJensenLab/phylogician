@@ -73,6 +73,7 @@ function changeCertaintyProperty(selectedNode) {
 function toggleNodeProperty(node) {
 	node.toggle()
 	updateNodeOpacity()
+	matchNodesAndClusters()
 }
 
 
