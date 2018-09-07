@@ -284,10 +284,8 @@ tooltip.table = function(tree, selectedNode) {
 			.attr('colspan', colSpan)
 			.text(collapsedText)
 			.on('click', function() {
-				let leavesArr = tree.root().get_all_leaves()
 				treeOperations.toggleNodeProperty(selectedNode) // Toggles the collapsed property in the treeObj
 				treeOperations.updateUserChanges(tree) // Updates the collapsing/uncollapsing in the SVG visualization.
-				treeOperations.matchNodesAndClusters(tree.root(), leavesArr)
 				d3.select(id)
 					.select('.tnt_node_display_elem')
 					.attr('fill', 'black')
