@@ -7,8 +7,7 @@ let	d3 = require('d3'),
 	treeLayout = require('./treeLayout.js'),
 	utils = require('./utils.js'),
 	treeOperations = require('./treeOperations.js'),
-	tntTooltip = require('./tnt_tooltip.js'),
-	frontEndOperations = require('./frontEndOperations.js')
+	tntTooltip = require('./tnt_tooltip.js')
 
 let tree = tntTree(),
 	expandedNode = tntTree.node_display.circle(),
@@ -17,8 +16,6 @@ let tree = tntTree(),
 	nodeSize = 3,
 	defaultBranchWidth = 3,
 	diameterToRadiusFactor = 2,
-	tooltipWidth = 120,
-	intToImproveScaling = 0,
 	timeoutVar1 = 1000,
 	nodeYSpacing = 53.9
 
@@ -70,7 +67,6 @@ function makeTree(newickString) {
 			.scale(false)
 		)
 	tree(treeBox, () => {
-		// frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
 	})
 
 	// Need to initialize the branchWidth, branchColor, and certaintyOnOff properties of
@@ -90,15 +86,7 @@ function makeTree(newickString) {
 	changeCollapsedNodeShape('square')
 	treeOperations.updateUserChanges(tree)
 
-	/* svgTree.call(d3.zoom()
-		.on('zoom', () => {
-			g.attr('transform', d3.event.transform)
-		})
-	)
-	setTimeout(() => {
-		frontEndOperations.makeDivFullScreen('.tnt_groupDiv')
-	}, timeoutVar1) */
-	return tree.root()
+	return tree
 }
 
 /**
@@ -112,28 +100,19 @@ function makeTree(newickString) {
  */
 function makeCustomTree(newickString, desiredYSpacing) {
 	nodeYSpacing = desiredYSpacing
-	let root = makeTree(newickString)
-	return root
+	let tree = makeTree(newickString)
+	return tree
 }
-
 
 /**
- * Helper function to access treeOperations function.
- * 
- * @param {any} node Root node of subtree
- * @param {any} leavesArr Leaves of subtree
+ * Confirms that Phylogician is connected by printing to the console.
  */
-function matchNodesAndClusters(node, leavesArr) {
-	treeOperations.matchNodesAndClusters(node, leavesArr)
-}
-
 function testConnection() {
 	console.log('Phylogician is connected.')
 }
 
 /**
  * Resets the zoom and transform properties of the 'treeBox' div to the original (identity) state.
- *
  */
 function fitScreen() {
 	let svgTree = d3.select('#treeBox').select('svg'),
@@ -308,22 +287,6 @@ function changeCollapsedNodeShape(shape) {
 	tree.update_nodes()
 }
 
-// Installs a listener at each node that displays a tooltip upon click.
-tree.on('click', function(node) {
-	// Resets color of all nodes to black.
-	d3.selectAll('.tnt_tree_node')
-		.selectAll('.tnt_node_display_elem')
-		.attr('fill', 'black')
-
-	// Generates a tooltip for selected node.
-	tntTooltip.table(tree, node)
-		.width(tooltipWidth)
-		.call(this, {
-			// header: 'Node #' + node.id() + ' :: ' + node.property('name')
-			header: 'Node: ' + node.property('_id')
-		})
-})
-
 // Exporting the following functions for use in the specified files:
 
 // Functions that deal with tree creation and layout:
@@ -346,5 +309,6 @@ exports.restoreState = restoreState
 exports.getCurrentState = getCurrentState
 exports.exportFile = exportFile
 
-// Helper functions
-exports.matchNodesAndClusters = matchNodesAndClusters
+// Files
+exports.tntTooltip = tntTooltip
+exports.treeOperations = treeOperations

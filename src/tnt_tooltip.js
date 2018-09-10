@@ -271,99 +271,6 @@ tooltip.table = function(tree, selectedNode) {
 		changeBranchWidthClickable.on('mouseout', function() {
 			changeBranchWidthClickable.style('color', 'black')
 		})
-
-		if (selectedNode.is_collapsed())
-			collapsedText = 'Uncollapse Node'
-		else
-			collapsedText = 'Collapse Node'
-
-		let toggleClickable = obj_info_table
-			.append('tr')
-			.attr('class', 'tnt_zmenu_clickable')
-			.append('td')
-			.attr('colspan', colSpan)
-			.text(collapsedText)
-			.on('click', function() {
-				treeOperations.toggleNodeProperty(selectedNode) // Toggles the collapsed property in the treeObj
-				treeOperations.updateUserChanges(tree) // Updates the collapsing/uncollapsing in the SVG visualization.
-				d3.select(id)
-					.select('.tnt_node_display_elem')
-					.attr('fill', 'black')
-					.attr('x', -10)
-					.attr('y', -9)
-				t.close()
-			})	
-			.style('text-align', 'center')
-		toggleClickable.on('mouseover', function() {
-			toggleClickable.style('color', '#3287d7')
-		})
-		toggleClickable.on('mouseout', function() {
-			toggleClickable.style('color', 'black')
-		})
-
-		let ladderizeSubtree = obj_info_table
-			.append('tr')
-			.attr('class', 'tnt_zmenu_clickable')
-			.append('td')
-			.attr('colspan', colSpan)
-			.text('Ladderize Subtree')
-			.on('click', function() {
-				treeOperations.ladderizeSubtree(selectedNode)
-				treeOperations.updateUserChanges(tree)
-				d3.select(id)
-					.select('.tnt_node_display_elem')
-					.attr('fill', 'black')
-				t.close()
-			})
-			.style('text-align', 'center')
-		ladderizeSubtree.on('mouseover', function() {
-			ladderizeSubtree.style('color', '#3287d7')
-		})
-		ladderizeSubtree.on('mouseout', function() {
-			ladderizeSubtree.style('color', 'black')
-		})
-
-		let reRootClickable = obj_info_table
-			.append('tr')
-			.attr('class', 'tnt_zmenu_clickable')
-			.append('td')
-			.attr('colspan', colSpan)
-			.text('Set as Root')
-			.style('text-align', 'center')
-			.on('click', function() {
-				treeOperations.rerootTree(tree, selectedNode)
-				treeOperations.updateUserChanges(tree)
-				d3.select(id)
-					.select('.tnt_node_display_elem')
-					.attr('fill', 'black')
-				t.close()
-			})
-		reRootClickable.on('mouseover', function() {
-			reRootClickable.style('color', '#3287d7')
-		})
-		reRootClickable.on('mouseout', function() {
-			reRootClickable.style('color', 'black')
-		})
-
-		let closeClickable = obj_info_table
-			.append('tr')
-			.attr('class', 'tnt_zmenu_clickable')
-			.append('td')
-			.attr('colspan', colSpan)
-			.text('Close')
-			.on('click', function() {
-				d3.select(id)
-					.select('.tnt_node_display_elem')
-					.attr('fill', 'black')
-				t.close()
-			})
-			.style('text-align', 'center')
-		closeClickable.on('mouseover', function() {
-			closeClickable.style('color', '#3287d7')
-		})
-		closeClickable.on('mouseout', function() {
-			closeClickable.style('color', 'black')
-		})
 	})
 
 	return t
@@ -381,7 +288,6 @@ tooltip.plain = function() {
 			.attr('class', 'tnt_zmenu')
 			.attr('border', 'solid')
 			.style('width', '200px')
-			// DEFAULT BY TNT.style('width', t.width() + 'px')
 
 		if (obj.header) {
 			obj_info_table
