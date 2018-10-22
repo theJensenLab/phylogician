@@ -118,7 +118,7 @@ let tooltip = function() {
 		if (tooltip_div) {
 			tooltip_div.remove()
 			d3.selectAll('.tnt_tree_node').selectAll('.tnt_node_display_elem')
-				.attr('opacity', 0)
+				.attr('opacity', 0.3)
 			treeOperations.setNodeClicked(false)
 			treeOperations.setPrevNodeID(0)
 		}
