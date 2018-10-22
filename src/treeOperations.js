@@ -8,7 +8,7 @@ let	d3 = require('d3'),
 	utils = require('./utils.js')
 
 let oneHundred = 100,
-	defaultOpacity = 0,
+	defaultOpacity = 0.3,
 	fullOpacity = 0.7,
 	nodeClicked = false,
 	prevNodeID = 0
